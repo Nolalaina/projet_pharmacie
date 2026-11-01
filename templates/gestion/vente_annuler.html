@@ -1,0 +1,37 @@
+{% extends "gestion/base.html" %}
+{% load gestion_extras %}
+{% block titre %}Annuler {{ vente.numero }}{% endblock %}
+{% block page_title %}Annuler la vente{% endblock %}
+{% block page_subtitle %}{{ vente.numero }} · {{ vente.total|ariary }}{% endblock %}
+
+{% block contenu %}
+<div class="row justify-content-center">
+  <div class="col-lg-6">
+    <div class="pg-card">
+      <div class="pg-card-header"><h3 class="pg-card-title">Confirmation d'annulation</h3></div>
+      <div class="pg-card-body">
+        <div class="alert pg-alert pg-alert-danger">
+          <i class="bi bi-exclamation-triangle"></i>
+          <div>
+            L'annulation remet les articles en stock par un mouvement de compensation traçable.
+            Elle est définitive et la vente ne pourra plus être validée.
+          </div>
+        </div>
+        <div class="pg-key"><span>Client</span><span>{{ vente.client.nom_affichage|default:"Client comptoir" }}</span></div>
+        <div class="pg-key"><span>Total</span><span>{{ vente.total|ariary }}</span></div>
+        <form method="post" class="mt-3">
+          {% csrf_token %}
+          <div class="mb-3">
+            <label class="form-label" for="motif">Motif de l'annulation <span class="text-danger">*</span></label>
+            <textarea class="form-control" id="motif" name="motif" rows="3" required placeholder="Erreur de saisie, retour client, ..."></textarea>
+          </div>
+          <div class="d-flex gap-2">
+            <button class="btn btn-danger" type="submit"><i class="bi bi-x-circle me-1"></i> Confirmer l'annulation</button>
+            <a class="btn btn-outline-secondary" href="{% url 'gestion:vente_detail' vente.pk %}">Annuler</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

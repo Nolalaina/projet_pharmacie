@@ -1,0 +1,39 @@
+{% extends "gestion/base.html" %}
+{% load gestion_extras %}
+{% block titre %}Réceptions{% endblock %}
+{% block page_title %}Réceptions d'achat{% endblock %}
+{% block page_subtitle %}Entrées de stock liées aux commandes fournisseurs{% endblock %}
+
+{% block contenu %}
+<div class="pg-section-title">
+  <div>
+    <h2 class="mb-1">Réceptions</h2>
+    <div class="pg-muted small">{{ paginator.count }} réception{{ paginator.count|pluralize }}</div>
+  </div>
+  <a class="btn btn-outline-primary" href="{% url 'gestion:commande_liste' %}"><i class="bi bi-cart me-1"></i> Commandes</a>
+</div>
+
+<div class="pg-card">
+  <div class="pg-table-wrap">
+    <table class="table table-hover align-middle">
+      <thead><tr><th>Numéro</th><th>Commande</th><th>Fournisseur</th><th>Date</th><th>Statut</th><th class="text-end">Total</th><th class="text-end">Action</th></tr></thead>
+      <tbody>
+        {% for reception in receptions %}
+        <tr>
+          <td><a class="pg-mono fw-semibold" href="{% url 'gestion:reception_detail' reception.pk %}">{{ reception.numero }}</a></td>
+          <td><a class="pg-mono" href="{% url 'gestion:commande_detail' reception.commande.pk %}">{{ reception.commande.numero }}</a></td>
+          <td>{{ reception.commande.fournisseur.raison_sociale }}</td>
+          <td>{{ reception.date_reception|date:"d/m/Y" }}</td>
+          <td>{% if reception.validee %}<span class="pg-badge pg-badge-green">Validée</span>{% else %}<span class="pg-badge pg-badge-amber">En attente</span>{% endif %}</td>
+          <td class="text-end fw-bold">{{ reception.total|ariary }}</td>
+          <td class="text-end"><a class="btn btn-sm btn-soft btn-icon" href="{% url 'gestion:reception_detail' reception.pk %}"><i class="bi bi-eye"></i></a></td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="7" class="pg-empty"><i class="bi bi-box-seam"></i>Aucune réception enregistrée.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% include "gestion/includes/pagination.html" %}
+</div>
+{% endblock %}

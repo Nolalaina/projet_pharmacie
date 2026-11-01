@@ -1,0 +1,128 @@
+{% extends "gestion/base.html" %}
+{% load gestion_extras %}
+{% block titre %}Médicaments{% endblock %}
+{% block page_title %}Médicaments{% endblock %}
+{% block page_subtitle %}Catalogue, prix, photos et niveaux de stock{% endblock %}
+
+{% block contenu %}
+<div class="pg-section-title">
+  <div>
+    <h2 class="mb-1">Catalogue des médicaments</h2>
+    <div class="pg-muted small">{{ paginator.count }} produit{{ paginator.count|pluralize }} trouvé{{ paginator.count|pluralize }}</div>
+  </div>
+  <div class="d-flex gap-2">
+    <a class="btn btn-outline-primary" href="{% url 'gestion:alertes' %}"><i class="bi bi-bell me-1"></i> Alertes</a>
+    {% if user.peut_gerer_catalogue %}
+    <a class="btn btn-primary" href="{% url 'gestion:medicament_ajouter' %}"><i class="bi bi-plus-lg me-1"></i> Nouveau médicament</a>
+    {% endif %}
+  </div>
+</div>
+
+<div class="pg-card mb-3">
+  <div class="pg-card-body">
+    <form method="get" class="pg-filters">
+      <div class="flex-grow-1" style="min-width:220px">
+        <label class="form-label">Recherche</label>
+        <input class="form-control" type="search" name="q" value="{{ q }}" placeholder="Nom, générique ou code-barres">
+      </div>
+      <div>
+        <label class="form-label">Catégorie</label>
+        <select class="form-select" name="categorie">
+          <option value="">Toutes</option>
+          {% for categorie in categories %}
+          <option value="{{ categorie.pk }}" {% if categorie_selectionnee == categorie.pk|stringformat:"s" %}selected{% endif %}>{{ categorie.nom }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div>
+        <label class="form-label">Statut</label>
+        <select class="form-select" name="statut">
+          <option value="">Tous</option>
+          <option value="ACTIF" {% if statut_selectionne == 'ACTIF' %}selected{% endif %}>Actif</option>
+          <option value="ARCHIVE" {% if statut_selectionne == 'ARCHIVE' %}selected{% endif %}>Archivé</option>
+        </select>
+      </div>
+      <div>
+        <label class="form-label">Tri</label>
+        <select class="form-select" name="tri">
+          <option value="nom" {% if tri_selectionne == 'nom' %}selected{% endif %}>Nom A → Z</option>
+          <option value="-nom" {% if tri_selectionne == '-nom' %}selected{% endif %}>Nom Z → A</option>
+          <option value="prix" {% if tri_selectionne == 'prix' %}selected{% endif %}>Prix croissant</option>
+          <option value="-prix" {% if tri_selectionne == '-prix' %}selected{% endif %}>Prix décroissant</option>
+          <option value="recent" {% if tri_selectionne == 'recent' %}selected{% endif %}>Plus récents</option>
+        </select>
+      </div>
+      <div>
+        <button class="btn btn-primary" type="submit"><i class="bi bi-search me-1"></i> Filtrer</button>
+      </div>
+      <div>
+        <a class="btn btn-outline-secondary" href="{% url 'gestion:medicament_liste' %}">Réinitialiser</a>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="pg-card">
+  <div class="pg-table-wrap">
+    <table class="table table-hover align-middle">
+      <thead>
+        <tr>
+          <th style="width:56px">Photo</th>
+          <th>Médicament</th>
+          <th>Catégorie</th>
+          <th>Prix de vente</th>
+          <th>Stock</th>
+          <th>Statut</th>
+          <th class="text-end">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for medicament in medicaments %}
+        <tr>
+          <td>
+            {% if medicament.photo %}
+            <img src="{{ medicament.photo.url }}" alt="{{ medicament.nom_commercial }}" class="pg-product-thumb">
+            {% else %}
+            <span class="pg-product-placeholder"><i class="bi bi-capsule"></i></span>
+            {% endif %}
+          </td>
+          <td>
+            <a class="fw-bold text-reset" href="{% url 'gestion:medicament_detail' medicament.pk %}">{{ medicament.nom_commercial }}</a>
+            <div class="small pg-muted">{{ medicament.dosage }} {{ medicament.forme_pharmaceutique }}{% if medicament.code_barres %} · {{ medicament.code_barres }}{% endif %}</div>
+          </td>
+          <td><span class="pg-badge pg-badge-gray">{{ medicament.categorie.nom }}</span></td>
+          <td class="fw-semibold">{{ medicament.prix_vente|ariary }}</td>
+          <td>
+            {% if medicament.stock_total == 0 %}
+            <span class="pg-badge pg-badge-red">Rupture</span>
+            {% elif medicament.est_stock_faible %}
+            <span class="pg-badge pg-badge-amber">{{ medicament.stock_total }} unités</span>
+            {% else %}
+            <span class="pg-badge pg-badge-green">{{ medicament.stock_total }} unités</span>
+            {% endif %}
+          </td>
+          <td><span class="pg-badge pg-badge-{{ medicament.statut|couleur_statut }}">{{ medicament.get_statut_display }}</span></td>
+          <td class="text-end">
+            <div class="d-inline-flex gap-1">
+              <a class="btn btn-sm btn-soft btn-icon" href="{% url 'gestion:medicament_detail' medicament.pk %}" title="Détail"><i class="bi bi-eye"></i></a>
+              {% if user.peut_gerer_catalogue %}
+              <a class="btn btn-sm btn-soft btn-icon" href="{% url 'gestion:medicament_modifier' medicament.pk %}" title="Modifier"><i class="bi bi-pencil"></i></a>
+              <a class="btn btn-sm btn-soft btn-icon" href="{% url 'gestion:medicament_supprimer' medicament.pk %}" title="Supprimer / archiver"><i class="bi bi-trash3"></i></a>
+              {% endif %}
+            </div>
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="7" class="pg-empty">
+            <i class="bi bi-capsule"></i>
+            Aucun médicament ne correspond aux critères.
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% include "gestion/includes/pagination.html" %}
+</div>
+{% endblock %}

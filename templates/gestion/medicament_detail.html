@@ -1,0 +1,177 @@
+{% extends "gestion/base.html" %}
+{% load gestion_extras %}
+{% block titre %}{{ medicament.nom_commercial }}{% endblock %}
+{% block page_title %}{{ medicament.nom_commercial }}{% endblock %}
+{% block page_subtitle %}{{ medicament.categorie.nom }}{% if medicament.dosage %} · {{ medicament.dosage }}{% endif %}{% endblock %}
+
+{% block contenu %}
+<div class="pg-section-title">
+  <div class="d-flex align-items-center gap-2">
+    <a class="btn btn-sm btn-soft btn-icon" href="{% url 'gestion:medicament_liste' %}" title="Retour"><i class="bi bi-arrow-left"></i></a>
+    <span class="pg-badge pg-badge-{{ medicament.statut|couleur_statut }}">{{ medicament.get_statut_display }}</span>
+    {% if medicament.est_stock_faible %}<span class="pg-badge pg-badge-amber">Stock faible</span>{% endif %}
+  </div>
+  <div class="d-flex gap-2">
+    {% if user.peut_vendre %}
+    <a class="btn btn-outline-primary" href="{% url 'gestion:caisse' %}"><i class="bi bi-bag-check me-1"></i> Vendre</a>
+    {% endif %}
+    {% if user.peut_gerer_catalogue %}
+    <a class="btn btn-primary" href="{% url 'gestion:medicament_modifier' medicament.pk %}"><i class="bi bi-pencil me-1"></i> Modifier</a>
+    <a class="btn btn-outline-danger" href="{% url 'gestion:medicament_supprimer' medicament.pk %}"><i class="bi bi-trash3 me-1"></i> Supprimer</a>
+    {% endif %}
+  </div>
+</div>
+
+<div class="row g-3 mb-4">
+  <div class="col-lg-4">
+    <div class="pg-card h-100">
+      <div class="pg-card-body">
+        {% if medicament.photo %}
+        <img src="{{ medicament.photo.url }}" alt="{{ medicament.nom_commercial }}" class="pg-detail-photo mb-3">
+        {% else %}
+        <div class="pg-detail-photo d-grid place-items-center mb-3" style="display:grid;place-items:center;height:200px;color:#9bb8ac;font-size:2.2rem">
+          <i class="bi bi-capsule"></i>
+        </div>
+        {% endif %}
+        <div class="pg-key"><span>Dénomination générique</span><span>{{ medicament.denomination_generique|default:"—" }}</span></div>
+        <div class="pg-key"><span>Forme</span><span>{{ medicament.forme_pharmaceutique|default:"—" }}</span></div>
+        <div class="pg-key"><span>Laboratoire</span><span>{{ medicament.laboratoire|default:"—" }}</span></div>
+        <div class="pg-key"><span>Code-barres</span><span class="pg-mono">{{ medicament.code_barres|default:"—" }}</span></div>
+        <div class="pg-key"><span>Prix d'achat</span><span>{{ medicament.prix_achat|ariary }}</span></div>
+        <div class="pg-key"><span>Prix de vente</span><span>{{ medicament.prix_vente|ariary }}</span></div>
+        <div class="pg-key"><span>Seuil d'alerte</span><span>{{ medicament.seuil_alerte }} unités</span></div>
+        <div class="pg-key"><span>Créé le</span><span>{{ medicament.date_creation|date:"d/m/Y" }}</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-8">
+    <div class="row g-3 mb-3">
+      <div class="col-sm-4">
+        <div class="pg-card pg-stat h-100">
+          <div class="pg-stat-icon pg-icon-green"><i class="bi bi-boxes"></i></div>
+          <div class="pg-stat-value">{{ medicament.stock_total }}</div>
+          <div class="pg-stat-label">Stock total</div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="pg-card pg-stat h-100">
+          <div class="pg-stat-icon pg-icon-blue"><i class="bi bi-bag-check"></i></div>
+          <div class="pg-stat-value">{{ medicament.stock_vendable }}</div>
+          <div class="pg-stat-label">Unités vendables</div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="pg-card pg-stat h-100">
+          <div class="pg-stat-icon pg-icon-amber"><i class="bi bi-cash-stack"></i></div>
+          <div class="pg-stat-value" style="font-size:1.2rem">{{ medicament.valeur_stock|ariary }}</div>
+          <div class="pg-stat-label">Valeur du stock</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pg-card">
+      <div class="pg-card-header">
+        <div>
+          <h3 class="pg-card-title">Lots de stock</h3>
+          <p class="pg-card-sub">Péremptions et quantités disponibles</p>
+        </div>
+        {% if user.peut_gerer_achats %}
+        <a class="btn btn-sm btn-soft ms-auto" href="{% url 'gestion:commande_ajouter' %}"><i class="bi bi-cart-plus"></i> Commander</a>
+        {% endif %}
+      </div>
+      <div class="pg-table-wrap mt-2">
+        <table class="table table-hover align-middle">
+          <thead>
+            <tr><th>Lot</th><th>Péremption</th><th class="text-end">Quantité</th><th>État</th><th class="text-end">Action</th></tr>
+          </thead>
+          <tbody>
+            {% for lot in lots %}
+            <tr>
+              <td class="pg-mono">{{ lot.numero_lot }}</td>
+              <td>
+                {{ lot.date_peremption|date:"d/m/Y" }}
+                {% if lot.perime %}<span class="pg-badge pg-badge-red ms-1">Périmé</span>
+                {% elif lot.proche_peremption %}<span class="pg-badge pg-badge-amber ms-1">J-{{ lot.jours_avant_peremption }}</span>{% endif %}
+              </td>
+              <td class="text-end fw-semibold">{{ lot.quantite }}</td>
+              <td>
+                {% if lot.bloque %}<span class="pg-badge pg-badge-red">Bloqué</span>
+                {% elif lot.quantite == 0 %}<span class="pg-badge pg-badge-gray">Épuisé</span>
+                {% else %}<span class="pg-badge pg-badge-green">Disponible</span>{% endif %}
+              </td>
+              <td class="text-end">
+                {% if user.peut_gerer_achats %}
+                <form method="post" action="{% url 'gestion:lot_basculer' lot.pk %}" class="d-inline">
+                  {% csrf_token %}
+                  <button class="btn btn-sm btn-soft" type="submit" title="Bloquer / débloquer">
+                    <i class="bi {% if lot.bloque %}bi-unlock{% else %}bi-lock{% endif %}"></i>
+                  </button>
+                </form>
+                {% endif %}
+              </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="5" class="pg-empty"><i class="bi bi-box"></i>Aucun lot enregistré pour ce médicament.</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row g-3">
+  <div class="col-lg-7">
+    <div class="pg-card h-100">
+      <div class="pg-card-header">
+        <div>
+          <h3 class="pg-card-title">Derniers mouvements</h3>
+          <p class="pg-card-sub">Entrées, sorties et corrections</p>
+        </div>
+      </div>
+      <div class="pg-table-wrap mt-2">
+        <table class="table align-middle">
+          <thead><tr><th>Date</th><th>Type</th><th>Lot</th><th class="text-end">Quantité</th><th>Par</th></tr></thead>
+          <tbody>
+            {% for mouvement in mouvements %}
+            <tr>
+              <td class="small">{{ mouvement.date|date:"d/m/Y H:i" }}</td>
+              <td><span class="pg-badge pg-badge-{{ mouvement.type|couleur_statut }}">{{ mouvement.get_type_display }}</span></td>
+              <td class="pg-mono">{{ mouvement.lot.numero_lot|default:"—" }}</td>
+              <td class="text-end fw-bold {% if mouvement.quantite < 0 %}text-danger{% else %}text-success{% endif %}">{{ mouvement.quantite|stringformat:"+d" }}</td>
+              <td class="small pg-muted">{{ mouvement.utilisateur.nom_complet|default:"—" }}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="5" class="pg-empty"><i class="bi bi-arrow-left-right"></i>Aucun mouvement.</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-5">
+    <div class="pg-card h-100">
+      <div class="pg-card-header">
+        <div>
+          <h3 class="pg-card-title">Dernières ventes</h3>
+          <p class="pg-card-sub">Historique des transactions</p>
+        </div>
+      </div>
+      <div class="pg-card-body pt-2">
+        {% for ligne in lignes_vente %}
+        <a class="d-flex justify-content-between align-items-center py-2 border-bottom text-reset" href="{% url 'gestion:vente_detail' ligne.vente.pk %}" style="border-color:var(--pg-line)!important">
+          <div>
+            <div class="small fw-semibold">{{ ligne.vente.numero }}</div>
+            <div class="pg-muted" style="font-size:.72rem">{{ ligne.vente.date_vente|date:"d/m/Y H:i" }} · {{ ligne.quantite }} unité(s)</div>
+          </div>
+          <span class="fw-bold small">{{ ligne.sous_total|ariary }}</span>
+        </a>
+        {% empty %}
+        <div class="pg-empty py-4"><i class="bi bi-receipt"></i>Aucune vente pour ce produit.</div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends "gestion/base.html" %}
+{% load gestion_extras %}
+{% block titre %}{{ reception.numero }}{% endblock %}
+{% block page_title %}{{ reception.numero }}{% endblock %}
+{% block page_subtitle %}Réception de la commande {{ reception.commande.numero }} · {{ reception.commande.fournisseur.raison_sociale }}{% endblock %}
+
+{% block contenu %}
+<div class="pg-section-title">
+  <div class="d-flex align-items-center gap-2">
+    <a class="btn btn-sm btn-soft btn-icon" href="{% url 'gestion:reception_liste' %}"><i class="bi bi-arrow-left"></i></a>
+    {% if reception.validee %}<span class="pg-badge pg-badge-green">Validée</span>{% else %}<span class="pg-badge pg-badge-amber">En attente</span>{% endif %}
+    <span class="pg-muted small">{{ reception.date_reception|date:"d/m/Y" }} · {{ reception.utilisateur.nom_complet|default:"—" }}</span>
+  </div>
+  <div class="d-flex gap-2">
+    {% if user.est_admin or user.role == 'PHARMACIEN' or user.role == 'GESTIONNAIRE' %}
+    <a class="btn btn-outline-secondary" href="{% url 'gestion:bon_reception_pdf' reception.pk %}" target="_blank"><i class="bi bi-file-earmark-pdf me-1"></i> Bon de réception</a>
+    {% endif %}
+    <a class="btn btn-outline-primary" href="{% url 'gestion:commande_detail' reception.commande.pk %}"><i class="bi bi-cart me-1"></i> Commande</a>
+  </div>
+</div>
+
+<div class="row g-3">
+  <div class="col-lg-8">
+    <div class="pg-card">
+      <div class="pg-card-header"><h3 class="pg-card-title">Lignes réceptionnées</h3></div>
+      <div class="pg-table-wrap mt-2">
+        <table class="table align-middle">
+          <thead><tr><th>Médicament</th><th>Lot</th><th>Péremption</th><th class="text-end">Quantité</th><th class="text-end">Prix achat</th><th class="text-end">Total</th></tr></thead>
+          <tbody>
+            {% for ligne in lignes %}
+            <tr>
+              <td class="fw-semibold">{{ ligne.ligne_achat.medicament }}</td>
+              <td class="pg-mono">{{ ligne.numero_lot }}</td>
+              <td>{{ ligne.date_peremption|date:"d/m/Y" }}</td>
+              <td class="text-end">{{ ligne.quantite }}</td>
+              <td class="text-end">{{ ligne.ligne_achat.prix_achat|ariary }}</td>
+              <td class="text-end fw-bold">{{ ligne.quantite|mul:ligne.ligne_achat.prix_achat|ariary }}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="6" class="pg-empty"><i class="bi bi-box"></i>Aucune ligne.</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-4">
+    <div class="pg-card">
+      <div class="pg-card-header"><h3 class="pg-card-title">Récapitulatif</h3></div>
+      <div class="pg-card-body">
+        <div class="pg-key"><span>Commande</span><span>{{ reception.commande.numero }}</span></div>
+        <div class="pg-key"><span>Fournisseur</span><span>{{ reception.commande.fournisseur.raison_sociale }}</span></div>
+        <div class="pg-key"><span>Date de réception</span><span>{{ reception.date_reception|date:"d/m/Y" }}</span></div>
+        <div class="pg-key"><span>Validée le</span><span>{{ reception.date_validation|date:"d/m/Y H:i"|default:"—" }}</span></div>
+        <div class="pg-total-box mt-3">
+          <div class="grand"><span>Total réception</span><strong>{{ reception.total|ariary }}</strong></div>
+        </div>
+        {% if reception.notes %}
+        <div class="mt-3 p-3 rounded-3" style="background:var(--pg-green-50)">
+          <div class="small fw-bold mb-1">Notes</div>
+          <div class="small pg-muted">{{ reception.notes|linebreaksbr }}</div>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

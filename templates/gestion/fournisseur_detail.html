@@ -1,0 +1,74 @@
+{% extends "gestion/base.html" %}
+{% load gestion_extras %}
+{% block titre %}{{ fournisseur.raison_sociale }}{% endblock %}
+{% block page_title %}{{ fournisseur.raison_sociale }}{% endblock %}
+{% block page_subtitle %}Fiche fournisseur et historique des achats{% endblock %}
+
+{% block contenu %}
+<div class="pg-section-title">
+  <div class="d-flex align-items-center gap-2">
+    <a class="btn btn-sm btn-soft btn-icon" href="{% url 'gestion:fournisseur_liste' %}"><i class="bi bi-arrow-left"></i></a>
+    <span class="pg-badge pg-badge-{{ fournisseur.statut|couleur_statut }}">{{ fournisseur.get_statut_display }}</span>
+  </div>
+  {% if user.est_admin or user.role == 'PHARMACIEN' or user.role == 'GESTIONNAIRE' %}
+  <div class="d-flex gap-2">
+    <a class="btn btn-primary" href="{% url 'gestion:fournisseur_modifier' fournisseur.pk %}"><i class="bi bi-pencil me-1"></i> Modifier</a>
+    <form method="post" action="{% url 'gestion:fournisseur_basculer' fournisseur.pk %}" data-confirm="Changer le statut de ce fournisseur ?">
+      {% csrf_token %}
+      <button class="btn btn-outline-{% if fournisseur.est_actif %}danger{% else %}success{% endif %}" type="submit">
+        <i class="bi {% if fournisseur.est_actif %}bi-pause-circle{% else %}bi-play-circle{% endif %} me-1"></i>
+        {% if fournisseur.est_actif %}Désactiver{% else %}Réactiver{% endif %}
+      </button>
+    </form>
+  </div>
+  {% endif %}
+</div>
+
+<div class="row g-3">
+  <div class="col-lg-4">
+    <div class="pg-card h-100">
+      <div class="pg-card-header"><h3 class="pg-card-title">Coordonnées</h3></div>
+      <div class="pg-card-body">
+        <div class="pg-key"><span>Raison sociale</span><span>{{ fournisseur.raison_sociale }}</span></div>
+        <div class="pg-key"><span>Contact</span><span>{{ fournisseur.contact_principal|default:"—" }}</span></div>
+        <div class="pg-key"><span>Téléphone</span><span>{{ fournisseur.telephone|default:"—" }}</span></div>
+        <div class="pg-key"><span>E-mail</span><span>{{ fournisseur.email|default:"—" }}</span></div>
+        <div class="pg-key"><span>Numéro fiscal</span><span>{{ fournisseur.numero_fiscal|default:"—" }}</span></div>
+        <div class="pg-key"><span>Adresse</span><span>{{ fournisseur.adresse|default:"—" }}</span></div>
+        <div class="pg-key"><span>Créé le</span><span>{{ fournisseur.date_creation|date:"d/m/Y" }}</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-8">
+    <div class="pg-card h-100">
+      <div class="pg-card-header">
+        <div>
+          <h3 class="pg-card-title">Historique des achats</h3>
+          <p class="pg-card-sub">{{ commandes|length }} commande(s) récente(s)</p>
+        </div>
+        {% if user.est_admin or user.role == 'PHARMACIEN' or user.role == 'GESTIONNAIRE' %}
+        <a class="btn btn-sm btn-soft ms-auto" href="{% url 'gestion:commande_ajouter' %}"><i class="bi bi-cart-plus"></i> Commander</a>
+        {% endif %}
+      </div>
+      <div class="pg-table-wrap mt-2">
+        <table class="table table-hover align-middle">
+          <thead><tr><th>Numéro</th><th>Date</th><th>Statut</th><th class="text-end">Total</th></tr></thead>
+          <tbody>
+            {% for commande in commandes %}
+            <tr>
+              <td><a class="pg-mono" href="{% url 'gestion:commande_detail' commande.pk %}">{{ commande.numero }}</a></td>
+              <td>{{ commande.date_creation|date:"d/m/Y" }}</td>
+              <td><span class="pg-badge pg-badge-{{ commande.statut|couleur_statut }}">{{ commande.get_statut_display }}</span></td>
+              <td class="text-end fw-bold">{{ commande.total|ariary }}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="4" class="pg-empty"><i class="bi bi-cart"></i>Aucune commande pour ce fournisseur.</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

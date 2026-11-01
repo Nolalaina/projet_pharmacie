@@ -1,0 +1,126 @@
+{% extends "gestion/base.html" %}
+{% load gestion_extras %}
+{% block titre %}{{ commande.numero }}{% endblock %}
+{% block page_title %}{{ commande.numero }}{% endblock %}
+{% block page_subtitle %}Commande d'achat · {{ commande.fournisseur.raison_sociale }}{% endblock %}
+
+{% block contenu %}
+<div class="pg-section-title">
+  <div class="d-flex align-items-center gap-2">
+    <a class="btn btn-sm btn-soft btn-icon" href="{% url 'gestion:commande_liste' %}"><i class="bi bi-arrow-left"></i></a>
+    <span class="pg-badge pg-badge-{{ commande.statut|couleur_statut }}">{{ commande.get_statut_display }}</span>
+    <span class="pg-muted small">Créée le {{ commande.date_creation|date:"d/m/Y H:i" }} par {{ commande.utilisateur.nom_complet|default:"—" }}</span>
+  </div>
+  <div class="d-flex flex-wrap gap-2">
+    {% if user.est_admin or user.role == 'PHARMACIEN' or user.role == 'GESTIONNAIRE' %}
+    <a class="btn btn-outline-secondary" href="{% url 'gestion:bon_commande_pdf' commande.pk %}" target="_blank"><i class="bi bi-file-earmark-pdf me-1"></i> Bon de commande</a>
+    {% endif %}
+    {% if user.est_admin or user.role == 'PHARMACIEN' or user.role == 'GESTIONNAIRE' %}
+      {% if commande.modifiable %}
+      <a class="btn btn-outline-primary" href="{% url 'gestion:commande_modifier' commande.pk %}"><i class="bi bi-pencil me-1"></i> Modifier</a>
+      <form method="post" action="{% url 'gestion:commande_valider' commande.pk %}" data-confirm="Valider cette commande ? Elle ne pourra plus être modifiée.">
+        {% csrf_token %}
+        <button class="btn btn-primary" type="submit"><i class="bi bi-check2-circle me-1"></i> Valider</button>
+      </form>
+      <form method="post" action="{% url 'gestion:commande_annuler' commande.pk %}" data-confirm="Annuler cette commande ?">
+        {% csrf_token %}
+        <button class="btn btn-outline-danger" type="submit"><i class="bi bi-x-circle me-1"></i> Annuler</button>
+      </form>
+      {% endif %}
+      {% if commande.receptionnable %}
+      <a class="btn btn-primary" href="{% url 'gestion:commande_receptionner' commande.pk %}"><i class="bi bi-box-arrow-in-down me-1"></i> Réceptionner</a>
+      {% endif %}
+    {% endif %}
+  </div>
+</div>
+
+<div class="row g-3">
+  <div class="col-lg-8">
+    <div class="pg-card">
+      <div class="pg-card-header">
+        <div>
+          <h3 class="pg-card-title">Lignes commandées</h3>
+          <p class="pg-card-sub">{{ lignes|length }} ligne(s)</p>
+        </div>
+      </div>
+      <div class="pg-table-wrap mt-2">
+        <table class="table align-middle">
+          <thead><tr><th>Médicament</th><th class="text-end">Commandé</th><th class="text-end">Reçu</th><th class="text-end">Prix achat</th><th class="text-end">Total</th></tr></thead>
+          <tbody>
+            {% for ligne in lignes %}
+            <tr>
+              <td>
+                <a class="fw-semibold text-reset" href="{% url 'gestion:medicament_detail' ligne.medicament.pk %}">{{ ligne.medicament }}</a>
+                <div class="small pg-muted">{{ ligne.medicament.categorie.nom }}</div>
+              </td>
+              <td class="text-end">{{ ligne.quantite_commandee }}</td>
+              <td class="text-end">
+                {% if ligne.quantite_recue >= ligne.quantite_commandee %}
+                <span class="pg-badge pg-badge-green">{{ ligne.quantite_recue }}</span>
+                {% elif ligne.quantite_recue > 0 %}
+                <span class="pg-badge pg-badge-amber">{{ ligne.quantite_recue }}</span>
+                {% else %}
+                <span class="pg-muted">0</span>
+                {% endif %}
+              </td>
+              <td class="text-end">{{ ligne.prix_achat|ariary }}</td>
+              <td class="text-end fw-bold">{{ ligne.sous_total|ariary }}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="5" class="pg-empty"><i class="bi bi-cart"></i>Aucune ligne.</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="pg-card mt-3">
+      <div class="pg-card-header">
+        <div>
+          <h3 class="pg-card-title">Réceptions</h3>
+          <p class="pg-card-sub">Chaque réception validée augmente le stock une seule fois</p>
+        </div>
+      </div>
+      <div class="pg-table-wrap mt-2">
+        <table class="table table-hover align-middle">
+          <thead><tr><th>Numéro</th><th>Date</th><th>Statut</th><th class="text-end">Total</th></tr></thead>
+          <tbody>
+            {% for reception in receptions %}
+            <tr>
+              <td><a class="pg-mono" href="{% url 'gestion:reception_detail' reception.pk %}">{{ reception.numero }}</a></td>
+              <td>{{ reception.date_reception|date:"d/m/Y" }}</td>
+              <td>{% if reception.validee %}<span class="pg-badge pg-badge-green">Validée</span>{% else %}<span class="pg-badge pg-badge-amber">En attente</span>{% endif %}</td>
+              <td class="text-end fw-bold">{{ reception.total|ariary }}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="4" class="pg-empty"><i class="bi bi-box"></i>Aucune réception pour cette commande.</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-4">
+    <div class="pg-card">
+      <div class="pg-card-header"><h3 class="pg-card-title">Récapitulatif</h3></div>
+      <div class="pg-card-body">
+        <div class="pg-key"><span>Fournisseur</span><span>{{ commande.fournisseur.raison_sociale }}</span></div>
+        <div class="pg-key"><span>Téléphone</span><span>{{ commande.fournisseur.telephone|default:"—" }}</span></div>
+        <div class="pg-key"><span>Date de commande</span><span>{{ commande.date_commande|date:"d/m/Y H:i"|default:"—" }}</span></div>
+        <div class="pg-key"><span>Reste à recevoir</span><span>{{ commande.reste_a_recevoir }} unité(s)</span></div>
+        <div class="pg-total-box mt-3">
+          <div class="row-line"><span>Total HT</span><span>{{ commande.total|ariary }}</span></div>
+          <div class="grand"><span>Total commande</span><strong>{{ commande.total|ariary }}</strong></div>
+        </div>
+        {% if commande.notes %}
+        <div class="mt-3 p-3 rounded-3" style="background:var(--pg-green-50)">
+          <div class="small fw-bold mb-1">Notes</div>
+          <div class="small pg-muted">{{ commande.notes|linebreaksbr }}</div>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

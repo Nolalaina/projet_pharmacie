@@ -1,0 +1,65 @@
+{% extends "gestion/base.html" %}
+{% load gestion_extras %}
+{% block titre %}{{ client.nom_affichage }}{% endblock %}
+{% block page_title %}{{ client.nom_affichage }}{% endblock %}
+{% block page_subtitle %}Fiche client et historique des achats{% endblock %}
+
+{% block contenu %}
+<div class="pg-section-title">
+  <div class="d-flex align-items-center gap-2">
+    <a class="btn btn-sm btn-soft btn-icon" href="{% url 'gestion:client_liste' %}"><i class="bi bi-arrow-left"></i></a>
+    <span class="pg-badge pg-badge-{{ client.statut|couleur_statut }}">{{ client.get_statut_display }}</span>
+  </div>
+  <div class="d-flex gap-2">
+    {% if user.est_admin or user.role == 'PHARMACIEN' or user.role == 'CAISSIER' %}
+    <a class="btn btn-primary" href="{% url 'gestion:client_modifier' client.pk %}"><i class="bi bi-pencil me-1"></i> Modifier</a>
+    {% endif %}
+    {% if user.est_admin or user.role == 'PHARMACIEN' %}
+    <a class="btn btn-outline-danger" href="{% url 'gestion:client_supprimer' client.pk %}"><i class="bi bi-trash3 me-1"></i> Supprimer</a>
+    {% endif %}
+  </div>
+</div>
+
+<div class="row g-3">
+  <div class="col-lg-4">
+    <div class="pg-card h-100">
+      <div class="pg-card-header"><h3 class="pg-card-title">Coordonnées</h3></div>
+      <div class="pg-card-body">
+        <div class="pg-key"><span>Nom</span><span>{{ client.nom_affichage }}</span></div>
+        <div class="pg-key"><span>Téléphone</span><span>{{ client.telephone|default:"—" }}</span></div>
+        <div class="pg-key"><span>E-mail</span><span>{{ client.email|default:"—" }}</span></div>
+        <div class="pg-key"><span>Adresse</span><span>{{ client.adresse|default:"—" }}</span></div>
+        <div class="pg-key"><span>Créé le</span><span>{{ client.date_creation|date:"d/m/Y" }}</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-8">
+    <div class="pg-card h-100">
+      <div class="pg-card-header">
+        <div>
+          <h3 class="pg-card-title">Historique des ventes</h3>
+          <p class="pg-card-sub">{{ ventes|length }} vente(s) récente(s)</p>
+        </div>
+      </div>
+      <div class="pg-table-wrap mt-2">
+        <table class="table table-hover align-middle">
+          <thead><tr><th>Numéro</th><th>Date</th><th>Vendeur</th><th>Statut</th><th class="text-end">Total</th></tr></thead>
+          <tbody>
+            {% for vente in ventes %}
+            <tr>
+              <td><a class="pg-mono" href="{% url 'gestion:vente_detail' vente.pk %}">{{ vente.numero }}</a></td>
+              <td>{{ vente.date_vente|date:"d/m/Y H:i" }}</td>
+              <td class="pg-muted">{{ vente.utilisateur.nom_complet|default:"—" }}</td>
+              <td><span class="pg-badge pg-badge-{{ vente.statut|couleur_statut }}">{{ vente.get_statut_display }}</span></td>
+              <td class="text-end fw-bold">{{ vente.total|ariary }}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="5" class="pg-empty"><i class="bi bi-receipt"></i>Aucune vente pour ce client.</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,65 @@
+{% extends "gestion/base.html" %}
+{% load gestion_extras %}
+{% block titre %}Inventaire{% endblock %}
+{% block page_title %}Inventaire physique{% endblock %}
+{% block page_subtitle %}Corriger une quantité et tracer le mouvement de stock{% endblock %}
+
+{% block contenu %}
+<div class="row g-3">
+  <div class="col-lg-4">
+    <div class="pg-card sticky-top" style="top:100px">
+      <div class="pg-card-header">
+        <div>
+          <h3 class="pg-card-title">Correction d'inventaire</h3>
+          <p class="pg-card-sub">La différence sera enregistrée dans l'historique</p>
+        </div>
+      </div>
+      <div class="pg-card-body">
+        <form method="post" novalidate>
+          {% csrf_token %}
+          {% if form.non_field_errors %}
+          <div class="alert pg-alert pg-alert-danger">{{ form.non_field_errors }}</div>
+          {% endif %}
+          {% for field in form %}
+          <div class="mb-3">
+            <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+            {% if field.help_text %}<div class="form-text">{{ field.help_text }}</div>{% endif %}
+            {% for error in field.errors %}<div class="text-danger small mt-1">{{ error }}</div>{% endfor %}
+          </div>
+          {% endfor %}
+          <button class="btn btn-primary w-100" type="submit"><i class="bi bi-check2 me-1"></i> Enregistrer la correction</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-8">
+    <div class="pg-card">
+      <div class="pg-card-header">
+        <div>
+          <h3 class="pg-card-title">Lots à inventorier</h3>
+          <p class="pg-card-sub">200 lots les plus pertinents</p>
+        </div>
+      </div>
+      <div class="pg-table-wrap mt-2">
+        <table class="table table-hover align-middle">
+          <thead><tr><th>Médicament</th><th>Lot</th><th>Péremption</th><th class="text-end">Stock</th></tr></thead>
+          <tbody>
+            {% for lot in lots %}
+            <tr>
+              <td>{{ lot.medicament.nom_commercial }}</td>
+              <td class="pg-mono">{{ lot.numero_lot }}</td>
+              <td>{{ lot.date_peremption|date:"d/m/Y" }}</td>
+              <td class="text-end fw-bold">{{ lot.quantite }}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="4" class="pg-empty"><i class="bi bi-boxes"></i>Aucun lot.</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

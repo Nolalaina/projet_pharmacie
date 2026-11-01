@@ -1,0 +1,80 @@
+{% extends "gestion/base.html" %}
+{% load gestion_extras %}
+{% block titre %}Réception {{ commande.numero }}{% endblock %}
+{% block page_title %}Réception de marchandises{% endblock %}
+{% block page_subtitle %}Commande {{ commande.numero }} · {{ commande.fournisseur.raison_sociale }}{% endblock %}
+
+{% block contenu %}
+<form method="post" novalidate>
+  {% csrf_token %}
+  <div class="row g-3">
+    <div class="col-lg-9">
+      <div class="pg-card">
+        <div class="pg-card-header">
+          <div>
+            <h3 class="pg-card-title">Quantités reçues</h3>
+            <p class="pg-card-sub">Renseignez un lot et une date de péremption pour chaque ligne réceptionnée</p>
+          </div>
+        </div>
+        <div class="pg-card-body">
+          <div class="pg-table-wrap">
+            <table class="table align-middle">
+              <thead>
+                <tr>
+                  <th>Médicament</th>
+                  <th class="text-end">Reste à recevoir</th>
+                  <th style="width:110px">Qté reçue</th>
+                  <th style="width:150px">N° de lot</th>
+                  <th style="width:160px">Péremption</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for ligne in lignes %}
+                <tr>
+                  <td>
+                    <div class="fw-semibold">{{ ligne.medicament }}</div>
+                    <div class="small pg-muted">{{ ligne.medicament.categorie.nom }} · prix achat {{ ligne.prix_achat|ariary }}</div>
+                  </td>
+                  <td class="text-end"><span class="pg-badge {% if ligne.reste_a_recevoir %}pg-badge-amber{% else %}pg-badge-green{% endif %}">{{ ligne.reste_a_recevoir }}</span></td>
+                  <td>
+                    <input class="form-control" type="number" min="0" max="{{ ligne.reste_a_recevoir }}" name="quantite_{{ ligne.id }}" value="{% if ligne.reste_a_recevoir %}{{ ligne.reste_a_recevoir }}{% endif %}" {% if not ligne.reste_a_recevoir %}disabled{% endif %}>
+                  </td>
+                  <td><input class="form-control" type="text" name="lot_{{ ligne.id }}" placeholder="Lot fournisseur" {% if not ligne.reste_a_recevoir %}disabled{% endif %}></td>
+                  <td><input class="form-control" type="date" name="peremption_{{ ligne.id }}" value="{{ peremption_defaut|date:'Y-m-d' }}" {% if not ligne.reste_a_recevoir %}disabled{% endif %}></td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="5" class="pg-empty"><i class="bi bi-box"></i>Aucune ligne à réceptionner.</td></tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-3">
+      <div class="pg-card sticky-top" style="top:100px">
+        <div class="pg-card-header"><h3 class="pg-card-title">Informations</h3></div>
+        <div class="pg-card-body">
+          <div class="mb-3">
+            <label class="form-label" for="date_reception">Date de réception</label>
+            <input class="form-control" type="date" id="date_reception" name="date_reception" value="{{ aujourd_hui|date:'Y-m-d' }}">
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="notes">Notes</label>
+            <textarea class="form-control" id="notes" name="notes" rows="3" placeholder="Bon de livraison, observations..."></textarea>
+          </div>
+          <div class="alert pg-alert pg-alert-info mb-3" style="font-size:.75rem">
+            <i class="bi bi-info-circle"></i>
+            <div>Le stock et les lots seront créés uniquement après validation de la réception.</div>
+          </div>
+        </div>
+        <div class="pg-card-body pt-0 d-grid gap-2">
+          <button class="btn btn-primary" type="submit"><i class="bi bi-box-arrow-in-down me-1"></i> Valider la réception</button>
+          <a class="btn btn-outline-secondary" href="{% url 'gestion:commande_detail' commande.pk %}">Annuler</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+{% endblock %}

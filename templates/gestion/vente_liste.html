@@ -1,0 +1,63 @@
+{% extends "gestion/base.html" %}
+{% load gestion_extras %}
+{% block titre %}Ventes{% endblock %}
+{% block page_title %}Ventes{% endblock %}
+{% block page_subtitle %}Historique des ventes et encaissements{% endblock %}
+
+{% block contenu %}
+<div class="pg-section-title">
+  <div>
+    <h2 class="mb-1">Ventes</h2>
+    <div class="pg-muted small">{{ paginator.count }} vente{{ paginator.count|pluralize }}</div>
+  </div>
+  {% if user.est_admin or user.role == 'PHARMACIEN' or user.role == 'CAISSIER' %}
+  <a class="btn btn-primary" href="{% url 'gestion:caisse' %}"><i class="bi bi-cash-register me-1"></i> Nouvelle vente</a>
+  {% endif %}
+</div>
+
+<div class="pg-card mb-3">
+  <div class="pg-card-body">
+    <form method="get" class="pg-filters">
+      <div class="flex-grow-1" style="min-width:220px">
+        <label class="form-label">Recherche</label>
+        <input class="form-control" type="search" name="q" value="{{ q }}" placeholder="Numéro de vente ou client">
+      </div>
+      <div>
+        <label class="form-label">Statut</label>
+        <select class="form-select" name="statut">
+          <option value="">Tous</option>
+          {% for valeur, libelle in statuts %}
+          <option value="{{ valeur }}" {% if statut_selectionne == valeur %}selected{% endif %}>{{ libelle }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div><button class="btn btn-primary" type="submit"><i class="bi bi-search me-1"></i> Filtrer</button></div>
+      <div><a class="btn btn-outline-secondary" href="{% url 'gestion:vente_liste' %}">Réinitialiser</a></div>
+    </form>
+  </div>
+</div>
+
+<div class="pg-card">
+  <div class="pg-table-wrap">
+    <table class="table table-hover align-middle">
+      <thead><tr><th>Numéro</th><th>Date</th><th>Client</th><th>Vendeur</th><th>Statut</th><th class="text-end">Total</th><th class="text-end">Action</th></tr></thead>
+      <tbody>
+        {% for vente in ventes %}
+        <tr>
+          <td><a class="pg-mono fw-semibold" href="{% url 'gestion:vente_detail' vente.pk %}">{{ vente.numero }}</a></td>
+          <td class="small">{{ vente.date_vente|date:"d/m/Y H:i" }}</td>
+          <td>{{ vente.client.nom_affichage|default:"Client comptoir" }}</td>
+          <td class="small pg-muted">{{ vente.utilisateur.nom_complet|default:vente.utilisateur.username }}</td>
+          <td><span class="pg-badge pg-badge-{{ vente.statut|couleur_statut }}">{{ vente.get_statut_display }}</span></td>
+          <td class="text-end fw-bold">{{ vente.total|ariary }}</td>
+          <td class="text-end"><a class="btn btn-sm btn-soft btn-icon" href="{% url 'gestion:vente_detail' vente.pk %}"><i class="bi bi-eye"></i></a></td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="7" class="pg-empty"><i class="bi bi-receipt"></i>Aucune vente trouvée.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% include "gestion/includes/pagination.html" %}
+</div>
+{% endblock %}

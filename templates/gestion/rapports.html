@@ -1,0 +1,85 @@
+{% extends "gestion/base.html" %}
+{% load gestion_extras %}
+{% block titre %}Rapports{% endblock %}
+{% block page_title %}Rapports{% endblock %}
+{% block page_subtitle %}Exports PDF pour le pilotage de l'officine{% endblock %}
+
+{% block contenu %}
+<div class="pg-section-title">
+  <div>
+    <h2 class="mb-1">Rapports et exports</h2>
+    <div class="pg-muted small">Documents générés en PDF avec l'en-tête de la pharmacie</div>
+  </div>
+</div>
+
+<div class="row g-3">
+  <div class="col-lg-5">
+    <div class="pg-card">
+      <div class="pg-card-header"><h3 class="pg-card-title">Période des rapports de ventes et d'achats</h3></div>
+      <div class="pg-card-body">
+        <form method="get">
+          <div class="row g-3">
+            <div class="col-6">
+              <label class="form-label" for="{{ form.date_debut.id_for_label }}">{{ form.date_debut.label }}</label>
+              {{ form.date_debut }}
+              {% for error in form.date_debut.errors %}<div class="text-danger small">{{ error }}</div>{% endfor %}
+            </div>
+            <div class="col-6">
+              <label class="form-label" for="{{ form.date_fin.id_for_label }}">{{ form.date_fin.label }}</label>
+              {{ form.date_fin }}
+              {% for error in form.date_fin.errors %}<div class="text-danger small">{{ error }}</div>{% endfor %}
+            </div>
+          </div>
+          {% if form.non_field_errors %}<div class="alert pg-alert pg-alert-danger mt-3">{{ form.non_field_errors }}</div>{% endif %}
+          <button class="btn btn-primary mt-3" type="submit"><i class="bi bi-calendar-check me-1"></i> Appliquer la période</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-7">
+    <div class="row g-3">
+      <div class="col-md-6">
+        <div class="pg-card h-100">
+          <div class="pg-card-body">
+            <div class="pg-report-icon"><i class="bi bi-boxes"></i></div>
+            <h3 class="pg-card-title mt-2">État du stock</h3>
+            <p class="pg-muted small">Tous les lots disponibles avec quantités, valeurs et dates de péremption.</p>
+            <a class="btn btn-outline-primary w-100" href="{% url 'gestion:rapport_stock_pdf' %}" target="_blank"><i class="bi bi-download me-1"></i> Télécharger</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="pg-card h-100">
+          <div class="pg-card-body">
+            <div class="pg-report-icon"><i class="bi bi-receipt"></i></div>
+            <h3 class="pg-card-title mt-2">Ventes</h3>
+            <p class="pg-muted small">Chiffre d'affaires et détail des ventes validées sur la période.</p>
+            <a class="btn btn-outline-primary w-100" href="{% url 'gestion:rapport_ventes_pdf' %}?date_debut={{ date_debut|date:'Y-m-d' }}&date_fin={{ date_fin|date:'Y-m-d' }}" target="_blank"><i class="bi bi-download me-1"></i> Télécharger</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="pg-card h-100">
+          <div class="pg-card-body">
+            <div class="pg-report-icon"><i class="bi bi-cart"></i></div>
+            <h3 class="pg-card-title mt-2">Achats</h3>
+            <p class="pg-muted small">Commandes fournisseurs et montants engagés sur la période.</p>
+            <a class="btn btn-outline-primary w-100" href="{% url 'gestion:rapport_achats_pdf' %}?date_debut={{ date_debut|date:'Y-m-d' }}&date_fin={{ date_fin|date:'Y-m-d' }}" target="_blank"><i class="bi bi-download me-1"></i> Télécharger</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="pg-card h-100">
+          <div class="pg-card-body">
+            <div class="pg-report-icon"><i class="bi bi-exclamation-triangle"></i></div>
+            <h3 class="pg-card-title mt-2">Péremptions</h3>
+            <p class="pg-muted small">Lots périmés et lots arrivant à expiration dans les 30 jours.</p>
+            <a class="btn btn-outline-primary w-100" href="{% url 'gestion:rapport_peremptions_pdf' %}" target="_blank"><i class="bi bi-download me-1"></i> Télécharger</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

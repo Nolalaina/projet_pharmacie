@@ -1,0 +1,74 @@
+{% extends "gestion/base.html" %}
+{% load gestion_extras %}
+{% block titre %}Utilisateurs{% endblock %}
+{% block page_title %}Utilisateurs{% endblock %}
+{% block page_subtitle %}Comptes, rôles et accès à l'application{% endblock %}
+
+{% block contenu %}
+<div class="pg-section-title">
+  <div>
+    <h2 class="mb-1">Comptes utilisateurs</h2>
+    <div class="pg-muted small">{{ paginator.count }} compte{{ paginator.count|pluralize }}</div>
+  </div>
+  <a class="btn btn-primary" href="{% url 'gestion:utilisateur_ajouter' %}"><i class="bi bi-person-plus me-1"></i> Nouvel utilisateur</a>
+</div>
+
+<div class="pg-card mb-3">
+  <div class="pg-card-body">
+    <form method="get" class="pg-filters">
+      <div class="flex-grow-1" style="min-width:220px">
+        <label class="form-label">Recherche</label>
+        <input class="form-control" type="search" name="q" value="{{ q }}" placeholder="Nom, identifiant ou e-mail">
+      </div>
+      <div><button class="btn btn-primary" type="submit"><i class="bi bi-search me-1"></i> Rechercher</button></div>
+      <div><a class="btn btn-outline-secondary" href="{% url 'gestion:utilisateur_liste' %}">Réinitialiser</a></div>
+    </form>
+  </div>
+</div>
+
+<div class="pg-card">
+  <div class="pg-table-wrap">
+    <table class="table table-hover align-middle">
+      <thead><tr><th>Utilisateur</th><th>Identifiant</th><th>Rôle</th><th>Téléphone</th><th>Statut</th><th>Dernière connexion</th><th class="text-end">Actions</th></tr></thead>
+      <tbody>
+        {% for utilisateur in utilisateurs %}
+        <tr>
+          <td>
+            <div class="d-flex align-items-center gap-2">
+              <span class="pg-avatar">{{ utilisateur.nom_complet|initiales }}</span>
+              <div>
+                <div class="fw-semibold">{{ utilisateur.nom_complet }}</div>
+                <div class="small pg-muted">{{ utilisateur.email|default:"—" }}</div>
+              </div>
+            </div>
+          </td>
+          <td class="pg-mono">{{ utilisateur.username }}</td>
+          <td><span class="pg-badge pg-badge-blue">{{ utilisateur.get_role_display }}</span></td>
+          <td>{{ utilisateur.telephone|default:"—" }}</td>
+          <td>
+            {% if utilisateur.is_active %}<span class="pg-badge pg-badge-green">Actif</span>
+            {% else %}<span class="pg-badge pg-badge-gray">Désactivé</span>{% endif %}
+          </td>
+          <td class="small pg-muted">{{ utilisateur.last_login|date:"d/m/Y H:i"|default:"Jamais" }}</td>
+          <td class="text-end">
+            <div class="d-inline-flex gap-1">
+              <a class="btn btn-sm btn-soft btn-icon" href="{% url 'gestion:utilisateur_modifier' utilisateur.pk %}" title="Modifier"><i class="bi bi-pencil"></i></a>
+              <a class="btn btn-sm btn-soft btn-icon" href="{% url 'gestion:utilisateur_mot_de_passe' utilisateur.pk %}" title="Réinitialiser le mot de passe"><i class="bi bi-key"></i></a>
+              <form method="post" action="{% url 'gestion:utilisateur_basculer' utilisateur.pk %}" class="d-inline" data-confirm="{% if utilisateur.is_active %}Désactiver{% else %}Activer{% endif %} ce compte ?">
+                {% csrf_token %}
+                <button class="btn btn-sm btn-soft btn-icon" type="submit" title="{% if utilisateur.is_active %}Désactiver{% else %}Activer{% endif %}">
+                  <i class="bi {% if utilisateur.is_active %}bi-person-x{% else %}bi-person-check{% endif %}"></i>
+                </button>
+              </form>
+            </div>
+          </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="7" class="pg-empty"><i class="bi bi-people"></i>Aucun utilisateur trouvé.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% include "gestion/includes/pagination.html" %}
+</div>
+{% endblock %}

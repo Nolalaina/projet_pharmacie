@@ -1,0 +1,202 @@
+{% extends "gestion/base.html" %}
+{% load gestion_extras %}
+{% block titre %}Tableau de bord{% endblock %}
+{% block page_title %}Tableau de bord{% endblock %}
+{% block page_subtitle %}Vue d'ensemble de l'activité de la pharmacie{% endblock %}
+
+{% block contenu %}
+<div class="row g-3 mb-4">
+  <div class="col-6 col-xl-3">
+    <div class="pg-card pg-stat h-100">
+      <div class="pg-stat-icon pg-icon-green"><i class="bi bi-capsule"></i></div>
+      <div class="pg-stat-value">{{ medicaments_actifs }}</div>
+      <div class="pg-stat-label">Médicaments actifs</div>
+      <div class="pg-stat-trend"><i class="bi bi-database-check"></i> référencés au catalogue</div>
+    </div>
+  </div>
+  <div class="col-6 col-xl-3">
+    <div class="pg-card pg-stat h-100">
+      <div class="pg-stat-icon pg-icon-blue"><i class="bi bi-receipt"></i></div>
+      <div class="pg-stat-value">{{ ventes_jour }}</div>
+      <div class="pg-stat-label">Ventes du jour</div>
+      <div class="pg-stat-trend">{{ montant_jour|ariary }} encaissés</div>
+    </div>
+  </div>
+  <div class="col-6 col-xl-3">
+    <div class="pg-card pg-stat h-100">
+      <div class="pg-stat-icon pg-icon-amber"><i class="bi bi-exclamation-triangle"></i></div>
+      <div class="pg-stat-value">{{ nombre_stocks_faibles }}</div>
+      <div class="pg-stat-label">Stocks faibles</div>
+      <div class="pg-stat-trend"><a href="{% url 'gestion:alertes' %}">Consulter les alertes →</a></div>
+    </div>
+  </div>
+  <div class="col-6 col-xl-3">
+    <div class="pg-card pg-stat h-100">
+      <div class="pg-stat-icon pg-icon-red"><i class="bi bi-calendar-x"></i></div>
+      <div class="pg-stat-value">{{ nombre_lots_alerte }}</div>
+      <div class="pg-stat-label">Péremptions proches</div>
+      <div class="pg-stat-trend"><a href="{% url 'gestion:alertes' %}">Voir les lots concernés →</a></div>
+    </div>
+  </div>
+</div>
+
+<div class="row g-3 mb-4">
+  <div class="col-lg-8">
+    <div class="pg-card h-100">
+      <div class="pg-card-header">
+        <div>
+          <h3 class="pg-card-title">Activité des 7 derniers jours</h3>
+          <p class="pg-card-sub">Montants encaissés par jour de vente validée</p>
+        </div>
+        <span class="pg-badge pg-badge-green ms-auto">{{ ca_mois|ariary }} ce mois</span>
+      </div>
+      <div class="pg-card-body">
+        {% if maximum_serie %}
+        <div class="d-grid gap-3">
+          {% for point in serie %}
+          <div>
+            <div class="d-flex justify-content-between small mb-1">
+              <span class="fw-semibold">{{ point.jour|date:"D d/m" }}</span>
+              <span class="pg-muted">{{ point.montant|ariary }} · {{ point.nombre }} vente{{ point.nombre|pluralize }}</span>
+            </div>
+            <div class="pg-progress"><span style="width: {{ point.largeur }}%"></span></div>
+          </div>
+          {% endfor %}
+        </div>
+        {% else %}
+        <div class="pg-empty">
+          <i class="bi bi-bar-chart"></i>
+          Aucune vente validée sur la période.
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-4">
+    <div class="pg-card h-100">
+      <div class="pg-card-header">
+        <div>
+          <h3 class="pg-card-title">Alertes prioritaires</h3>
+          <p class="pg-card-sub">Stocks et péremptions à surveiller</p>
+        </div>
+      </div>
+      <div class="pg-card-body pt-3">
+        {% if stocks_faibles %}
+        <div class="small fw-bold text-uppercase pg-muted mb-2" style="letter-spacing:.08em;font-size:.66rem">Stocks faibles</div>
+        {% for medicament in stocks_faibles %}
+        <a class="d-flex align-items-center gap-2 py-2 border-bottom text-reset" href="{% url 'gestion:medicament_detail' medicament.pk %}" style="border-color:var(--pg-line)!important">
+          <span class="pg-badge pg-badge-amber">{{ medicament.stock_total }}</span>
+          <span class="flex-grow-1 small fw-semibold">{{ medicament.nom_commercial }}</span>
+          <span class="small pg-muted">seuil {{ medicament.seuil_alerte }}</span>
+        </a>
+        {% endfor %}
+        {% endif %}
+        {% if lots_alerte %}
+        <div class="small fw-bold text-uppercase pg-muted mt-3 mb-2" style="letter-spacing:.08em;font-size:.66rem">Péremptions</div>
+        {% for lot in lots_alerte %}
+        <a class="d-flex align-items-center gap-2 py-2 border-bottom text-reset" href="{% url 'gestion:stock_liste' %}?q={{ lot.numero_lot }}" style="border-color:var(--pg-line)!important">
+          <span class="pg-badge {% if lot.perime %}pg-badge-red{% else %}pg-badge-amber{% endif %}">
+            {% if lot.perime %}Périmé{% else %}J-{{ lot.jours_avant_peremption }}{% endif %}
+          </span>
+          <span class="flex-grow-1 small fw-semibold">{{ lot.medicament.nom_commercial }}</span>
+          <span class="small pg-muted">lot {{ lot.numero_lot }}</span>
+        </a>
+        {% endfor %}
+        {% endif %}
+        {% if not stocks_faibles and not lots_alerte %}
+        <div class="pg-empty py-4">
+          <i class="bi bi-check2-circle"></i>
+          Aucune alerte pour le moment.
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row g-3">
+  <div class="col-lg-7">
+    <div class="pg-card h-100">
+      <div class="pg-card-header">
+        <div>
+          <h3 class="pg-card-title">Dernières ventes</h3>
+          <p class="pg-card-sub">{{ ventes_recentes|length }} transaction(s) récente(s)</p>
+        </div>
+        <a class="btn btn-sm btn-soft ms-auto" href="{% url 'gestion:vente_liste' %}">Tout voir</a>
+      </div>
+      <div class="pg-table-wrap mt-2">
+        <table class="table table-hover align-middle">
+          <thead>
+            <tr>
+              <th>N°</th>
+              <th>Client</th>
+              <th>Vendeur</th>
+              <th>Statut</th>
+              <th class="text-end">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for vente in ventes_recentes %}
+            <tr>
+              <td><a class="pg-mono" href="{% url 'gestion:vente_detail' vente.pk %}">{{ vente.numero }}</a></td>
+              <td>{{ vente.client.nom_affichage|default:"Client comptoir" }}</td>
+              <td class="pg-muted">{{ vente.utilisateur.nom_complet|default:"—" }}</td>
+              <td><span class="pg-badge pg-badge-{{ vente.statut|couleur_statut }}">{{ vente.get_statut_display }}</span></td>
+              <td class="text-end fw-bold">{{ vente.total|ariary }}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="5" class="pg-empty"><i class="bi bi-receipt"></i>Aucune vente enregistrée.</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-5">
+    <div class="pg-card mb-3">
+      <div class="pg-card-header">
+        <div>
+          <h3 class="pg-card-title">Produits les plus vendus</h3>
+          <p class="pg-card-sub">30 derniers jours</p>
+        </div>
+      </div>
+      <div class="pg-card-body pt-3">
+        {% for produit in top_produits %}
+        <div class="d-flex justify-content-between align-items-center py-2 border-bottom" style="border-color:var(--pg-line)!important">
+          <div>
+            <div class="fw-semibold small">{{ produit.medicament__nom_commercial }}</div>
+            <div class="pg-muted" style="font-size:.72rem">{{ produit.chiffre|ariary }}</div>
+          </div>
+          <span class="pg-badge pg-badge-green">{{ produit.quantite_vendue }} u.</span>
+        </div>
+        {% empty %}
+        <div class="pg-empty py-4"><i class="bi bi-graph-up"></i>Aucune vente sur 30 jours.</div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="pg-card">
+      <div class="pg-card-header">
+        <div>
+          <h3 class="pg-card-title">Derniers mouvements</h3>
+          <p class="pg-card-sub">Traçabilité du stock</p>
+        </div>
+        <a class="btn btn-sm btn-soft ms-auto" href="{% url 'gestion:mouvement_liste' %}">Historique</a>
+      </div>
+      <div class="pg-card-body pt-2">
+        {% for mouvement in mouvements_recents %}
+        <div class="d-flex align-items-center gap-2 py-2 border-bottom" style="border-color:var(--pg-line)!important">
+          <span class="pg-badge pg-badge-{{ mouvement.type|couleur_statut }}">{{ mouvement.get_type_display }}</span>
+          <span class="flex-grow-1 small">{{ mouvement.medicament.nom_commercial }}</span>
+          <span class="fw-bold small {% if mouvement.quantite < 0 %}text-danger{% else %}text-success{% endif %}">{{ mouvement.quantite|stringformat:"+d" }}</span>
+        </div>
+        {% empty %}
+        <div class="pg-empty py-4"><i class="bi bi-arrow-left-right"></i>Aucun mouvement.</div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

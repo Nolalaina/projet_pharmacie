@@ -1,0 +1,89 @@
+{% extends "gestion/base.html" %}
+{% load gestion_extras %}
+{% block titre %}État du stock{% endblock %}
+{% block page_title %}État du stock{% endblock %}
+{% block page_subtitle %}Lots, quantités disponibles et péremptions{% endblock %}
+
+{% block contenu %}
+<div class="pg-section-title">
+  <div>
+    <h2 class="mb-1">Lots en stock</h2>
+    <div class="pg-muted small">{{ paginator.count }} lot{{ paginator.count|pluralize }} · {{ total_lots }} unité{{ total_lots|pluralize }} au total</div>
+  </div>
+  <div class="d-flex gap-2">
+    <a class="btn btn-outline-primary" href="{% url 'gestion:mouvement_liste' %}"><i class="bi bi-arrow-left-right me-1"></i> Mouvements</a>
+    {% if user.est_admin or user.role == 'PHARMACIEN' or user.role == 'GESTIONNAIRE' %}
+    <a class="btn btn-primary" href="{% url 'gestion:inventaire' %}"><i class="bi bi-clipboard-check me-1"></i> Inventaire</a>
+    {% endif %}
+  </div>
+</div>
+
+<div class="pg-card mb-3">
+  <div class="pg-card-body">
+    <form method="get" class="pg-filters">
+      <div class="flex-grow-1" style="min-width:220px">
+        <label class="form-label">Recherche</label>
+        <input class="form-control" type="search" name="q" value="{{ q }}" placeholder="Médicament, code-barres ou lot">
+      </div>
+      <div>
+        <label class="form-label">État</label>
+        <select class="form-select" name="etat">
+          <option value="">Tous les lots</option>
+          <option value="faible" {% if etat_selectionne == 'faible' %}selected{% endif %}>Stock faible</option>
+          <option value="proche" {% if etat_selectionne == 'proche' %}selected{% endif %}>Proche péremption</option>
+          <option value="perime" {% if etat_selectionne == 'perime' %}selected{% endif %}>Périmé</option>
+          <option value="bloque" {% if etat_selectionne == 'bloque' %}selected{% endif %}>Bloqué</option>
+        </select>
+      </div>
+      <div><button class="btn btn-primary" type="submit"><i class="bi bi-search me-1"></i> Filtrer</button></div>
+      <div><a class="btn btn-outline-secondary" href="{% url 'gestion:stock_liste' %}">Réinitialiser</a></div>
+    </form>
+  </div>
+</div>
+
+<div class="pg-card">
+  <div class="pg-table-wrap">
+    <table class="table table-hover align-middle">
+      <thead><tr><th>Médicament</th><th>Lot</th><th>Péremption</th><th class="text-end">Quantité</th><th class="text-end">Seuil</th><th class="text-end">Valeur</th><th>État</th><th class="text-end">Actions</th></tr></thead>
+      <tbody>
+        {% for lot in lots %}
+        <tr>
+          <td>
+            <a class="fw-semibold text-reset" href="{% url 'gestion:medicament_detail' lot.medicament.pk %}">{{ lot.medicament.nom_commercial }}</a>
+            <div class="small pg-muted">{{ lot.medicament.dosage }}</div>
+          </td>
+          <td class="pg-mono">{{ lot.numero_lot }}</td>
+          <td>
+            {{ lot.date_peremption|date:"d/m/Y" }}
+            {% if lot.perime %}<span class="pg-badge pg-badge-red ms-1">Périmé</span>
+            {% elif lot.proche_peremption %}<span class="pg-badge pg-badge-amber ms-1">J-{{ lot.jours_avant_peremption }}</span>{% endif %}
+          </td>
+          <td class="text-end fw-bold">{{ lot.quantite }}</td>
+          <td class="text-end pg-muted">{{ lot.medicament.seuil_alerte }}</td>
+          <td class="text-end">{{ lot.valeur_stock|ariary }}</td>
+          <td>
+            {% if lot.bloque %}<span class="pg-badge pg-badge-red">Bloqué</span>
+            {% elif lot.quantite == 0 %}<span class="pg-badge pg-badge-gray">Épuisé</span>
+            {% elif lot.quantite <= lot.medicament.seuil_alerte %}<span class="pg-badge pg-badge-amber">Faible</span>
+            {% else %}<span class="pg-badge pg-badge-green">Disponible</span>{% endif %}
+          </td>
+          <td class="text-end">
+            {% if user.est_admin or user.role == 'PHARMACIEN' or user.role == 'GESTIONNAIRE' %}
+            <form method="post" action="{% url 'gestion:lot_basculer' lot.pk %}" class="d-inline" data-confirm="Changer l'état de blocage de ce lot ?">
+              {% csrf_token %}
+              <button class="btn btn-sm btn-soft btn-icon" type="submit" title="{% if lot.bloque %}Débloquer{% else %}Bloquer{% endif %}">
+                <i class="bi {% if lot.bloque %}bi-unlock{% else %}bi-lock{% endif %}"></i>
+              </button>
+            </form>
+            {% else %}—{% endif %}
+          </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="8" class="pg-empty"><i class="bi bi-boxes"></i>Aucun lot ne correspond aux critères.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% include "gestion/includes/pagination.html" %}
+</div>
+{% endblock %}

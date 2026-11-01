@@ -1,0 +1,110 @@
+{% extends "gestion/base.html" %}
+{% load gestion_extras %}
+{% block titre %}Alertes{% endblock %}
+{% block page_title %}Alertes de stock{% endblock %}
+{% block page_subtitle %}Ruptures, stocks faibles et péremptions à traiter{% endblock %}
+
+{% block contenu %}
+<div class="pg-section-title">
+  <div>
+    <h2 class="mb-1">Centre d'alertes</h2>
+    <div class="pg-muted small">Péremptions proches jusqu'au {{ limite|date:"d/m/Y" }}</div>
+  </div>
+  {% if user.peut_voir_rapports %}
+  <a class="btn btn-outline-secondary" href="{% url 'gestion:rapport_peremptions_pdf' %}" target="_blank"><i class="bi bi-file-earmark-pdf me-1"></i> PDF péremptions</a>
+  {% endif %}
+</div>
+
+<div class="row g-3">
+  <div class="col-lg-6">
+    <div class="pg-card h-100">
+      <div class="pg-card-header">
+        <div>
+          <h3 class="pg-card-title">Stocks faibles ou ruptures</h3>
+          <p class="pg-card-sub">{{ stocks_faibles|length }} produit(s) sous le seuil d'alerte</p>
+        </div>
+      </div>
+      <div class="pg-table-wrap mt-2">
+        <table class="table table-hover align-middle">
+          <thead><tr><th>Médicament</th><th class="text-end">Stock</th><th class="text-end">Seuil</th><th>État</th></tr></thead>
+          <tbody>
+            {% for medicament in stocks_faibles %}
+            <tr>
+              <td>
+                <a class="fw-semibold text-reset" href="{% url 'gestion:medicament_detail' medicament.pk %}">{{ medicament.nom_commercial }}</a>
+                <div class="small pg-muted">{{ medicament.categorie.nom }}</div>
+              </td>
+              <td class="text-end fw-bold">{{ medicament.stock }}</td>
+              <td class="text-end pg-muted">{{ medicament.seuil_alerte }}</td>
+              <td>
+                {% if medicament.stock == 0 %}<span class="pg-badge pg-badge-red">Rupture</span>
+                {% else %}<span class="pg-badge pg-badge-amber">Faible</span>{% endif %}
+              </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="4" class="pg-empty"><i class="bi bi-check2-circle"></i>Aucun stock faible.</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-6">
+    <div class="pg-card mb-3">
+      <div class="pg-card-header">
+        <div>
+          <h3 class="pg-card-title">Lots périmés</h3>
+          <p class="pg-card-sub">À retirer de la vente</p>
+        </div>
+        <span class="pg-badge pg-badge-red ms-auto">{{ lots_perimes|length }}</span>
+      </div>
+      <div class="pg-table-wrap mt-2">
+        <table class="table align-middle">
+          <thead><tr><th>Médicament</th><th>Lot</th><th>Péremption</th><th class="text-end">Qté</th></tr></thead>
+          <tbody>
+            {% for lot in lots_perimes %}
+            <tr>
+              <td>{{ lot.medicament.nom_commercial }}</td>
+              <td class="pg-mono">{{ lot.numero_lot }}</td>
+              <td>{{ lot.date_peremption|date:"d/m/Y" }}</td>
+              <td class="text-end">{{ lot.quantite }}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="4" class="pg-empty"><i class="bi bi-check2-circle"></i>Aucun lot périmé.</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="pg-card">
+      <div class="pg-card-header">
+        <div>
+          <h3 class="pg-card-title">Péremptions proches</h3>
+          <p class="pg-card-sub">Dans les 30 prochains jours</p>
+        </div>
+        <span class="pg-badge pg-badge-amber ms-auto">{{ lots_proches|length }}</span>
+      </div>
+      <div class="pg-table-wrap mt-2">
+        <table class="table align-middle">
+          <thead><tr><th>Médicament</th><th>Lot</th><th>Péremption</th><th class="text-end">Jours</th><th class="text-end">Qté</th></tr></thead>
+          <tbody>
+            {% for lot in lots_proches %}
+            <tr>
+              <td>{{ lot.medicament.nom_commercial }}</td>
+              <td class="pg-mono">{{ lot.numero_lot }}</td>
+              <td>{{ lot.date_peremption|date:"d/m/Y" }}</td>
+              <td class="text-end"><span class="pg-badge pg-badge-amber">J-{{ lot.jours_avant_peremption }}</span></td>
+              <td class="text-end">{{ lot.quantite }}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="5" class="pg-empty"><i class="bi bi-check2-circle"></i>Aucune péremption proche.</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

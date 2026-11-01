@@ -1,0 +1,57 @@
+{% extends "gestion/base.html" %}
+{% block titre %}Catégories{% endblock %}
+{% block page_title %}Catégories{% endblock %}
+{% block page_subtitle %}Classification des médicaments du catalogue{% endblock %}
+
+{% block contenu %}
+<div class="pg-section-title">
+  <div>
+    <h2 class="mb-1">Catégories</h2>
+    <div class="pg-muted small">{{ paginator.count }} catégorie{{ paginator.count|pluralize }}</div>
+  </div>
+  {% if user.peut_gerer_catalogue %}
+  <a class="btn btn-primary" href="{% url 'gestion:categorie_ajouter' %}"><i class="bi bi-plus-lg me-1"></i> Nouvelle catégorie</a>
+  {% endif %}
+</div>
+
+<div class="pg-card mb-3">
+  <div class="pg-card-body">
+    <form method="get" class="pg-filters">
+      <div class="flex-grow-1" style="min-width:220px">
+        <label class="form-label">Recherche</label>
+        <input class="form-control" type="search" name="q" value="{{ q }}" placeholder="Nom de la catégorie">
+      </div>
+      <div><button class="btn btn-primary" type="submit"><i class="bi bi-search me-1"></i> Rechercher</button></div>
+      <div><a class="btn btn-outline-secondary" href="{% url 'gestion:categorie_liste' %}">Réinitialiser</a></div>
+    </form>
+  </div>
+</div>
+
+<div class="pg-card">
+  <div class="pg-table-wrap">
+    <table class="table table-hover align-middle">
+      <thead><tr><th>Nom</th><th>Description</th><th>Médicaments</th><th class="text-end">Actions</th></tr></thead>
+      <tbody>
+        {% for categorie in categories %}
+        <tr>
+          <td class="fw-bold">{{ categorie.nom }}</td>
+          <td class="pg-muted">{{ categorie.description|default:"—"|truncatechars:90 }}</td>
+          <td><span class="pg-badge pg-badge-green">{{ categorie.medicaments.count }} produit(s)</span></td>
+          <td class="text-end">
+            {% if user.peut_gerer_catalogue %}
+            <div class="d-inline-flex gap-1">
+              <a class="btn btn-sm btn-soft btn-icon" href="{% url 'gestion:categorie_modifier' categorie.pk %}" title="Modifier"><i class="bi bi-pencil"></i></a>
+              <a class="btn btn-sm btn-soft btn-icon" href="{% url 'gestion:categorie_supprimer' categorie.pk %}" title="Supprimer"><i class="bi bi-trash3"></i></a>
+            </div>
+            {% else %}—{% endif %}
+          </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="4" class="pg-empty"><i class="bi bi-tags"></i>Aucune catégorie enregistrée.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% include "gestion/includes/pagination.html" %}
+</div>
+{% endblock %}

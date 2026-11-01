@@ -1,0 +1,73 @@
+{% extends "gestion/base.html" %}
+{% load gestion_extras %}
+{% block titre %}Retour {{ vente.numero }}{% endblock %}
+{% block page_title %}Retour de vente{% endblock %}
+{% block page_subtitle %}{{ vente.numero }} · {{ vente.client.nom_affichage|default:"Client comptoir" }}{% endblock %}
+
+{% block contenu %}
+<form method="post" novalidate>
+  {% csrf_token %}
+  <div class="row g-3">
+    <div class="col-lg-8">
+      <div class="pg-card">
+        <div class="pg-card-header">
+          <div>
+            <h3 class="pg-card-title">Articles à retourner</h3>
+            <p class="pg-card-sub">Saisissez uniquement les quantités retournées</p>
+          </div>
+        </div>
+        <div class="pg-card-body">
+          <div class="pg-table-wrap">
+            <table class="table align-middle">
+              <thead><tr><th>Médicament</th><th>Lot</th><th class="text-end">Vendu</th><th class="text-end">Déjà retourné</th><th style="width:130px">À retourner</th><th class="text-end">Prix unitaire</th></tr></thead>
+              <tbody>
+                {% for ligne in lignes %}
+                <tr>
+                  <td class="fw-semibold">{{ ligne.medicament }}</td>
+                  <td class="pg-mono">{{ ligne.lot.numero_lot }}</td>
+                  <td class="text-end">{{ ligne.quantite }}</td>
+                  <td class="text-end">{{ ligne.quantite_retournee }}</td>
+                  <td><input class="form-control" type="number" min="0" max="{{ ligne.quantite_retournable }}" name="quantite_{{ ligne.id }}" value="0" {% if not ligne.quantite_retournable %}disabled{% endif %}></td>
+                  <td class="text-end">{{ ligne.prix_unitaire|ariary }}</td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="6" class="pg-empty"><i class="bi bi-receipt"></i>Aucune ligne.</td></tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-4">
+      <div class="pg-card sticky-top" style="top:100px">
+        <div class="pg-card-header"><h3 class="pg-card-title">Traitement du retour</h3></div>
+        <div class="pg-card-body">
+          {% if form.non_field_errors %}
+          <div class="alert pg-alert pg-alert-danger">{{ form.non_field_errors }}</div>
+          {% endif %}
+          <div class="mb-3">
+            <label class="form-label" for="{{ form.motif.id_for_label }}">Motif <span class="text-danger">*</span></label>
+            {{ form.motif }}
+            {% for error in form.motif.errors %}<div class="text-danger small">{{ error }}</div>{% endfor %}
+          </div>
+          <div class="pg-check-line mb-3">
+            {{ form.remis_en_stock }}
+            <label class="form-check-label" for="{{ form.remis_en_stock.id_for_label }}">{{ form.remis_en_stock.label }}</label>
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="{{ form.remboursement.id_for_label }}">{{ form.remboursement.label }}</label>
+            {{ form.remboursement }}
+            {% for error in form.remboursement.errors %}<div class="text-danger small">{{ error }}</div>{% endfor %}
+          </div>
+        </div>
+        <div class="pg-card-body pt-0 d-grid gap-2">
+          <button class="btn btn-primary" type="submit"><i class="bi bi-check2 me-1"></i> Enregistrer le retour</button>
+          <a class="btn btn-outline-secondary" href="{% url 'gestion:vente_detail' vente.pk %}">Annuler</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+{% endblock %}

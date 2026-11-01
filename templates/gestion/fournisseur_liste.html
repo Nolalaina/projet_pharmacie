@@ -1,0 +1,70 @@
+{% extends "gestion/base.html" %}
+{% load gestion_extras %}
+{% block titre %}Fournisseurs{% endblock %}
+{% block page_title %}Fournisseurs{% endblock %}
+{% block page_subtitle %}Partenaires d'approvisionnement et historique d'achats{% endblock %}
+
+{% block contenu %}
+<div class="pg-section-title">
+  <div>
+    <h2 class="mb-1">Fournisseurs</h2>
+    <div class="pg-muted small">{{ paginator.count }} fournisseur{{ paginator.count|pluralize }}</div>
+  </div>
+  {% if user.est_admin or user.role == 'PHARMACIEN' or user.role == 'GESTIONNAIRE' %}
+  <a class="btn btn-primary" href="{% url 'gestion:fournisseur_ajouter' %}"><i class="bi bi-plus-lg me-1"></i> Nouveau fournisseur</a>
+  {% endif %}
+</div>
+
+<div class="pg-card mb-3">
+  <div class="pg-card-body">
+    <form method="get" class="pg-filters">
+      <div class="flex-grow-1" style="min-width:220px">
+        <label class="form-label">Recherche</label>
+        <input class="form-control" type="search" name="q" value="{{ q }}" placeholder="Nom, téléphone ou e-mail">
+      </div>
+      <div>
+        <label class="form-label">Statut</label>
+        <select class="form-select" name="statut">
+          <option value="">Tous</option>
+          <option value="ACTIF" {% if statut_selectionne == 'ACTIF' %}selected{% endif %}>Actif</option>
+          <option value="INACTIF" {% if statut_selectionne == 'INACTIF' %}selected{% endif %}>Inactif</option>
+        </select>
+      </div>
+      <div><button class="btn btn-primary" type="submit"><i class="bi bi-search me-1"></i> Filtrer</button></div>
+      <div><a class="btn btn-outline-secondary" href="{% url 'gestion:fournisseur_liste' %}">Réinitialiser</a></div>
+    </form>
+  </div>
+</div>
+
+<div class="pg-card">
+  <div class="pg-table-wrap">
+    <table class="table table-hover align-middle">
+      <thead><tr><th>Fournisseur</th><th>Contact</th><th>Téléphone</th><th>Statut</th><th class="text-end">Actions</th></tr></thead>
+      <tbody>
+        {% for fournisseur in fournisseurs %}
+        <tr>
+          <td>
+            <a class="fw-bold text-reset" href="{% url 'gestion:fournisseur_detail' fournisseur.pk %}">{{ fournisseur.raison_sociale }}</a>
+            <div class="small pg-muted">{{ fournisseur.email|default:"—" }}</div>
+          </td>
+          <td>{{ fournisseur.contact_principal|default:"—" }}</td>
+          <td>{{ fournisseur.telephone|default:"—" }}</td>
+          <td><span class="pg-badge pg-badge-{{ fournisseur.statut|couleur_statut }}">{{ fournisseur.get_statut_display }}</span></td>
+          <td class="text-end">
+            <div class="d-inline-flex gap-1">
+              <a class="btn btn-sm btn-soft btn-icon" href="{% url 'gestion:fournisseur_detail' fournisseur.pk %}" title="Détail"><i class="bi bi-eye"></i></a>
+              {% if user.est_admin or user.role == 'PHARMACIEN' or user.role == 'GESTIONNAIRE' %}
+              <a class="btn btn-sm btn-soft btn-icon" href="{% url 'gestion:fournisseur_modifier' fournisseur.pk %}" title="Modifier"><i class="bi bi-pencil"></i></a>
+              {% endif %}
+            </div>
+          </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="5" class="pg-empty"><i class="bi bi-truck"></i>Aucun fournisseur trouvé.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% include "gestion/includes/pagination.html" %}
+</div>
+{% endblock %}

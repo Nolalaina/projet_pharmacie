@@ -1,0 +1,40 @@
+{% extends "gestion/base.html" %}
+{% block titre %}{{ titre }}{% endblock %}
+{% block page_title %}{{ titre }}{% endblock %}
+{% block page_subtitle %}Cette action est soumise à la protection de l'historique.{% endblock %}
+
+{% block contenu %}
+<div class="row justify-content-center">
+  <div class="col-lg-7">
+    <div class="pg-card">
+      <div class="pg-card-body">
+        <div class="d-flex gap-3 align-items-start mb-4">
+          <span class="pg-stat-icon pg-icon-red mb-0"><i class="bi bi-exclamation-triangle"></i></span>
+          <div>
+            <h3 class="mb-1" style="font-size:1.1rem">Confirmer l'opération</h3>
+            <p class="pg-muted mb-0">{{ message }}</p>
+          </div>
+        </div>
+        <div class="p-3 rounded-3 mb-4" style="background:var(--pg-green-50);border:1px solid var(--pg-line)">
+          <div class="pg-key"><span>Élément concerné</span><span>{{ objet }}</span></div>
+        </div>
+        {% if suppression_bloquee %}
+        <div class="alert pg-alert pg-alert-warning">
+          <i class="bi bi-lock"></i>
+          <div>Suppression impossible : cet élément est référencé par d'autres données.</div>
+        </div>
+        {% endif %}
+        <form method="post" data-confirm="Confirmez-vous cette opération ?">
+          {% csrf_token %}
+          <div class="d-flex justify-content-end gap-2">
+            <a class="btn btn-outline-secondary" href="{{ annuler_url }}">Retour</a>
+            <button class="btn btn-danger" type="submit" {% if suppression_bloquee %}disabled{% endif %}>
+              <i class="bi bi-trash3 me-1"></i> Confirmer
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

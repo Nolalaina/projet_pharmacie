@@ -1,0 +1,62 @@
+{% extends "gestion/base.html" %}
+{% load gestion_extras %}
+{% block titre %}Clients{% endblock %}
+{% block page_title %}Clients{% endblock %}
+{% block page_subtitle %}Fichier clients et historique des ventes{% endblock %}
+
+{% block contenu %}
+<div class="pg-section-title">
+  <div>
+    <h2 class="mb-1">Clients</h2>
+    <div class="pg-muted small">{{ paginator.count }} client{{ paginator.count|pluralize }}</div>
+  </div>
+  {% if user.est_admin or user.role == 'PHARMACIEN' or user.role == 'CAISSIER' %}
+  <a class="btn btn-primary" href="{% url 'gestion:client_ajouter' %}"><i class="bi bi-person-plus me-1"></i> Nouveau client</a>
+  {% endif %}
+</div>
+
+<div class="pg-card mb-3">
+  <div class="pg-card-body">
+    <form method="get" class="pg-filters">
+      <div class="flex-grow-1" style="min-width:220px">
+        <label class="form-label">Recherche</label>
+        <input class="form-control" type="search" name="q" value="{{ q }}" placeholder="Nom ou téléphone">
+      </div>
+      <div><button class="btn btn-primary" type="submit"><i class="bi bi-search me-1"></i> Rechercher</button></div>
+      <div><a class="btn btn-outline-secondary" href="{% url 'gestion:client_liste' %}">Réinitialiser</a></div>
+    </form>
+  </div>
+</div>
+
+<div class="pg-card">
+  <div class="pg-table-wrap">
+    <table class="table table-hover align-middle">
+      <thead><tr><th>Client</th><th>Téléphone</th><th>E-mail</th><th>Statut</th><th class="text-end">Actions</th></tr></thead>
+      <tbody>
+        {% for client in clients %}
+        <tr>
+          <td>
+            <a class="fw-bold text-reset" href="{% url 'gestion:client_detail' client.pk %}">{{ client.nom_affichage }}</a>
+            <div class="small pg-muted">{{ client.ventes.count }} vente{{ client.ventes.count|pluralize }}</div>
+          </td>
+          <td>{{ client.telephone|default:"—" }}</td>
+          <td>{{ client.email|default:"—" }}</td>
+          <td><span class="pg-badge pg-badge-{{ client.statut|couleur_statut }}">{{ client.get_statut_display }}</span></td>
+          <td class="text-end">
+            <div class="d-inline-flex gap-1">
+              <a class="btn btn-sm btn-soft btn-icon" href="{% url 'gestion:client_detail' client.pk %}" title="Détail"><i class="bi bi-eye"></i></a>
+              {% if user.est_admin or user.role == 'PHARMACIEN' or user.role == 'CAISSIER' %}
+              <a class="btn btn-sm btn-soft btn-icon" href="{% url 'gestion:client_modifier' client.pk %}" title="Modifier"><i class="bi bi-pencil"></i></a>
+              {% endif %}
+            </div>
+          </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="5" class="pg-empty"><i class="bi bi-people"></i>Aucun client trouvé.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% include "gestion/includes/pagination.html" %}
+</div>
+{% endblock %}

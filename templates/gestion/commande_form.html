@@ -1,0 +1,104 @@
+{% extends "gestion/base.html" %}
+{% load gestion_extras %}
+{% block titre %}{{ titre }}{% endblock %}
+{% block page_title %}{{ titre }}{% endblock %}
+{% block page_subtitle %}Sélectionnez le fournisseur et ajoutez les médicaments commandés{% endblock %}
+
+{% block contenu %}
+<form method="post" novalidate>
+  {% csrf_token %}
+  <div class="row g-3">
+    <div class="col-lg-8">
+      <div class="pg-card mb-3">
+        <div class="pg-card-header"><h3 class="pg-card-title">Informations de la commande</h3></div>
+        <div class="pg-card-body">
+          {% if form.non_field_errors %}
+          <div class="alert pg-alert pg-alert-danger">{{ form.non_field_errors }}</div>
+          {% endif %}
+          <div class="row g-3">
+            <div class="col-md-7">
+              <label class="form-label" for="{{ form.fournisseur.id_for_label }}">Fournisseur <span class="text-danger">*</span></label>
+              {{ form.fournisseur }}
+              {% for error in form.fournisseur.errors %}<div class="text-danger small">{{ error }}</div>{% endfor %}
+            </div>
+            <div class="col-md-5">
+              <label class="form-label" for="{{ form.notes.id_for_label }}">Notes</label>
+              {{ form.notes }}
+              {% for error in form.notes.errors %}<div class="text-danger small">{{ error }}</div>{% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pg-card" data-formset>
+        <div class="pg-card-header">
+          <div>
+            <h3 class="pg-card-title">Lignes de commande</h3>
+            <p class="pg-card-sub">Indiquez les quantités et les prix d'achat</p>
+          </div>
+          <button class="btn btn-sm btn-soft ms-auto" type="button" data-add-row><i class="bi bi-plus-lg"></i> Ajouter</button>
+        </div>
+        <div class="pg-card-body">
+          {{ formset.management_form }}
+          {% if formset.non_form_errors %}
+          <div class="alert pg-alert pg-alert-danger">{{ formset.non_form_errors }}</div>
+          {% endif %}
+          <div class="pg-table-wrap">
+            <table class="table align-middle">
+              <thead><tr><th style="min-width:230px">Médicament</th><th style="width:110px">Quantité</th><th style="width:150px">Prix d'achat</th><th class="text-end" style="width:130px">Total</th><th style="width:46px"></th></tr></thead>
+              <tbody data-formset-body>
+                {% for ligne_form in formset %}
+                <tr>
+                  <td>{{ ligne_form.id }}{{ ligne_form.medicament }}{% for error in ligne_form.medicament.errors %}<div class="text-danger small">{{ error }}</div>{% endfor %}</td>
+                  <td>{{ ligne_form.quantite_commandee }}{% for error in ligne_form.quantite_commandee.errors %}<div class="text-danger small">{{ error }}</div>{% endfor %}</td>
+                  <td>{{ ligne_form.prix_achat }}{% for error in ligne_form.prix_achat.errors %}<div class="text-danger small">{{ error }}</div>{% endfor %}</td>
+                  <td class="text-end fw-semibold" data-line-total>—</td>
+                  <td class="text-end">
+                    <span class="d-none">{{ ligne_form.DELETE }}</span>
+                    <button class="btn btn-sm btn-soft btn-icon" type="button" data-remove-row title="Retirer"><i class="bi bi-x-lg"></i></button>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <template data-formset-empty>
+            <tr>
+              <td>{{ formset.empty_form.id }}{{ formset.empty_form.medicament }}</td>
+              <td>{{ formset.empty_form.quantite_commandee }}</td>
+              <td>{{ formset.empty_form.prix_achat }}</td>
+              <td class="text-end fw-semibold" data-line-total>—</td>
+              <td class="text-end">
+                <span class="d-none">{{ formset.empty_form.DELETE }}</span>
+                <button class="btn btn-sm btn-soft btn-icon" type="button" data-remove-row title="Retirer"><i class="bi bi-x-lg"></i></button>
+              </td>
+            </tr>
+          </template>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-4">
+      <div class="pg-card sticky-top" style="top:100px">
+        <div class="pg-card-header"><h3 class="pg-card-title">Récapitulatif</h3></div>
+        <div class="pg-card-body">
+          <div class="pg-total-box">
+            <div class="row-line"><span>Statut</span><span>Brouillon</span></div>
+            <div class="grand">
+              <span>Total commande</span>
+              <strong data-total-general>0 Ar</strong>
+            </div>
+          </div>
+          <p class="pg-muted mt-3 mb-0" style="font-size:.75rem">
+            La commande ne modifie pas le stock. Le stock augmentera uniquement lors de la validation d'une réception.
+          </p>
+        </div>
+        <div class="pg-card-body pt-0 d-grid gap-2">
+          <button class="btn btn-primary" type="submit"><i class="bi bi-check2 me-1"></i> Enregistrer le brouillon</button>
+          <a class="btn btn-outline-secondary" href="{% url 'gestion:commande_liste' %}">Annuler</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+{% endblock %}

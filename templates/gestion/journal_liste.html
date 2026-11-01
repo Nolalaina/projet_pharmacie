@@ -1,0 +1,55 @@
+{% extends "gestion/base.html" %}
+{% load gestion_extras %}
+{% block titre %}Journal d'audit{% endblock %}
+{% block page_title %}Journal d'audit{% endblock %}
+{% block page_subtitle %}Traçabilité des actions sensibles{% endblock %}
+
+{% block contenu %}
+<div class="pg-section-title">
+  <div>
+    <h2 class="mb-1">Journal d'audit</h2>
+    <div class="pg-muted small">{{ paginator.count }} entrée{{ paginator.count|pluralize }}</div>
+  </div>
+</div>
+
+<div class="pg-card mb-3">
+  <div class="pg-card-body">
+    <form method="get" class="pg-filters">
+      <div class="flex-grow-1" style="min-width:240px">
+        <label class="form-label">Recherche</label>
+        <input class="form-control" type="search" name="q" value="{{ q }}" placeholder="Action, détail ou utilisateur">
+      </div>
+      <div><button class="btn btn-primary" type="submit"><i class="bi bi-search me-1"></i> Rechercher</button></div>
+      <div><a class="btn btn-outline-secondary" href="{% url 'gestion:journal_liste' %}">Réinitialiser</a></div>
+    </form>
+  </div>
+</div>
+
+<div class="pg-card">
+  <div class="pg-table-wrap">
+    <table class="table table-hover align-middle">
+      <thead><tr><th>Date</th><th>Utilisateur</th><th>Action</th><th>Objet</th><th>Détails</th><th>Adresse IP</th></tr></thead>
+      <tbody>
+        {% for entree in entrees %}
+        <tr>
+          <td class="small">{{ entree.date|date:"d/m/Y H:i:s" }}</td>
+          <td>
+            {% if entree.utilisateur %}
+            <span class="fw-semibold">{{ entree.utilisateur.nom_complet }}</span>
+            <div class="small pg-muted">{{ entree.utilisateur.get_role_display }}</div>
+            {% else %}<span class="pg-muted">Système</span>{% endif %}
+          </td>
+          <td><span class="pg-badge pg-badge-blue">{{ entree.action }}</span></td>
+          <td class="small pg-muted">{% if entree.modele %}{{ entree.modele }}{% if entree.objet_id %} #{{ entree.objet_id }}{% endif %}{% else %}—{% endif %}</td>
+          <td class="small">{{ entree.details|default:"—" }}</td>
+          <td class="small pg-mono">{{ entree.adresse_ip|default:"—" }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="6" class="pg-empty"><i class="bi bi-journal-text"></i>Aucune entrée dans le journal.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% include "gestion/includes/pagination.html" %}
+</div>
+{% endblock %}

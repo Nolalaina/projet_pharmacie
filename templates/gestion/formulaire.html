@@ -1,0 +1,61 @@
+{% extends "gestion/base.html" %}
+{% block titre %}{{ titre }}{% endblock %}
+{% block page_title %}{{ titre }}{% endblock %}
+{% block page_subtitle %}{{ sous_titre|default:"Renseignez les informations puis enregistrez." }}{% endblock %}
+
+{% block contenu %}
+<div class="row justify-content-center">
+  <div class="col-xl-8 col-lg-9">
+    <form method="post" enctype="multipart/form-data" novalidate>
+      {% csrf_token %}
+      <div class="pg-card">
+        <div class="pg-card-header">
+          <div>
+            <h3 class="pg-card-title">{{ titre }}</h3>
+            <p class="pg-card-sub">Les champs marqués d'un astérisque sont obligatoires.</p>
+          </div>
+        </div>
+        <div class="pg-card-body">
+          {% if form.non_field_errors %}
+          <div class="alert pg-alert pg-alert-danger mb-3">
+            <i class="bi bi-exclamation-octagon"></i>
+            <div>{% for error in form.non_field_errors %}{{ error }}{% endfor %}</div>
+          </div>
+          {% endif %}
+
+          {% if object and object.photo %}
+          <div class="mb-3">
+            <label class="form-label">Photo actuelle</label><br>
+            <img src="{{ object.photo.url }}" alt="{{ object }}" class="pg-detail-photo" style="max-width:220px;max-height:160px">
+          </div>
+          {% endif %}
+
+          {% for field in form %}
+          {% if field.field.widget.input_type == 'checkbox' %}
+          <div class="mb-3 form-check">
+            {{ field }}
+            <label class="form-check-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {% if field.help_text %}<div class="form-text">{{ field.help_text }}</div>{% endif %}
+            {% for error in field.errors %}<div class="text-danger small">{{ error }}</div>{% endfor %}
+          </div>
+          {% else %}
+          <div class="mb-3">
+            <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}{% if field.field.required %} <span class="text-danger">*</span>{% endif %}</label>
+            {{ field }}
+            {% if field.help_text %}<div class="form-text">{{ field.help_text }}</div>{% endif %}
+            {% for error in field.errors %}<div class="text-danger small mt-1">{{ error }}</div>{% endfor %}
+          </div>
+          {% endif %}
+          {% endfor %}
+        </div>
+        <div class="pg-card-body pt-0">
+          <div class="d-flex justify-content-end gap-2">
+            <a class="btn btn-outline-secondary" href="{{ annuler_url|default:'javascript:history.back()' }}">Annuler</a>
+            <button class="btn btn-primary" type="submit"><i class="bi bi-check2 me-1"></i> Enregistrer</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
