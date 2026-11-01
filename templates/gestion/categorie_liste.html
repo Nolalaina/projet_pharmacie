@@ -41,7 +41,7 @@
             {% if user.peut_gerer_catalogue %}
             <div class="d-inline-flex gap-1">
               <a class="btn btn-sm btn-soft btn-icon" href="{% url 'gestion:categorie_modifier' categorie.pk %}" title="Modifier"><i class="bi bi-pencil"></i></a>
-              <a class="btn btn-sm btn-soft btn-icon" href="{% url 'gestion:categorie_supprimer' categorie.pk %}" title="Supprimer"><i class="bi bi-trash3"></i></a>
+              <a class="btn btn-sm btn-soft btn-icon" href="{% url 'gestion:categorie_supprimer' categorie.pk %}" title="Supprimer" data-confirm="Êtes-vous sûr de supprimer cette catégorie ?"><i class="bi bi-trash3"></i></a>
             </div>
             {% else %}—{% endif %}
           </td>

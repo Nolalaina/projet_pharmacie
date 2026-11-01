@@ -26,7 +26,7 @@
             <textarea class="form-control" id="motif" name="motif" rows="3" required placeholder="Erreur de saisie, retour client, ..."></textarea>
           </div>
           <div class="d-flex gap-2">
-            <button class="btn btn-danger" type="submit"><i class="bi bi-x-circle me-1"></i> Confirmer l'annulation</button>
+            <button class="btn btn-danger" type="submit" data-confirm="Cette annulation est définitive. Êtes-vous sûr ?"><i class="bi bi-x-circle me-1"></i> Confirmer l'annulation</button>
             <a class="btn btn-outline-secondary" href="{% url 'gestion:vente_detail' vente.pk %}">Annuler</a>
           </div>
         </form>

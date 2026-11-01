@@ -18,9 +18,9 @@
       {% if user.est_admin or user.role == 'PHARMACIEN' or user.role == 'CAISSIER' %}
       <a class="btn btn-outline-primary" href="{% url 'gestion:retour_vente' vente.pk %}"><i class="bi bi-arrow-return-left me-1"></i> Retour</a>
       {% endif %}
-      {% if user.est_admin or user.role == 'PHARMACIEN' %}
-      <a class="btn btn-outline-danger" href="{% url 'gestion:vente_annuler' vente.pk %}"><i class="bi bi-x-circle me-1"></i> Annuler</a>
-      {% endif %}
+{% if user.est_admin or user.role == 'PHARMACIEN' %}
+      <a class="btn btn-outline-danger" href="{% url 'gestion:vente_annuler' vente.pk %}" data-confirm="Cette annulation est définitive. Les articles seront remis en stock. Êtes-vous sûr ?"><i class="bi bi-x-circle me-1"></i> Annuler</a>
+{% endif %}
     {% endif %}
   </div>
 </div>

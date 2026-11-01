@@ -12,6 +12,26 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  /* NEW: Amélioré - Gestion confirmations enrichies */
+  document.querySelectorAll("form[data-confirm-msg]").forEach((formulaire) => {
+    formulaire.addEventListener("submit", (evenement) => {
+      const message = formulaire.dataset.confirmMsg || "Êtes-vous sûr ?";
+      if (!window.confirm(message)) {
+        evenement.preventDefault();
+      }
+    });
+  });
+
+  /* NEW: Confirmation pour liens de suppression */
+  document.querySelectorAll("[data-confirm-link]").forEach((element) => {
+    element.addEventListener("click", (evenement) => {
+      const message = element.dataset.confirmMsg || "Êtes-vous sûr de vouloir supprimer ?";
+      if (!window.confirm(message)) {
+        evenement.preventDefault();
+      }
+    });
+  });
+
   const formatMontant = (valeur) =>
     new Intl.NumberFormat("fr-FR", {
       minimumFractionDigits: 2,
@@ -49,7 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const selectLot =
         ligne.querySelector("[data-lot-select]") ||
-        ligne.querySelector('select[name$="-lot"]');
+        ligne.querySelector('select[name$="-lot"]");
       const quantite =
         ligne.querySelector("[data-qte]") ||
         ligne.querySelector('input[name$="-quantite_commandee"]') ||
@@ -150,6 +170,7 @@ document.addEventListener("DOMContentLoaded", () => {
     maj();
   });
 
+  /* NEW: Amélioré - Gestion du scan de code-barres */
   const champScan = document.querySelector("[data-scan-code]");
   if (champScan) {
     const conteneur = document.querySelector("[data-formset]");
@@ -161,6 +182,8 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!aide) return;
       aide.textContent = texte;
       aide.classList.toggle("text-danger", erreur);
+      aide.classList.remove("text-success");
+      aide.classList.add(erreur ? "text-danger" : "text-success");
     };
 
     const traiterScan = () => {
@@ -215,8 +238,14 @@ document.addEventListener("DOMContentLoaded", () => {
         traiterScan();
       }
     });
+
+    /* NEW: Focus automatique sur le champ scan au chargement */
+    if (champScan) {
+      champScan.setAttribute("autofocus", "autofocus");
+    }
   }
 
+  /* NEW: Gestion de la remise au niveau global */
   const champRemise =
     document.querySelector("[data-remise]") ||
     document.querySelector('input[name="remise"]');
@@ -226,6 +255,17 @@ document.addEventListener("DOMContentLoaded", () => {
       if (conteneur) {
         conteneur.dispatchEvent(new CustomEvent("pg:recalcul"));
       }
+    });
+  }
+
+  /* NEW: Tooltip pour les icônes d'action */
+  document.querySelectorAll(".btn-icon[title]").forEach((element) => {
+    element.setAttribute("data-bs-toggle", "tooltip");
+    element.setAttribute("title", element.getAttribute("title"));
+  });
+  if (typeof bootstrap !== "undefined") {
+    document.querySelectorAll(".btn-icon[title]").forEach((element) => {
+      new bootstrap.Tooltip(element);
     });
   }
 });

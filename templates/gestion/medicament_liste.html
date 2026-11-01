@@ -102,14 +102,15 @@
             {% endif %}
           </td>
           <td><span class="pg-badge pg-badge-{{ medicament.statut|couleur_statut }}">{{ medicament.get_statut_display }}</span></td>
-          <td class="text-end">
+<td class="text-end">
             <div class="d-inline-flex gap-1">
               <a class="btn btn-sm btn-soft btn-icon" href="{% url 'gestion:medicament_detail' medicament.pk %}" title="Détail"><i class="bi bi-eye"></i></a>
               {% if user.peut_gerer_catalogue %}
               <a class="btn btn-sm btn-soft btn-icon" href="{% url 'gestion:medicament_modifier' medicament.pk %}" title="Modifier"><i class="bi bi-pencil"></i></a>
-              <a class="btn btn-sm btn-soft btn-icon" href="{% url 'gestion:medicament_supprimer' medicament.pk %}" title="Supprimer / archiver"><i class="bi bi-trash3"></i></a>
-              {% endif %}
+              <a class="btn btn-sm btn-soft btn-icon" href="{% url 'gestion:medicament_supprimer' medicament.pk %}" title="Supprimer / archiver" data-confirm="Êtes-vous sûr de vouloir archiver ce médicament ?"><i class="bi bi-trash3"></i></a>
+{% endif %}
             </div>
+            <span class="pg-badge pg-badge-{{ medicament.statut|couleur_statut }}">{{ medicament.get_statut_display }}</span>
           </td>
         </tr>
         {% empty %}
@@ -119,10 +120,8 @@
             Aucun médicament ne correspond aux critères.
           </td>
         </tr>
-        {% endfor %}
+{% endfor %}
       </tbody>
     </table>
   </div>
   {% include "gestion/includes/pagination.html" %}
-</div>
-{% endblock %}

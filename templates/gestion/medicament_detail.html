@@ -17,7 +17,7 @@
     {% endif %}
     {% if user.peut_gerer_catalogue %}
     <a class="btn btn-primary" href="{% url 'gestion:medicament_modifier' medicament.pk %}"><i class="bi bi-pencil me-1"></i> Modifier</a>
-    <a class="btn btn-outline-danger" href="{% url 'gestion:medicament_supprimer' medicament.pk %}"><i class="bi bi-trash3 me-1"></i> Supprimer</a>
+    <a class="btn btn-outline-danger" href="{% url 'gestion:medicament_supprimer' medicament.pk %}" title="Supprimer" data-confirm="Êtes-vous sûr de supprimer ce médicament ?"><i class="bi bi-trash3 me-1"></i> Supprimer</a>
     {% endif %}
   </div>
 </div>

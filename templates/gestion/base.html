@@ -3,9 +3,10 @@
 <html lang="fr">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>{% block titre %}Tableau de bord{% endblock %} · {{ pharmacie_nom }}</title>
   <link rel="icon" type="image/svg+xml" href="{% static 'img/favicon.svg' %}">
+  <meta name="color-theme" content="light">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -16,9 +17,9 @@
 </head>
 <body>
 {% with url_name=request.resolver_match.url_name %}
-<div class="pg-shell">
-  <aside class="pg-sidebar" id="sidebar">
-    <a class="pg-brand" href="{% url 'gestion:tableau_bord' %}">
+<div class="pg-shell" data-layout="expanded">
+  <aside class="pg-sidebar" id="sidebar" aria-label="Menu principal de navigation">
+    <a class="pg-brand" href="{% url 'gestion:tableau_bord' %}" aria-label="Accueil {{ pharmacie_nom }}">
       <span class="pg-brand-mark"><i class="bi bi-capsule-pill"></i></span>
       <span>
         <span class="pg-brand-name">{{ pharmacie_nom }}</span>
@@ -27,82 +28,98 @@
     </a>
 
     <div class="pg-nav-label">Principal</div>
-    <nav class="pg-nav">
-      <a class="pg-nav-link {% if url_name == 'tableau_bord' %}active{% endif %}" href="{% url 'gestion:tableau_bord' %}">
-        <i class="bi bi-grid-1x2"></i> Tableau de bord
+    <nav class="pg-nav" aria-label="Navigation principale">
+      <a class="pg-nav-link {% if url_name == 'tableau_bord' %}active{% endif %}" href="{% url 'gestion:tableau_bord' %}" title="Tableau de bord">
+        <i class="bi bi-grid-1x2"></i>
+        <span class="d-none d-sm-inline">Tableau de bord</span>
       </a>
       {% if user.peut_vendre %}
-      <a class="pg-nav-link {% if url_name == 'caisse' %}active{% endif %}" href="{% url 'gestion:caisse' %}">
-        <i class="bi bi-bag-check"></i> Caisse / vente
+      <a class="pg-nav-link {% if url_name == 'caisse' %}active{% endif %}" href="{% url 'gestion:caisse' %}" title="Caisse / vente">
+        <i class="bi bi-bag-check"></i>
+        <span class="d-none d-sm-inline">Caisse / vente</span>
       </a>
       {% endif %}
-      <a class="pg-nav-link {% if url_name == 'vente_liste' or url_name == 'vente_detail' or url_name == 'retour_vente' or url_name == 'vente_annuler' %}active{% endif %}" href="{% url 'gestion:vente_liste' %}">
-        <i class="bi bi-receipt"></i> Ventes
+      <a class="pg-nav-link {% if url_name == 'vente_liste' or url_name == 'vente_detail' or url_name == 'retour_vente' or url_name == 'vente_annuler' %}active{% endif %}" href="{% url 'gestion:vente_liste' %}" title="Ventes">
+        <i class="bi bi-receipt"></i>
+        <span class="d-none d-sm-inline">Ventes</span>
       </a>
-      <a class="pg-nav-link {% if url_name == 'alertes' %}active{% endif %}" href="{% url 'gestion:alertes' %}">
-        <i class="bi bi-bell"></i> Alertes
+      <a class="pg-nav-link {% if url_name == 'alertes' %}active{% endif %}" href="{% url 'gestion:alertes' %}" title="Alertes">
+        <i class="bi bi-bell"></i>
         {% if alertes_globales %}<span class="pg-nav-badge">{{ alertes_globales }}</span>{% endif %}
+        <span class="d-none d-sm-inline">Alertes</span>
       </a>
     </nav>
 
     <div class="pg-nav-label">Catalogue</div>
-    <nav class="pg-nav">
-      <a class="pg-nav-link {% if url_name == 'medicament_liste' or url_name == 'medicament_detail' or url_name == 'medicament_ajouter' or url_name == 'medicament_modifier' or url_name == 'medicament_supprimer' %}active{% endif %}" href="{% url 'gestion:medicament_liste' %}">
-        <i class="bi bi-capsule"></i> Médicaments
+    <nav class="pg-nav" aria-label="Navigation catalogue">
+      <a class="pg-nav-link {% if url_name == 'medicament_liste' or url_name == 'medicament_detail' or url_name == 'medicament_ajouter' or url_name == 'medicament_modifier' or url_name == 'medicament_supprimer' %}active{% endif %}" href="{% url 'gestion:medicament_liste' %}" title="Médicaments">
+        <i class="bi bi-capsule"></i>
+        <span class="d-none d-sm-inline">Médicaments</span>
       </a>
-      <a class="pg-nav-link {% if url_name == 'categorie_liste' or url_name == 'categorie_ajouter' or url_name == 'categorie_modifier' or url_name == 'categorie_supprimer' %}active{% endif %}" href="{% url 'gestion:categorie_liste' %}">
-        <i class="bi bi-tags"></i> Catégories
+      <a class="pg-nav-link {% if url_name == 'categorie_liste' or url_name == 'categorie_ajouter' or url_name == 'categorie_modifier' or url_name == 'categorie_supprimer' %}active{% endif %}" href="{% url 'gestion:categorie_liste' %}" title="Catégories">
+        <i class="bi bi-tags"></i>
+        <span class="d-none d-sm-inline">Catégories</span>
       </a>
-      <a class="pg-nav-link {% if url_name == 'fournisseur_liste' or url_name == 'fournisseur_detail' or url_name == 'fournisseur_ajouter' or url_name == 'fournisseur_modifier' %}active{% endif %}" href="{% url 'gestion:fournisseur_liste' %}">
-        <i class="bi bi-truck"></i> Fournisseurs
+      <a class="pg-nav-link {% if url_name == 'fournisseur_liste' or url_name == 'fournisseur_detail' or url_name == 'fournisseur_ajouter' or url_name == 'fournisseur_modifier' %}active{% endif %}" href="{% url 'gestion:fournisseur_liste' %}" title="Fournisseurs">
+        <i class="bi bi-truck"></i>
+        <span class="d-none d-sm-inline">Fournisseurs</span>
       </a>
-      <a class="pg-nav-link {% if url_name == 'client_liste' or url_name == 'client_detail' or url_name == 'client_ajouter' or url_name == 'client_modifier' %}active{% endif %}" href="{% url 'gestion:client_liste' %}">
-        <i class="bi bi-people"></i> Clients
+      <a class="pg-nav-link {% if url_name == 'client_liste' or url_name == 'client_detail' or url_name == 'client_ajouter' or url_name == 'client_modifier' %}active{% endif %}" href="{% url 'gestion:client_liste' %}" title="Clients">
+        <i class="bi bi-people"></i>
+        <span class="d-none d-sm-inline">Clients</span>
       </a>
     </nav>
 
     {% if user.est_admin or user.role == 'PHARMACIEN' or user.role == 'GESTIONNAIRE' or user.role == 'RESPONSABLE' %}
     <div class="pg-nav-label">Approvisionnement</div>
-    <nav class="pg-nav">
-      <a class="pg-nav-link {% if url_name == 'commande_liste' or url_name == 'commande_detail' or url_name == 'commande_ajouter' or url_name == 'commande_modifier' %}active{% endif %}" href="{% url 'gestion:commande_liste' %}">
-        <i class="bi bi-cart-plus"></i> Commandes d'achat
+    <nav class="pg-nav" aria-label="Navigation approvisionnement">
+      <a class="pg-nav-link {% if url_name == 'commande_liste' or url_name == 'commande_detail' or url_name == 'commande_ajouter' or url_name == 'commande_modifier' %}active{% endif %}" href="{% url 'gestion:commande_liste' %}" title="Commandes d'achat">
+        <i class="bi bi-cart-plus"></i>
+        <span class="d-none d-sm-inline">Commandes d'achat</span>
       </a>
-      <a class="pg-nav-link {% if url_name == 'reception_liste' or url_name == 'reception_detail' or url_name == 'commande_receptionner' %}active{% endif %}" href="{% url 'gestion:reception_liste' %}">
-        <i class="bi bi-box-seam"></i> Réceptions
+      <a class="pg-nav-link {% if url_name == 'reception_liste' or url_name == 'reception_detail' or url_name == 'commande_receptionner' %}active{% endif %}" href="{% url 'gestion:reception_liste' %}" title="Réceptions">
+        <i class="bi bi-box-seam"></i>
+        <span class="d-none d-sm-inline">Réceptions</span>
       </a>
     </nav>
     {% endif %}
 
     <div class="pg-nav-label">Stock</div>
-    <nav class="pg-nav">
-      <a class="pg-nav-link {% if url_name == 'stock_liste' or url_name == 'lot_basculer' %}active{% endif %}" href="{% url 'gestion:stock_liste' %}">
-        <i class="bi bi-boxes"></i> État du stock
+    <nav class="pg-nav" aria-label="Navigation stock">
+      <a class="pg-nav-link {% if url_name == 'stock_liste' or url_name == 'lot_basculer' %}active{% endif %}" href="{% url 'gestion:stock_liste' %}" title="État du stock">
+        <i class="bi bi-boxes"></i>
+        <span class="d-none d-sm-inline">État du stock</span>
       </a>
-      <a class="pg-nav-link {% if url_name == 'mouvement_liste' %}active{% endif %}" href="{% url 'gestion:mouvement_liste' %}">
-        <i class="bi bi-arrow-left-right"></i> Mouvements
+      <a class="pg-nav-link {% if url_name == 'mouvement_liste' %}active{% endif %}" href="{% url 'gestion:mouvement_liste' %}" title="Mouvements">
+        <i class="bi bi-arrow-left-right"></i>
+        <span class="d-none d-sm-inline">Mouvements</span>
       </a>
       {% if user.est_admin or user.role == 'PHARMACIEN' or user.role == 'GESTIONNAIRE' %}
-      <a class="pg-nav-link {% if url_name == 'inventaire' %}active{% endif %}" href="{% url 'gestion:inventaire' %}">
-        <i class="bi bi-clipboard-check"></i> Inventaire
+      <a class="pg-nav-link {% if url_name == 'inventaire' %}active{% endif %}" href="{% url 'gestion:inventaire' %}" title="Inventaire">
+        <i class="bi bi-clipboard-check"></i>
+        <span class="d-none d-sm-inline">Inventaire</span>
       </a>
       {% endif %}
     </nav>
 
     <div class="pg-nav-label">Pilotage</div>
-    <nav class="pg-nav">
+    <nav class="pg-nav" aria-label="Navigation pilotage">
       {% if user.peut_voir_rapports %}
-      <a class="pg-nav-link {% if url_name == 'rapports' %}active{% endif %}" href="{% url 'gestion:rapports' %}">
-        <i class="bi bi-graph-up-arrow"></i> Rapports & PDF
+      <a class="pg-nav-link {% if url_name == 'rapports' %}active{% endif %}" href="{% url 'gestion:rapports' %}" title="Rapports & PDF">
+        <i class="bi bi-graph-up-arrow"></i>
+        <span class="d-none d-sm-inline">Rapports & PDF</span>
       </a>
       {% endif %}
       {% if user.est_admin or user.role == 'PHARMACIEN' or user.role == 'RESPONSABLE' %}
-      <a class="pg-nav-link {% if url_name == 'journal_liste' %}active{% endif %}" href="{% url 'gestion:journal_liste' %}">
-        <i class="bi bi-journal-text"></i> Journal d'audit
+      <a class="pg-nav-link {% if url_name == 'journal_liste' %}active{% endif %}" href="{% url 'gestion:journal_liste' %}" title="Journal d'audit">
+        <i class="bi bi-journal-text"></i>
+        <span class="d-none d-sm-inline">Journal d'audit</span>
       </a>
       {% endif %}
       {% if user.est_admin %}
-      <a class="pg-nav-link {% if url_name == 'utilisateur_liste' or url_name == 'utilisateur_ajouter' or url_name == 'utilisateur_modifier' or url_name == 'utilisateur_mot_de_passe' %}active{% endif %}" href="{% url 'gestion:utilisateur_liste' %}">
-        <i class="bi bi-person-gear"></i> Utilisateurs
+      <a class="pg-nav-link {% if url_name == 'utilisateur_liste' or url_name == 'utilisateur_ajouter' or url_name == 'utilisateur_modifier' or url_name == 'utilisateur_mot_de_passe' %}active{% endif %}" href="{% url 'gestion:utilisateur_liste' %}" title="Utilisateurs">
+        <i class="bi bi-person-gear"></i>
+        <span class="d-none d-sm-inline">Utilisateurs</span>
       </a>
       {% endif %}
     </nav>
@@ -111,10 +128,10 @@
       <div class="name">{{ user.nom_complet }}</div>
       <div class="role">{{ user.get_role_display }}</div>
       <div class="actions">
-        <a href="{% url 'gestion:mot_de_passe' %}"><i class="bi bi-key"></i> Mot de passe</a>
-        <form method="post" action="{% url 'gestion:deconnexion' %}" class="m-0">
+        <a href="{% url 'gestion:mot_de_passe' %}" title="Modifier le mot de passe"><i class="bi bi-key"></i></a>
+        <form method="post" action="{% url 'gestion:deconnexion' %}" class="m-0" title="Déconnexion">
           {% csrf_token %}
-          <button type="submit"><i class="bi bi-box-arrow-right"></i> Quitter</button>
+          <button type="submit" class="btn btn-link p-0"><i class="bi bi-box-arrow-right"></i> Quitter</button>
         </form>
       </div>
     </div>
@@ -122,7 +139,7 @@
 
   <div class="pg-main">
     <header class="pg-topbar">
-      <button class="pg-mobile-toggle" type="button" data-sidebar-toggle aria-label="Menu">
+      <button class="pg-mobile-toggle" type="button" data-sidebar-toggle aria-label="Ouvrir le menu">
         <i class="bi bi-list"></i>
       </button>
       <div>
@@ -159,10 +176,40 @@
       {{ pharmacie_nom }} · {{ pharmacie_adresse }} · Tél. {{ pharmacie_telephone }} — Application de gestion pharmaceutique.
     </footer>
   </div>
-</div>
 {% endwith %}
+
+<!-- NEW: Bouton bascule de mise en compact -->
+<button class="pg-layout-toggle d-none d-sm-inline btn btn-soft btn-icon" type="button" aria-label="Mode compact/étendu" title="Mode compact"
+        data-layout-toggle>
+  <i class="bi bi-layout-text-window-reverse"></i>
+</button>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="{% static 'js/pharmagest.js' %}"></script>
 {% block scripts %}{% endblock %}
+
+<script>
+  // NEW: Initialisation du toggle de layout
+  document.addEventListener('DOMContentLoaded', () => {
+    const toggle = document.querySelector('[data-layout-toggle]');
+    if (toggle) {
+      toggle.addEventListener('click', () => {
+        const shell = document.querySelector('.pg-shell');
+        if (shell.getAttribute('data-layout') === 'compact') {
+          shell.setAttribute('data-layout', 'expanded');
+          localStorage.setItem('pg-layout', 'expanded');
+        } else {
+          shell.setAttribute('data-layout', 'compact');
+          localStorage.setItem('pg-layout', 'compact');
+        }
+      });
+    }
+    // Restore saved layout
+    const saved = localStorage.getItem('pg-layout');
+    if (saved) {
+      document.querySelector('.pg-shell').setAttribute('data-layout', saved);
+    }
+  });
+</script>
 </body>
 </html>
