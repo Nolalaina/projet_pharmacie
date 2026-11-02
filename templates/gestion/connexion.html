@@ -8,87 +8,82 @@
   <link rel="icon" type="image/svg+xml" href="{% static 'img/favicon.svg' %}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'css/pharmagest.css' %}">
 </head>
 <body>
-<div class="pg-login">
-  <section class="pg-login-visual">
-    <div class="pg-login-brand">
-      <span class="pg-brand-mark"><i class="bi bi-capsule-pill"></i></span>
-      <div>
-        <div class="pg-brand-name">{{ pharmacie_nom }}</div>
-        <div class="pg-brand-sub">Gestion pharmaceutique</div>
-      </div>
-    </div>
-
-    <div>
-      <h2 class="pg-login-headline">La pharmacie,<br><em>sous contrôle.</em></h2>
-      <p class="mt-3 mb-4" style="color:#a9c9bc;max-width:430px">
-        Pilotez vos médicaments, vos lots, vos achats et vos ventes depuis une
-        interface unique, sécurisée et traçable.
-      </p>
-      <div class="pg-login-points">
-        <div class="pg-login-point"><i class="bi bi-check2-circle"></i> Suivi des lots et des péremptions</div>
-        <div class="pg-login-point"><i class="bi bi-check2-circle"></i> Caisse rapide avec reçus PDF</div>
-        <div class="pg-login-point"><i class="bi bi-check2-circle"></i> Rôles et permissions par utilisateur</div>
-        <div class="pg-login-point"><i class="bi bi-check2-circle"></i> Journal d'audit des opérations sensibles</div>
-      </div>
-    </div>
-
-    <div class="small" style="color:#7fa898">
-      {{ pharmacie_adresse }} · Tél. {{ pharmacie_telephone }}
-    </div>
-  </section>
-
-  <section class="pg-login-form">
-    <div class="pg-login-card">
-      <span class="pg-badge pg-badge-green mb-3"><i class="bi bi-shield-lock"></i> Accès sécurisé</span>
-      <h1>Bon retour</h1>
-      <p>Connectez-vous avec votre compte professionnel.</p>
-
-      {% if messages %}
-        {% for message in messages %}
-        <div class="alert pg-alert pg-alert-{{ message.tags }} mb-3">
-          <i class="bi bi-info-circle"></i>
-          <div>{{ message }}</div>
+<main class="min-vh-100 bg-gradient-to-tr from-#ffffff to-#f0f8ff d-flex align-items-center justify-content-center">
+  <div class="w-100 w-md-420">
+    <div class="card shadow-lg shadow-soft" style="border-radius:20px; padding:40px 32px; width:100%; max-width:420px; background:rgba(255,255,255,0.8); backdrop-filter:blur(10px)">
+      <div class="text-center mb-8">
+        <div class="bg-primary rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+          <i class="bi bi-capsule-pill text-primary fs-3"></i>
         </div>
-        {% endfor %}
-      {% endif %}
-
-      {% if form.non_field_errors %}
-      <div class="alert pg-alert pg-alert-danger mb-3">
-        <i class="bi bi-exclamation-octagon"></i>
-        <div>{% for error in form.non_field_errors %}{{ error }}{% endfor %}</div>
+        <h1 class="fs-2 fw-bold mb-2">PharmaGest</h1>
+        <p class="opacity-60 mb-0">Identification utilisateur</p>
       </div>
-      {% endif %}
 
       <form method="post" novalidate>
         {% csrf_token %}
+
+        {% if messages %}
+          {% for message in messages %}
+          <div class="alert alert-{{ message.tags }} alert-dismissible mb-3" role="alert">
+            <i class="bi bi-info-circle me-2"></i>{{ message }}
+          </div>
+          {% endfor %}
+        {% endif %}
+
+        {% if form.non_field_errors %}
+        <div class="alert alert-danger alert-dismissible mb-3" role="alert">
+          <i class="bi bi-exclamation-octagon me-2"></i>
+          <div>{% for error in form.non_field_errors %}{{ error }}{% endfor %}</div>
+        </div>
+        {% endif %}
+
         <div class="mb-3">
-          <label class="form-label" for="{{ form.username.id_for_label }}">Nom d'utilisateur</label>
+          <label class="form-label small fw-bold block mb-2" for="{{ form.username.id_for_label }}">Nom d'utilisateur</label>
           {{ form.username }}
           {% for error in form.username.errors %}<div class="text-danger small mt-1">{{ error }}</div>{% endfor %}
         </div>
-        <div class="mb-3">
-          <label class="form-label" for="{{ form.password.id_for_label }}">Mot de passe</label>
+
+        <div class="mb-4">
+          <label class="form-label small fw-bold block mb-2" for="{{ form.password.id_for_label }}">Mot de passe</label>
           {{ form.password }}
           {% for error in form.password.errors %}<div class="text-danger small mt-1">{{ error }}</div>{% endfor %}
         </div>
-        {% if next %}<input type="hidden" name="next" value="{{ next }}">{% endif %}
-        <button class="btn btn-primary w-100 py-2 mt-2" type="submit">
-          <i class="bi bi-box-arrow-in-right me-1"></i> Se connecter
-        </button>
-      </form>
 
-      <p class="text-center mt-4 mb-0" style="font-size:.74rem">
-        Mot de passe oublié ? Contactez l'administrateur de la pharmacie.
-      </p>
+        {% if next %}<input type="hidden" name="next" value="{{ next }}">{% endif %}
+
+        <div class="mb-5">
+          <button class="w-100 btn btn-primary py-2 rounded-10 fw-bold" type="submit">
+            <i class="bi bi-box-arrow-in-right me-2"></i> Se connecter
+          </button>
+        </div>
+
+        <div class="text-center">
+          <a href="#" class="opacity-60 small" style="text-decoration:none">
+            Mot de passe oublié ? Contactez l'administrateur
+          </a>
+        </div>
+      </form>
     </div>
-  </section>
-</div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <div class="mt-5 text-center">
+      <button class="btn-link opacity-60 small w-auto collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#credentialBtn" aria-expanded="false" aria-controls="credentialBtn">
+        Afficher les identifiants de test
+      </button>
+      <div class="collapse mt-3" id="credentialBtn">
+        <div class="d-inline-block bg-white rounded-3 px-4 py-3 small shadow">
+          <div class="mb-2"><strong>Admin :</strong> <span class="fw-normal">admin / admin123</span></div>
+          <div class="mb-2"><strong>Pharmacien :</strong> <span class="fw-normal">pharmacien / pass123</span></div>
+          <div class="mb-0"><strong>Caissier :</strong> <span class="fw-normal">caissier / pass123</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
 </body>
 </html>
