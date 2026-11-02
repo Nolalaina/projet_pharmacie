@@ -1,0 +1,298 @@
+- generic [active] [ref=f13e1]:
+  - link "Aller au contenu" [ref=f13e2] [cursor=pointer]:
+    - /url: "#contenu"
+  - generic [ref=f13e3]:
+    - complementary "Menu principal de navigation" [ref=f13e4]:
+      - link "Accueil PharmaGest" [ref=f13e5] [cursor=pointer]:
+        - /url: /
+        - generic [ref=f13e6]: 
+        - generic [ref=f13e8]:
+          - generic [ref=f13e9]: PharmaGest
+          - generic [ref=f13e10]: Gestion pharmaceutique
+      - link " Nouvelle vente" [ref=f13e11] [cursor=pointer]:
+        - /url: /ventes/caisse/
+        - generic [ref=f13e12]: 
+        - generic [ref=f13e13]: Nouvelle vente
+      - navigation "Navigation" [ref=f13e14]:
+        - generic [ref=f13e15]:
+          - generic [ref=f13e16]: Principal
+          - generic [ref=f13e17]:
+            - link " Tableau de bord" [ref=f13e18] [cursor=pointer]:
+              - /url: /
+              - generic [ref=f13e19]: 
+              - generic [ref=f13e20]: Tableau de bord
+            - link " Caisse / vente" [ref=f13e21] [cursor=pointer]:
+              - /url: /ventes/caisse/
+              - generic [ref=f13e22]: 
+              - generic [ref=f13e23]: Caisse / vente
+            - link " Ventes" [ref=f13e24] [cursor=pointer]:
+              - /url: /ventes/
+              - generic [ref=f13e25]: 
+              - generic [ref=f13e26]: Ventes
+            - link " 4 Alertes" [ref=f13e27] [cursor=pointer]:
+              - /url: /stock/alertes/
+              - generic [ref=f13e28]: 
+              - generic [ref=f13e29]: "4"
+              - generic [ref=f13e30]: Alertes
+        - generic [ref=f13e31]:
+          - generic [ref=f13e32]: Catalogue
+          - generic [ref=f13e33]:
+            - link " Médicaments" [ref=f13e34] [cursor=pointer]:
+              - /url: /medicaments/
+              - generic [ref=f13e35]: 
+              - generic [ref=f13e36]: Médicaments
+            - link " Catégories" [ref=f13e37] [cursor=pointer]:
+              - /url: /categories/
+              - generic [ref=f13e38]: 
+              - generic [ref=f13e39]: Catégories
+            - link " Fournisseurs" [ref=f13e40] [cursor=pointer]:
+              - /url: /fournisseurs/
+              - generic [ref=f13e41]: 
+              - generic [ref=f13e42]: Fournisseurs
+            - link " Clients" [ref=f13e43] [cursor=pointer]:
+              - /url: /clients/
+              - generic [ref=f13e44]: 
+              - generic [ref=f13e45]: Clients
+        - generic [ref=f13e46]:
+          - generic [ref=f13e47]: Approvisionnement
+          - generic [ref=f13e48]:
+            - link " Commandes d'achat" [ref=f13e49] [cursor=pointer]:
+              - /url: /achats/
+              - generic [ref=f13e50]: 
+              - generic [ref=f13e51]: Commandes d'achat
+            - link " Réceptions" [ref=f13e52] [cursor=pointer]:
+              - /url: /receptions/
+              - generic [ref=f13e53]: 
+              - generic [ref=f13e54]: Réceptions
+        - generic [ref=f13e55]:
+          - generic [ref=f13e56]: Stock
+          - generic [ref=f13e57]:
+            - link " État du stock" [ref=f13e58] [cursor=pointer]:
+              - /url: /stock/
+              - generic [ref=f13e59]: 
+              - generic [ref=f13e60]: État du stock
+            - link " Mouvements" [ref=f13e61] [cursor=pointer]:
+              - /url: /stock/mouvements/
+              - generic [ref=f13e62]: 
+              - generic [ref=f13e63]: Mouvements
+            - link " Inventaire" [ref=f13e64] [cursor=pointer]:
+              - /url: /stock/inventaire/
+              - generic [ref=f13e65]: 
+              - generic [ref=f13e66]: Inventaire
+        - generic [ref=f13e67]:
+          - generic [ref=f13e68]: Pilotage
+          - generic [ref=f13e69]:
+            - link " Rapports & PDF" [ref=f13e70] [cursor=pointer]:
+              - /url: /rapports/
+              - generic [ref=f13e71]: 
+              - generic [ref=f13e72]: Rapports & PDF
+            - link " Journal d'audit" [ref=f13e73] [cursor=pointer]:
+              - /url: /journal/
+              - generic [ref=f13e74]: 
+              - generic [ref=f13e75]: Journal d'audit
+            - link " Utilisateurs" [ref=f13e76] [cursor=pointer]:
+              - /url: /utilisateurs/
+              - generic [ref=f13e77]: 
+              - generic [ref=f13e78]: Utilisateurs
+      - generic [ref=f13e79]:
+        - generic [ref=f13e80]:
+          - generic [ref=f13e81]: AP
+          - generic [ref=f13e82]:
+            - generic [ref=f13e83]: Admin PharmaGest
+            - generic [ref=f13e84]: Administrateur
+        - generic [ref=f13e85]:
+          - link " Mot de passe" [ref=f13e86] [cursor=pointer]:
+            - /url: /mot-de-passe/
+            - generic [ref=f13e87]: 
+            - generic [ref=f13e88]: Mot de passe
+          - generic "Déconnexion" [ref=f13e89]:
+            - button " Quitter" [ref=f13e90] [cursor=pointer]:
+              - generic [ref=f13e91]: 
+              - generic [ref=f13e92]: Quitter
+    - generic [ref=f13e93]:
+      - banner [ref=f13e94]:
+        - text: 
+        - generic [ref=f13e96]: 
+        - generic [ref=f13e97]:
+          - generic [ref=f13e98]:
+            - generic [ref=f13e99]: 
+            - text: Espace officine
+            - generic [ref=f13e100]: 
+            - text: PharmaGest
+          - heading "Médicaments" [level=1] [ref=f13e101]
+          - paragraph [ref=f13e102]: Catalogue, prix, photos et niveaux de stock
+        - generic [ref=f13e103]:
+          - generic [ref=f13e104]:
+            - generic [ref=f13e105]: 
+            - text: 2 novembre 2026
+          - link "Alertes" [ref=f13e106] [cursor=pointer]:
+            - /url: /stock/alertes/
+            - generic [ref=f13e107]: 
+            - generic [ref=f13e108]: "4"
+          - button "Basculer le menu compact" [ref=f13e109] [cursor=pointer]:
+            - generic [ref=f13e110]: 
+      - main [ref=f13e111]:
+        - generic [ref=f13e112]:
+          - generic [ref=f13e113]:
+            - heading "Catalogue des médicaments" [level=2] [ref=f13e114]
+            - generic [ref=f13e115]: 5 produits trouvés
+          - generic [ref=f13e116]:
+            - link " Alertes" [ref=f13e117] [cursor=pointer]:
+              - /url: /stock/alertes/
+              - generic [ref=f13e118]: 
+              - text: Alertes
+            - link " Nouveau médicament" [ref=f13e119] [cursor=pointer]:
+              - /url: /medicaments/ajouter/
+              - generic [ref=f13e120]: 
+              - text: Nouveau médicament
+        - generic [ref=f13e123]:
+          - generic [ref=f13e124]:
+            - generic [ref=f13e125]: Recherche
+            - searchbox "Nom, générique ou code-barres" [ref=f13e126]
+          - generic [ref=f13e127]:
+            - generic [ref=f13e128]: Catégorie
+            - combobox [ref=f13e129]:
+              - option "Toutes" [selected]
+              - option "Antalgiques"
+              - option "Antibiotiques"
+              - option "Antipaludiques"
+              - option "Hygiène"
+              - option "Vitamines"
+          - generic [ref=f13e130]:
+            - generic [ref=f13e131]: Statut
+            - combobox [ref=f13e132]:
+              - option "Tous" [selected]
+              - option "Actif"
+              - option "Archivé"
+          - generic [ref=f13e133]:
+            - generic [ref=f13e134]: Tri
+            - combobox [ref=f13e135]:
+              - option "Nom A → Z" [selected]
+              - option "Nom Z → A"
+              - option "Prix croissant"
+              - option "Prix décroissant"
+              - option "Plus récents"
+          - button " Filtrer" [ref=f13e137] [cursor=pointer]:
+            - generic [ref=f13e138]: 
+            - text: Filtrer
+          - link "Réinitialiser" [ref=f13e140] [cursor=pointer]:
+            - /url: /medicaments/
+        - table [ref=f13e143]:
+          - rowgroup [ref=f13e144]:
+            - row [ref=f13e145]:
+              - columnheader "Photo" [ref=f13e146]
+              - columnheader "Médicament" [ref=f13e147]
+              - columnheader "Catégorie" [ref=f13e148]
+              - columnheader "Prix de vente" [ref=f13e149]
+              - columnheader "Stock" [ref=f13e150]
+              - columnheader "Statut" [ref=f13e151]
+              - columnheader "Actions" [ref=f13e152]
+          - rowgroup [ref=f13e153]:
+            - row [ref=f13e154]:
+              - cell "" [ref=f13e155]
+              - cell "Amoxil 500 mg Gélule · MG000002" [ref=f13e158]:
+                - link "Amoxil" [ref=f13e159] [cursor=pointer]:
+                  - /url: /medicaments/2/
+                - generic [ref=f13e160]: 500 mg Gélule · MG000002
+              - cell "Antibiotiques" [ref=f13e161]
+              - cell "8 500,00 Ar" [ref=f13e163]
+              - cell "45 unités" [ref=f13e164]
+              - cell "Actif" [ref=f13e166]
+              - cell [ref=f13e168]:
+                - generic [ref=f13e169]:
+                  - link "Détail" [ref=f13e170] [cursor=pointer]:
+                    - /url: /medicaments/2/
+                    - generic [ref=f13e171]: 
+                  - link "Modifier" [ref=f13e172] [cursor=pointer]:
+                    - /url: /medicaments/2/modifier/
+                    - generic [ref=f13e173]: 
+                  - link "Supprimer / archiver" [ref=f13e174] [cursor=pointer]:
+                    - /url: /medicaments/2/supprimer/
+                    - generic [ref=f13e175]: 
+            - row [ref=f13e176]:
+              - cell "" [ref=f13e177]
+              - cell "Bétadine 10 % Solution · MG000005" [ref=f13e180]:
+                - link "Bétadine" [ref=f13e181] [cursor=pointer]:
+                  - /url: /medicaments/5/
+                - generic [ref=f13e182]: 10 % Solution · MG000005
+              - cell "Hygiène" [ref=f13e183]
+              - cell "10 000,00 Ar" [ref=f13e185]
+              - cell "30 unités" [ref=f13e186]
+              - cell "Actif" [ref=f13e188]
+              - cell [ref=f13e190]:
+                - generic [ref=f13e191]:
+                  - link "Détail" [ref=f13e192] [cursor=pointer]:
+                    - /url: /medicaments/5/
+                    - generic [ref=f13e193]: 
+                  - link "Modifier" [ref=f13e194] [cursor=pointer]:
+                    - /url: /medicaments/5/modifier/
+                    - generic [ref=f13e195]: 
+                  - link "Supprimer / archiver" [ref=f13e196] [cursor=pointer]:
+                    - /url: /medicaments/5/supprimer/
+                    - generic [ref=f13e197]: 
+            - row [ref=f13e198]:
+              - cell "" [ref=f13e199]
+              - cell "Coartem 20/120 mg Comprimé · MG000003" [ref=f13e202]:
+                - link "Coartem" [ref=f13e203] [cursor=pointer]:
+                  - /url: /medicaments/3/
+                - generic [ref=f13e204]: 20/120 mg Comprimé · MG000003
+              - cell "Antipaludiques" [ref=f13e205]
+              - cell "12 500,00 Ar" [ref=f13e207]
+              - cell "8 unités" [ref=f13e208]
+              - cell "Actif" [ref=f13e210]
+              - cell [ref=f13e212]:
+                - generic [ref=f13e213]:
+                  - link "Détail" [ref=f13e214] [cursor=pointer]:
+                    - /url: /medicaments/3/
+                    - generic [ref=f13e215]: 
+                  - link "Modifier" [ref=f13e216] [cursor=pointer]:
+                    - /url: /medicaments/3/modifier/
+                    - generic [ref=f13e217]: 
+                  - link "Supprimer / archiver" [ref=f13e218] [cursor=pointer]:
+                    - /url: /medicaments/3/supprimer/
+                    - generic [ref=f13e219]: 
+            - row [ref=f13e220]:
+              - cell "" [ref=f13e221]
+              - cell "Doliprane 500 mg Comprimé · MG000001" [ref=f13e224]:
+                - link "Doliprane" [ref=f13e225] [cursor=pointer]:
+                  - /url: /medicaments/1/
+                - generic [ref=f13e226]: 500 mg Comprimé · MG000001
+              - cell "Antalgiques" [ref=f13e227]
+              - cell "4 500,00 Ar" [ref=f13e229]
+              - cell "125 unités" [ref=f13e230]
+              - cell "Actif" [ref=f13e232]
+              - cell [ref=f13e234]:
+                - generic [ref=f13e235]:
+                  - link "Détail" [ref=f13e236] [cursor=pointer]:
+                    - /url: /medicaments/1/
+                    - generic [ref=f13e237]: 
+                  - link "Modifier" [ref=f13e238] [cursor=pointer]:
+                    - /url: /medicaments/1/modifier/
+                    - generic [ref=f13e239]: 
+                  - link "Supprimer / archiver" [ref=f13e240] [cursor=pointer]:
+                    - /url: /medicaments/1/supprimer/
+                    - generic [ref=f13e241]: 
+            - row [ref=f13e242]:
+              - cell "" [ref=f13e243]
+              - cell "Vitamine C 1000 mg Comprimé effervescent · MG000004" [ref=f13e246]:
+                - link "Vitamine C" [ref=f13e247] [cursor=pointer]:
+                  - /url: /medicaments/4/
+                - generic [ref=f13e248]: 1000 mg Comprimé effervescent · MG000004
+              - cell "Vitamines" [ref=f13e249]
+              - cell "6 000,00 Ar" [ref=f13e251]
+              - cell "60 unités" [ref=f13e252]
+              - cell "Actif" [ref=f13e254]
+              - cell [ref=f13e256]:
+                - generic [ref=f13e257]:
+                  - link "Détail" [ref=f13e258] [cursor=pointer]:
+                    - /url: /medicaments/4/
+                    - generic [ref=f13e259]: 
+                  - link "Modifier" [ref=f13e260] [cursor=pointer]:
+                    - /url: /medicaments/4/modifier/
+                    - generic [ref=f13e261]: 
+                  - link "Supprimer / archiver" [ref=f13e262] [cursor=pointer]:
+                    - /url: /medicaments/4/supprimer/
+                    - generic [ref=f13e263]: 
+      - contentinfo [ref=f13e264]:
+        - generic [ref=f13e265]: PharmaGest · Lot II B 12, Antananarivo, Madagascar · Tél. +261 34 00 000 00
+        - generic [ref=f13e266]: Application de gestion pharmaceutique

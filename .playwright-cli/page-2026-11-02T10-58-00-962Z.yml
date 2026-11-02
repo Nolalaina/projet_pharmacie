@@ -1,0 +1,268 @@
+- generic [active] [ref=f4e1]:
+  - link "Aller au contenu" [ref=f4e2] [cursor=pointer]:
+    - /url: "#contenu"
+  - generic [ref=f4e3]:
+    - complementary "Menu principal de navigation" [ref=f4e4]:
+      - link "Accueil PharmaGest" [ref=f4e5] [cursor=pointer]:
+        - /url: /
+        - generic [ref=f4e6]: 
+        - generic [ref=f4e8]:
+          - generic [ref=f4e9]: PharmaGest
+          - generic [ref=f4e10]: Gestion pharmaceutique
+      - navigation "Navigation" [ref=f4e11]:
+        - generic [ref=f4e12]:
+          - generic [ref=f4e13]: Principal
+          - generic [ref=f4e14]:
+            - link " Tableau de bord" [ref=f4e15] [cursor=pointer]:
+              - /url: /
+              - generic [ref=f4e16]: 
+              - generic [ref=f4e17]: Tableau de bord
+            - link " Caisse / vente" [ref=f4e18] [cursor=pointer]:
+              - /url: /ventes/caisse/
+              - generic [ref=f4e19]: 
+              - generic [ref=f4e20]: Caisse / vente
+            - link " Ventes" [ref=f4e21] [cursor=pointer]:
+              - /url: /ventes/
+              - generic [ref=f4e22]: 
+              - generic [ref=f4e23]: Ventes
+            - link " 4 Alertes" [ref=f4e24] [cursor=pointer]:
+              - /url: /stock/alertes/
+              - generic [ref=f4e25]: 
+              - generic [ref=f4e26]: "4"
+              - generic [ref=f4e27]: Alertes
+        - generic [ref=f4e28]:
+          - generic [ref=f4e29]: Catalogue
+          - generic [ref=f4e30]:
+            - link " Médicaments" [ref=f4e31] [cursor=pointer]:
+              - /url: /medicaments/
+              - generic [ref=f4e32]: 
+              - generic [ref=f4e33]: Médicaments
+            - link " Catégories" [ref=f4e34] [cursor=pointer]:
+              - /url: /categories/
+              - generic [ref=f4e35]: 
+              - generic [ref=f4e36]: Catégories
+            - link " Fournisseurs" [ref=f4e37] [cursor=pointer]:
+              - /url: /fournisseurs/
+              - generic [ref=f4e38]: 
+              - generic [ref=f4e39]: Fournisseurs
+            - link " Clients" [ref=f4e40] [cursor=pointer]:
+              - /url: /clients/
+              - generic [ref=f4e41]: 
+              - generic [ref=f4e42]: Clients
+        - generic [ref=f4e43]:
+          - generic [ref=f4e44]: Approvisionnement
+          - generic [ref=f4e45]:
+            - link " Commandes d'achat" [ref=f4e46] [cursor=pointer]:
+              - /url: /achats/
+              - generic [ref=f4e47]: 
+              - generic [ref=f4e48]: Commandes d'achat
+            - link " Réceptions" [ref=f4e49] [cursor=pointer]:
+              - /url: /receptions/
+              - generic [ref=f4e50]: 
+              - generic [ref=f4e51]: Réceptions
+        - generic [ref=f4e52]:
+          - generic [ref=f4e53]: Stock
+          - generic [ref=f4e54]:
+            - link " État du stock" [ref=f4e55] [cursor=pointer]:
+              - /url: /stock/
+              - generic [ref=f4e56]: 
+              - generic [ref=f4e57]: État du stock
+            - link " Mouvements" [ref=f4e58] [cursor=pointer]:
+              - /url: /stock/mouvements/
+              - generic [ref=f4e59]: 
+              - generic [ref=f4e60]: Mouvements
+            - link " Inventaire" [ref=f4e61] [cursor=pointer]:
+              - /url: /stock/inventaire/
+              - generic [ref=f4e62]: 
+              - generic [ref=f4e63]: Inventaire
+        - generic [ref=f4e64]:
+          - generic [ref=f4e65]: Pilotage
+          - generic [ref=f4e66]:
+            - link " Rapports & PDF" [ref=f4e67] [cursor=pointer]:
+              - /url: /rapports/
+              - generic [ref=f4e68]: 
+              - generic [ref=f4e69]: Rapports & PDF
+            - link " Journal d'audit" [ref=f4e70] [cursor=pointer]:
+              - /url: /journal/
+              - generic [ref=f4e71]: 
+              - generic [ref=f4e72]: Journal d'audit
+            - link " Utilisateurs" [ref=f4e73] [cursor=pointer]:
+              - /url: /utilisateurs/
+              - generic [ref=f4e74]: 
+              - generic [ref=f4e75]: Utilisateurs
+      - generic [ref=f4e76]:
+        - generic [ref=f4e77]:
+          - generic [ref=f4e78]: AP
+          - generic [ref=f4e79]:
+            - generic [ref=f4e80]: Admin PharmaGest
+            - generic [ref=f4e81]: Administrateur
+        - generic [ref=f4e82]:
+          - link " Mot de passe" [ref=f4e83] [cursor=pointer]:
+            - /url: /mot-de-passe/
+            - generic [ref=f4e84]: 
+            - generic [ref=f4e85]: Mot de passe
+          - generic "Déconnexion" [ref=f4e86]:
+            - button " Quitter" [ref=f4e87] [cursor=pointer]:
+              - generic [ref=f4e88]: 
+              - generic [ref=f4e89]: Quitter
+    - generic [ref=f4e90]:
+      - banner [ref=f4e91]:
+        - text: 
+        - generic [ref=f4e92]:
+          - heading "Caisse" [level=1] [ref=f4e93]
+          - paragraph [ref=f4e94]: Enregistrement d'une vente au comptoir
+        - generic [ref=f4e95]:
+          - generic [ref=f4e96]:
+            - generic [ref=f4e97]: 
+            - text: 2 novembre 2026
+          - link "Alertes" [ref=f4e98] [cursor=pointer]:
+            - /url: /stock/alertes/
+            - generic [ref=f4e99]: 
+            - generic [ref=f4e100]: "4"
+          - button "Basculer le menu compact" [ref=f4e101] [cursor=pointer]:
+            - generic [ref=f4e102]: 
+      - main [ref=f4e103]:
+        - generic [ref=f4e105]:
+          - generic [ref=f4e106]:
+            - generic [ref=f4e107]:
+              - generic [ref=f4e109]:
+                - heading "Client" [level=3] [ref=f4e110]
+                - paragraph [ref=f4e111]: "Facultatif : vente comptoir si aucun client n'est sélectionné"
+              - generic [ref=f4e113]:
+                - generic [ref=f4e114]:
+                  - generic [ref=f4e115]: Client
+                  - combobox "Client" [ref=f4e116]:
+                    - option "Client comptoir (non identifié)" [selected]
+                    - option "Andrianina Fanja"
+                    - option "Rakotondrabe Soa"
+                    - option "Rasoanaivo Hery"
+                - generic [ref=f4e117]:
+                  - generic [ref=f4e118]: Remise (Ar)
+                  - spinbutton "Remise (Ar)" [ref=f4e119]: "0"
+            - generic [ref=f4e120]:
+              - generic [ref=f4e121]:
+                - generic [ref=f4e122]:
+                  - heading "Produits" [level=3] [ref=f4e123]
+                  - paragraph [ref=f4e124]: Les lots périmés ou bloqués ne sont pas proposés
+                - button " Ajouter" [ref=f4e125] [cursor=pointer]:
+                  - generic [ref=f4e126]: 
+                  - text: Ajouter
+              - generic [ref=f4e127]:
+                - generic [ref=f4e128]:
+                  - generic [ref=f4e129]: Scanner ou rechercher un médicament
+                  - generic [ref=f4e130]:
+                    - generic [ref=f4e131]: 
+                    - searchbox "Scanner ou rechercher un médicament" [ref=f4e133]
+                  - generic [ref=f4e134]: Le lot valide le plus proche de la péremption sera sélectionné.
+                - table [ref=f4e136]:
+                  - rowgroup [ref=f4e137]:
+                    - row [ref=f4e138]:
+                      - columnheader "Lot / produit" [ref=f4e139]
+                      - columnheader "Qté" [ref=f4e140]
+                      - columnheader "Prix unitaire" [ref=f4e141]
+                      - columnheader "Total" [ref=f4e142]
+                      - columnheader [ref=f4e143]
+                  - rowgroup [ref=f4e144]:
+                    - row [ref=f4e145]:
+                      - cell "— Choisir un lot —" [ref=f4e146]:
+                        - combobox [ref=f4e147]:
+                          - option "— Choisir un lot —" [selected]
+                          - option "Amoxil — lot LOT-AMX-001 — exp. 03/06/2027 — 45 dispo — 8500.00 Ar"
+                          - option "Bétadine — lot LOT-BET-001 — exp. 20/11/2026 — 30 dispo — 10000.00 Ar"
+                          - option "Coartem — lot LOT-COA-001 — exp. 25/03/2027 — 8 dispo — 12500.00 Ar"
+                          - option "Doliprane — lot LOT-DOL-002 — exp. 13/11/2026 — 25 dispo — 4500.00 Ar"
+                          - option "Doliprane — lot LOT-DOL-001 — exp. 30/11/2027 — 88 dispo — 4500.00 Ar"
+                          - option "Vitamine C — lot LOT-VIT-001 — exp. 22/08/2027 — 60 dispo — 6000.00 Ar"
+                      - cell [ref=f4e148]:
+                        - spinbutton [ref=f4e149]
+                      - cell "—" [ref=f4e150]
+                      - cell "—" [ref=f4e151]
+                      - cell [ref=f4e152]:
+                        - button "Retirer" [ref=f4e153] [cursor=pointer]:
+                          - generic [ref=f4e154]: 
+                    - row [ref=f4e155]:
+                      - cell "— Choisir un lot —" [ref=f4e156]:
+                        - combobox [ref=f4e157]:
+                          - option "— Choisir un lot —" [selected]
+                          - option "Amoxil — lot LOT-AMX-001 — exp. 03/06/2027 — 45 dispo — 8500.00 Ar"
+                          - option "Bétadine — lot LOT-BET-001 — exp. 20/11/2026 — 30 dispo — 10000.00 Ar"
+                          - option "Coartem — lot LOT-COA-001 — exp. 25/03/2027 — 8 dispo — 12500.00 Ar"
+                          - option "Doliprane — lot LOT-DOL-002 — exp. 13/11/2026 — 25 dispo — 4500.00 Ar"
+                          - option "Doliprane — lot LOT-DOL-001 — exp. 30/11/2027 — 88 dispo — 4500.00 Ar"
+                          - option "Vitamine C — lot LOT-VIT-001 — exp. 22/08/2027 — 60 dispo — 6000.00 Ar"
+                      - cell [ref=f4e158]:
+                        - spinbutton [ref=f4e159]
+                      - cell "—" [ref=f4e160]
+                      - cell "—" [ref=f4e161]
+                      - cell [ref=f4e162]:
+                        - button "Retirer" [ref=f4e163] [cursor=pointer]:
+                          - generic [ref=f4e164]: 
+                    - row [ref=f4e165]:
+                      - cell "— Choisir un lot —" [ref=f4e166]:
+                        - combobox [ref=f4e167]:
+                          - option "— Choisir un lot —" [selected]
+                          - option "Amoxil — lot LOT-AMX-001 — exp. 03/06/2027 — 45 dispo — 8500.00 Ar"
+                          - option "Bétadine — lot LOT-BET-001 — exp. 20/11/2026 — 30 dispo — 10000.00 Ar"
+                          - option "Coartem — lot LOT-COA-001 — exp. 25/03/2027 — 8 dispo — 12500.00 Ar"
+                          - option "Doliprane — lot LOT-DOL-002 — exp. 13/11/2026 — 25 dispo — 4500.00 Ar"
+                          - option "Doliprane — lot LOT-DOL-001 — exp. 30/11/2027 — 88 dispo — 4500.00 Ar"
+                          - option "Vitamine C — lot LOT-VIT-001 — exp. 22/08/2027 — 60 dispo — 6000.00 Ar"
+                      - cell [ref=f4e168]:
+                        - spinbutton [ref=f4e169]
+                      - cell "—" [ref=f4e170]
+                      - cell "—" [ref=f4e171]
+                      - cell [ref=f4e172]:
+                        - button "Retirer" [ref=f4e173] [cursor=pointer]:
+                          - generic [ref=f4e174]: 
+                    - row [ref=f4e175]:
+                      - cell "— Choisir un lot —" [ref=f4e176]:
+                        - combobox [ref=f4e177]:
+                          - option "— Choisir un lot —" [selected]
+                          - option "Amoxil — lot LOT-AMX-001 — exp. 03/06/2027 — 45 dispo — 8500.00 Ar"
+                          - option "Bétadine — lot LOT-BET-001 — exp. 20/11/2026 — 30 dispo — 10000.00 Ar"
+                          - option "Coartem — lot LOT-COA-001 — exp. 25/03/2027 — 8 dispo — 12500.00 Ar"
+                          - option "Doliprane — lot LOT-DOL-002 — exp. 13/11/2026 — 25 dispo — 4500.00 Ar"
+                          - option "Doliprane — lot LOT-DOL-001 — exp. 30/11/2027 — 88 dispo — 4500.00 Ar"
+                          - option "Vitamine C — lot LOT-VIT-001 — exp. 22/08/2027 — 60 dispo — 6000.00 Ar"
+                      - cell [ref=f4e178]:
+                        - spinbutton [ref=f4e179]
+                      - cell "—" [ref=f4e180]
+                      - cell "—" [ref=f4e181]
+                      - cell [ref=f4e182]:
+                        - button "Retirer" [ref=f4e183] [cursor=pointer]:
+                          - generic [ref=f4e184]: 
+          - generic [ref=f4e186]:
+            - heading "Paiement" [level=3] [ref=f4e188]
+            - generic [ref=f4e189]:
+              - generic [ref=f4e190]:
+                - generic [ref=f4e191]: Mode de paiement
+                - combobox "Mode de paiement" [ref=f4e192]:
+                  - option "Espèces" [selected]
+                  - option "Mobile money"
+                  - option "Carte bancaire"
+              - generic [ref=f4e193]:
+                - generic [ref=f4e194]: Référence
+                - textbox "Référence" [ref=f4e195]
+                - generic [ref=f4e196]: N° de transaction mobile money ou de carte.
+              - generic [ref=f4e197]:
+                - checkbox "Paiement électronique vérifié et confirmé" [ref=f4e198]
+                - generic [ref=f4e199]: Paiement électronique vérifié et confirmé
+              - generic [ref=f4e200]:
+                - generic [ref=f4e201]:
+                  - generic [ref=f4e202]: Sous-total
+                  - generic [ref=f4e203]: 0,00 Ar
+                - generic [ref=f4e204]:
+                  - generic [ref=f4e205]: Remise
+                  - generic [ref=f4e206]: 0,00 Ar
+                - generic [ref=f4e207]:
+                  - generic [ref=f4e208]: Total à payer
+                  - strong [ref=f4e209]: 0,00 Ar
+            - generic [ref=f4e210]:
+              - button " Encaisser la vente" [ref=f4e211] [cursor=pointer]:
+                - generic [ref=f4e212]: 
+                - text: Encaisser la vente
+              - link "Annuler" [ref=f4e213] [cursor=pointer]:
+                - /url: /
+      - contentinfo [ref=f4e214]:
+        - generic [ref=f4e215]: PharmaGest · Lot II B 12, Antananarivo, Madagascar · Tél. +261 34 00 000 00
+        - generic [ref=f4e216]: Application de gestion pharmaceutique

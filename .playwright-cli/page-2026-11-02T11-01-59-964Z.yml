@@ -1,0 +1,172 @@
+- generic [active] [ref=f9e1]:
+  - link "Aller au contenu" [ref=f9e2] [cursor=pointer]:
+    - /url: "#contenu"
+  - generic [ref=f9e3]:
+    - complementary "Menu principal de navigation" [ref=f9e4]:
+      - link "Accueil PharmaGest" [ref=f9e5] [cursor=pointer]:
+        - /url: /
+        - generic [ref=f9e6]: 
+        - generic [ref=f9e8]:
+          - generic [ref=f9e9]: PharmaGest
+          - generic [ref=f9e10]: Gestion pharmaceutique
+      - navigation "Navigation" [ref=f9e11]:
+        - generic [ref=f9e12]:
+          - generic [ref=f9e13]: Principal
+          - generic [ref=f9e14]:
+            - link " Tableau de bord" [ref=f9e15] [cursor=pointer]:
+              - /url: /
+              - generic [ref=f9e16]: 
+              - generic [ref=f9e17]: Tableau de bord
+            - link " Caisse / vente" [ref=f9e18] [cursor=pointer]:
+              - /url: /ventes/caisse/
+              - generic [ref=f9e19]: 
+              - generic [ref=f9e20]: Caisse / vente
+            - link " Ventes" [ref=f9e21] [cursor=pointer]:
+              - /url: /ventes/
+              - generic [ref=f9e22]: 
+              - generic [ref=f9e23]: Ventes
+            - link " 4 Alertes" [ref=f9e24] [cursor=pointer]:
+              - /url: /stock/alertes/
+              - generic [ref=f9e25]: 
+              - generic [ref=f9e26]: "4"
+              - generic [ref=f9e27]: Alertes
+        - generic [ref=f9e28]:
+          - generic [ref=f9e29]: Catalogue
+          - generic [ref=f9e30]:
+            - link " Médicaments" [ref=f9e31] [cursor=pointer]:
+              - /url: /medicaments/
+              - generic [ref=f9e32]: 
+              - generic [ref=f9e33]: Médicaments
+            - link " Catégories" [ref=f9e34] [cursor=pointer]:
+              - /url: /categories/
+              - generic [ref=f9e35]: 
+              - generic [ref=f9e36]: Catégories
+            - link " Fournisseurs" [ref=f9e37] [cursor=pointer]:
+              - /url: /fournisseurs/
+              - generic [ref=f9e38]: 
+              - generic [ref=f9e39]: Fournisseurs
+            - link " Clients" [ref=f9e40] [cursor=pointer]:
+              - /url: /clients/
+              - generic [ref=f9e41]: 
+              - generic [ref=f9e42]: Clients
+        - generic [ref=f9e43]:
+          - generic [ref=f9e44]: Approvisionnement
+          - generic [ref=f9e45]:
+            - link " Commandes d'achat" [ref=f9e46] [cursor=pointer]:
+              - /url: /achats/
+              - generic [ref=f9e47]: 
+              - generic [ref=f9e48]: Commandes d'achat
+            - link " Réceptions" [ref=f9e49] [cursor=pointer]:
+              - /url: /receptions/
+              - generic [ref=f9e50]: 
+              - generic [ref=f9e51]: Réceptions
+        - generic [ref=f9e52]:
+          - generic [ref=f9e53]: Stock
+          - generic [ref=f9e54]:
+            - link " État du stock" [ref=f9e55] [cursor=pointer]:
+              - /url: /stock/
+              - generic [ref=f9e56]: 
+              - generic [ref=f9e57]: État du stock
+            - link " Mouvements" [ref=f9e58] [cursor=pointer]:
+              - /url: /stock/mouvements/
+              - generic [ref=f9e59]: 
+              - generic [ref=f9e60]: Mouvements
+            - link " Inventaire" [ref=f9e61] [cursor=pointer]:
+              - /url: /stock/inventaire/
+              - generic [ref=f9e62]: 
+              - generic [ref=f9e63]: Inventaire
+        - generic [ref=f9e64]:
+          - generic [ref=f9e65]: Pilotage
+          - generic [ref=f9e66]:
+            - link " Rapports & PDF" [ref=f9e67] [cursor=pointer]:
+              - /url: /rapports/
+              - generic [ref=f9e68]: 
+              - generic [ref=f9e69]: Rapports & PDF
+            - link " Journal d'audit" [ref=f9e70] [cursor=pointer]:
+              - /url: /journal/
+              - generic [ref=f9e71]: 
+              - generic [ref=f9e72]: Journal d'audit
+            - link " Utilisateurs" [ref=f9e73] [cursor=pointer]:
+              - /url: /utilisateurs/
+              - generic [ref=f9e74]: 
+              - generic [ref=f9e75]: Utilisateurs
+      - generic [ref=f9e76]:
+        - generic [ref=f9e77]:
+          - generic [ref=f9e78]: AP
+          - generic [ref=f9e79]:
+            - generic [ref=f9e80]: Admin PharmaGest
+            - generic [ref=f9e81]: Administrateur
+        - generic [ref=f9e82]:
+          - link " Mot de passe" [ref=f9e83] [cursor=pointer]:
+            - /url: /mot-de-passe/
+            - generic [ref=f9e84]: 
+            - generic [ref=f9e85]: Mot de passe
+          - generic "Déconnexion" [ref=f9e86]:
+            - button " Quitter" [ref=f9e87] [cursor=pointer]:
+              - generic [ref=f9e88]: 
+              - generic [ref=f9e89]: Quitter
+    - generic [ref=f9e90]:
+      - banner [ref=f9e91]:
+        - text: 
+        - generic [ref=f9e92]:
+          - heading "Ventes" [level=1] [ref=f9e93]
+          - paragraph [ref=f9e94]: Historique des ventes et encaissements
+        - generic [ref=f9e95]:
+          - generic [ref=f9e96]:
+            - generic [ref=f9e97]: 
+            - text: 2 novembre 2026
+          - link "Alertes" [ref=f9e98] [cursor=pointer]:
+            - /url: /stock/alertes/
+            - generic [ref=f9e99]: 
+            - generic [ref=f9e100]: "4"
+          - button "Basculer le menu compact" [ref=f9e101] [cursor=pointer]:
+            - generic [ref=f9e102]: 
+      - main [ref=f9e103]:
+        - generic [ref=f9e104]:
+          - generic [ref=f9e105]:
+            - heading "Ventes" [level=2] [ref=f9e106]
+            - generic [ref=f9e107]: 1 vente
+          - link "Nouvelle vente" [ref=f9e108] [cursor=pointer]:
+            - /url: /ventes/caisse/
+        - generic [ref=f9e111]:
+          - generic [ref=f9e112]:
+            - generic [ref=f9e113]: Recherche
+            - searchbox "Numéro de vente ou client" [ref=f9e114]
+          - generic [ref=f9e115]:
+            - generic [ref=f9e116]: Statut
+            - combobox [ref=f9e117]:
+              - option "Tous" [selected]
+              - option "En attente de validation"
+              - option "Validée"
+              - option "Annulée"
+          - button " Filtrer" [ref=f9e119] [cursor=pointer]:
+            - generic [ref=f9e120]: 
+            - text: Filtrer
+          - link "Réinitialiser" [ref=f9e122] [cursor=pointer]:
+            - /url: /ventes/
+        - table [ref=f9e125]:
+          - rowgroup [ref=f9e126]:
+            - row [ref=f9e127]:
+              - columnheader "Numéro" [ref=f9e128]
+              - columnheader "Date" [ref=f9e129]
+              - columnheader "Client" [ref=f9e130]
+              - columnheader "Vendeur" [ref=f9e131]
+              - columnheader "Statut" [ref=f9e132]
+              - columnheader "Total" [ref=f9e133]
+              - columnheader "Action" [ref=f9e134]
+          - rowgroup [ref=f9e135]:
+            - row [ref=f9e136]:
+              - cell [ref=f9e137]:
+                - link "VE-20261026-113109-9FE6" [ref=f9e138] [cursor=pointer]:
+                  - /url: /ventes/1/
+              - cell "26/10/2026 11:31" [ref=f9e139]
+              - cell "Client comptoir" [ref=f9e140]
+              - cell "Admin PharmaGest" [ref=f9e141]
+              - cell "Validée" [ref=f9e142]
+              - cell "9 000,00 Ar" [ref=f9e144]
+              - cell [ref=f9e145]:
+                - link "" [ref=f9e146] [cursor=pointer]:
+                  - /url: /ventes/1/
+      - contentinfo [ref=f9e148]:
+        - generic [ref=f9e149]: PharmaGest · Lot II B 12, Antananarivo, Madagascar · Tél. +261 34 00 000 00
+        - generic [ref=f9e150]: Application de gestion pharmaceutique

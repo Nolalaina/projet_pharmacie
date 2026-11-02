@@ -110,7 +110,6 @@
               <a class="btn btn-sm btn-soft btn-icon" href="{% url 'gestion:medicament_supprimer' medicament.pk %}" title="Supprimer / archiver" data-confirm="Êtes-vous sûr de vouloir archiver ce médicament ?"><i class="bi bi-trash3"></i></a>
 {% endif %}
             </div>
-            <span class="pg-badge pg-badge-{{ medicament.statut|couleur_statut }}">{{ medicament.get_statut_display }}</span>
           </td>
         </tr>
         {% empty %}
@@ -125,3 +124,5 @@
     </table>
   </div>
   {% include "gestion/includes/pagination.html" %}
+</div>
+{% endblock %}

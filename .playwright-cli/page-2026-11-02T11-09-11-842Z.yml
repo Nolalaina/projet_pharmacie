@@ -1,0 +1,235 @@
+- generic [active] [ref=f10e1]:
+  - link "Aller au contenu" [ref=f10e2] [cursor=pointer]:
+    - /url: "#contenu"
+  - generic [ref=f10e3]:
+    - complementary "Menu principal de navigation" [ref=f10e4]:
+      - link "Accueil PharmaGest" [ref=f10e5] [cursor=pointer]:
+        - /url: /
+        - generic [ref=f10e6]: 
+        - generic [ref=f10e8]:
+          - generic [ref=f10e9]: PharmaGest
+          - generic [ref=f10e10]: Gestion pharmaceutique
+      - navigation "Navigation" [ref=f10e11]:
+        - generic [ref=f10e12]:
+          - generic [ref=f10e13]: Principal
+          - generic [ref=f10e14]:
+            - link " Tableau de bord" [ref=f10e15] [cursor=pointer]:
+              - /url: /
+              - generic [ref=f10e16]: 
+              - generic [ref=f10e17]: Tableau de bord
+            - link " Caisse / vente" [ref=f10e18] [cursor=pointer]:
+              - /url: /ventes/caisse/
+              - generic [ref=f10e19]: 
+              - generic [ref=f10e20]: Caisse / vente
+            - link " Ventes" [ref=f10e21] [cursor=pointer]:
+              - /url: /ventes/
+              - generic [ref=f10e22]: 
+              - generic [ref=f10e23]: Ventes
+            - link " 4 Alertes" [ref=f10e24] [cursor=pointer]:
+              - /url: /stock/alertes/
+              - generic [ref=f10e25]: 
+              - generic [ref=f10e26]: "4"
+              - generic [ref=f10e27]: Alertes
+        - generic [ref=f10e28]:
+          - generic [ref=f10e29]: Catalogue
+          - generic [ref=f10e30]:
+            - link " Médicaments" [ref=f10e31] [cursor=pointer]:
+              - /url: /medicaments/
+              - generic [ref=f10e32]: 
+              - generic [ref=f10e33]: Médicaments
+            - link " Catégories" [ref=f10e34] [cursor=pointer]:
+              - /url: /categories/
+              - generic [ref=f10e35]: 
+              - generic [ref=f10e36]: Catégories
+            - link " Fournisseurs" [ref=f10e37] [cursor=pointer]:
+              - /url: /fournisseurs/
+              - generic [ref=f10e38]: 
+              - generic [ref=f10e39]: Fournisseurs
+            - link " Clients" [ref=f10e40] [cursor=pointer]:
+              - /url: /clients/
+              - generic [ref=f10e41]: 
+              - generic [ref=f10e42]: Clients
+        - generic [ref=f10e43]:
+          - generic [ref=f10e44]: Approvisionnement
+          - generic [ref=f10e45]:
+            - link " Commandes d'achat" [ref=f10e46] [cursor=pointer]:
+              - /url: /achats/
+              - generic [ref=f10e47]: 
+              - generic [ref=f10e48]: Commandes d'achat
+            - link " Réceptions" [ref=f10e49] [cursor=pointer]:
+              - /url: /receptions/
+              - generic [ref=f10e50]: 
+              - generic [ref=f10e51]: Réceptions
+        - generic [ref=f10e52]:
+          - generic [ref=f10e53]: Stock
+          - generic [ref=f10e54]:
+            - link " État du stock" [ref=f10e55] [cursor=pointer]:
+              - /url: /stock/
+              - generic [ref=f10e56]: 
+              - generic [ref=f10e57]: État du stock
+            - link " Mouvements" [ref=f10e58] [cursor=pointer]:
+              - /url: /stock/mouvements/
+              - generic [ref=f10e59]: 
+              - generic [ref=f10e60]: Mouvements
+            - link " Inventaire" [ref=f10e61] [cursor=pointer]:
+              - /url: /stock/inventaire/
+              - generic [ref=f10e62]: 
+              - generic [ref=f10e63]: Inventaire
+        - generic [ref=f10e64]:
+          - generic [ref=f10e65]: Pilotage
+          - generic [ref=f10e66]:
+            - link " Rapports & PDF" [ref=f10e67] [cursor=pointer]:
+              - /url: /rapports/
+              - generic [ref=f10e68]: 
+              - generic [ref=f10e69]: Rapports & PDF
+            - link " Journal d'audit" [ref=f10e70] [cursor=pointer]:
+              - /url: /journal/
+              - generic [ref=f10e71]: 
+              - generic [ref=f10e72]: Journal d'audit
+            - link " Utilisateurs" [ref=f10e73] [cursor=pointer]:
+              - /url: /utilisateurs/
+              - generic [ref=f10e74]: 
+              - generic [ref=f10e75]: Utilisateurs
+      - generic [ref=f10e76]:
+        - generic [ref=f10e77]:
+          - generic [ref=f10e78]: AP
+          - generic [ref=f10e79]:
+            - generic [ref=f10e80]: Admin PharmaGest
+            - generic [ref=f10e81]: Administrateur
+        - generic [ref=f10e82]:
+          - link " Mot de passe" [ref=f10e83] [cursor=pointer]:
+            - /url: /mot-de-passe/
+            - generic [ref=f10e84]: 
+            - generic [ref=f10e85]: Mot de passe
+          - generic "Déconnexion" [ref=f10e86]:
+            - button " Quitter" [ref=f10e87] [cursor=pointer]:
+              - generic [ref=f10e88]: 
+              - generic [ref=f10e89]: Quitter
+    - generic [ref=f10e90]:
+      - banner [ref=f10e91]:
+        - text: 
+        - generic [ref=f10e92]:
+          - heading "Tableau de bord" [level=1] [ref=f10e93]
+          - paragraph [ref=f10e94]: Vue d'ensemble de l'activité de la pharmacie
+        - generic [ref=f10e95]:
+          - generic [ref=f10e96]:
+            - generic [ref=f10e97]: 
+            - text: 2 novembre 2026
+          - link "Alertes" [ref=f10e98] [cursor=pointer]:
+            - /url: /stock/alertes/
+            - generic [ref=f10e99]: 
+            - generic [ref=f10e100]: "4"
+          - button "Basculer le menu compact" [ref=f10e101] [cursor=pointer]:
+            - generic [ref=f10e102]: 
+      - main [ref=f10e103]:
+        - generic [ref=f10e104]:
+          - generic [ref=f10e106]:
+            - generic [ref=f10e107]: 
+            - generic [ref=f10e109]: "5"
+            - generic [ref=f10e110]: Médicaments actifs
+            - generic [ref=f10e111]:
+              - generic [ref=f10e112]: 
+              - text: référencés au catalogue
+          - generic [ref=f10e114]:
+            - generic [ref=f10e115]: 
+            - generic [ref=f10e117]: "0"
+            - generic [ref=f10e118]: Ventes du jour
+            - generic [ref=f10e119]: 0,00 Ar encaissés
+          - generic [ref=f10e121]:
+            - generic [ref=f10e122]: 
+            - generic [ref=f10e124]: "1"
+            - generic [ref=f10e125]: Stocks faibles
+            - link "Consulter les alertes →" [ref=f10e127] [cursor=pointer]:
+              - /url: /stock/alertes/
+          - generic [ref=f10e129]:
+            - generic [ref=f10e130]: 
+            - generic [ref=f10e132]: "3"
+            - generic [ref=f10e133]: Péremptions proches
+            - link "Voir les lots concernés →" [ref=f10e135] [cursor=pointer]:
+              - /url: /stock/alertes/
+        - generic [ref=f10e136]:
+          - generic [ref=f10e138]:
+            - generic [ref=f10e139]:
+              - generic [ref=f10e140]:
+                - heading "Activité des 7 derniers jours" [level=3] [ref=f10e141]
+                - paragraph [ref=f10e142]: Montants encaissés par jour de vente validée
+              - generic [ref=f10e143]: 0,00 Ar ce mois
+            - generic [ref=f10e145]:
+              - generic [ref=f10e146]: 
+              - text: Aucune vente validée sur la période.
+          - generic [ref=f10e148]:
+            - generic [ref=f10e150]:
+              - heading "Alertes prioritaires" [level=3] [ref=f10e151]
+              - paragraph [ref=f10e152]: Stocks et péremptions à surveiller
+            - generic [ref=f10e153]:
+              - generic [ref=f10e154]: Stocks faibles
+              - link "8 Coartem seuil 10" [ref=f10e155] [cursor=pointer]:
+                - /url: /medicaments/3/
+                - generic [ref=f10e156]: "8"
+                - generic [ref=f10e157]: Coartem
+                - generic [ref=f10e158]: seuil 10
+              - generic [ref=f10e159]: Péremptions
+              - link "Périmé Doliprane lot LOT-DOL-OLD" [ref=f10e160] [cursor=pointer]:
+                - /url: /stock/?q=LOT-DOL-OLD
+                - generic [ref=f10e161]: Périmé
+                - generic [ref=f10e162]: Doliprane
+                - generic [ref=f10e163]: lot LOT-DOL-OLD
+              - link "J-11 Doliprane lot LOT-DOL-002" [ref=f10e164] [cursor=pointer]:
+                - /url: /stock/?q=LOT-DOL-002
+                - generic [ref=f10e165]: J-11
+                - generic [ref=f10e166]: Doliprane
+                - generic [ref=f10e167]: lot LOT-DOL-002
+              - link "J-18 Bétadine lot LOT-BET-001" [ref=f10e168] [cursor=pointer]:
+                - /url: /stock/?q=LOT-BET-001
+                - generic [ref=f10e169]: J-18
+                - generic [ref=f10e170]: Bétadine
+                - generic [ref=f10e171]: lot LOT-BET-001
+        - generic [ref=f10e172]:
+          - generic [ref=f10e174]:
+            - generic [ref=f10e175]:
+              - generic [ref=f10e176]:
+                - heading "Dernières ventes" [level=3] [ref=f10e177]
+                - paragraph [ref=f10e178]: 1 transaction(s) récente(s)
+              - link "Tout voir" [ref=f10e179] [cursor=pointer]:
+                - /url: /ventes/
+            - table [ref=f10e181]:
+              - rowgroup [ref=f10e182]:
+                - row [ref=f10e183]:
+                  - columnheader "N°" [ref=f10e184]
+                  - columnheader "Client" [ref=f10e185]
+                  - columnheader "Vendeur" [ref=f10e186]
+                  - columnheader "Statut" [ref=f10e187]
+                  - columnheader "Total" [ref=f10e188]
+              - rowgroup [ref=f10e189]:
+                - row [ref=f10e190]:
+                  - cell [ref=f10e191]:
+                    - link "VE-20261026-113109-9FE6" [ref=f10e192] [cursor=pointer]:
+                      - /url: /ventes/1/
+                  - cell "Client comptoir" [ref=f10e193]
+                  - cell "Admin PharmaGest" [ref=f10e194]
+                  - cell "Validée" [ref=f10e195]
+                  - cell "9 000,00 Ar" [ref=f10e197]
+          - generic [ref=f10e198]:
+            - generic [ref=f10e199]:
+              - generic [ref=f10e201]:
+                - heading "Produits les plus vendus" [level=3] [ref=f10e202]
+                - paragraph [ref=f10e203]: 30 derniers jours
+              - generic [ref=f10e205]:
+                - generic [ref=f10e206]:
+                  - generic [ref=f10e207]: Doliprane
+                  - generic [ref=f10e208]: 9 000,00 Ar
+                - generic [ref=f10e209]: 2 u.
+            - generic [ref=f10e210]:
+              - generic [ref=f10e211]:
+                - generic [ref=f10e212]:
+                  - heading "Derniers mouvements" [level=3] [ref=f10e213]
+                  - paragraph [ref=f10e214]: Traçabilité du stock
+                - link "Historique" [ref=f10e215] [cursor=pointer]:
+                  - /url: /stock/mouvements/
+              - generic [ref=f10e217]:
+                - generic [ref=f10e218]: Sortie (vente)
+                - generic [ref=f10e219]: Doliprane
+                - generic [ref=f10e220]: "-2"
+      - contentinfo [ref=f10e221]:
+        - generic [ref=f10e222]: PharmaGest · Lot II B 12, Antananarivo, Madagascar · Tél. +261 34 00 000 00
+        - generic [ref=f10e223]: Application de gestion pharmaceutique

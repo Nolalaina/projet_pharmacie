@@ -55,7 +55,12 @@
               <a class="btn btn-sm btn-soft btn-icon" href="{% url 'gestion:fournisseur_detail' fournisseur.pk %}" title="Détail"><i class="bi bi-eye"></i></a>
               {% if user.est_admin or user.role == 'PHARMACIEN' or user.role == 'GESTIONNAIRE' %}
               <a class="btn btn-sm btn-soft btn-icon" href="{% url 'gestion:fournisseur_modifier' fournisseur.pk %}" title="Modifier"><i class="bi bi-pencil"></i></a>
-              <a class="btn btn-sm btn-soft btn-icon" href="{% url 'gestion:fournisseur_supprimer' fournisseur.pk %}" title="Supprimer" data-confirm="Êtes-vous sûr de supprimer ce fournisseur ?"><i class="bi bi-trash3"></i></a>
+              <form method="post" action="{% url 'gestion:fournisseur_basculer' fournisseur.pk %}" class="d-inline" data-confirm="{% if fournisseur.est_actif %}Désactiver{% else %}Réactiver{% endif %} ce fournisseur ?">
+                {% csrf_token %}
+                <button class="btn btn-sm btn-soft btn-icon" type="submit" title="{% if fournisseur.est_actif %}Désactiver{% else %}Réactiver{% endif %}">
+                  <i class="bi {% if fournisseur.est_actif %}bi-pause-circle{% else %}bi-play-circle{% endif %}"></i>
+                </button>
+              </form>
 {% endif %}
             </div>
           </td>

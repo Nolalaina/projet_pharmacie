@@ -1,0 +1,223 @@
+- generic [active] [ref=f18e1]:
+  - link "Aller au contenu" [ref=f18e2] [cursor=pointer]:
+    - /url: "#contenu"
+  - generic [ref=f18e3]:
+    - complementary "Menu principal de navigation" [ref=f18e4]:
+      - link "Accueil PharmaGest" [ref=f18e5] [cursor=pointer]:
+        - /url: /
+        - generic [ref=f18e6]: 
+        - generic [ref=f18e8]:
+          - generic [ref=f18e9]: PharmaGest
+          - generic [ref=f18e10]: Gestion pharmaceutique
+      - link " Nouvelle vente" [ref=f18e11] [cursor=pointer]:
+        - /url: /ventes/caisse/
+        - generic [ref=f18e12]: 
+        - generic [ref=f18e13]: Nouvelle vente
+      - navigation "Navigation" [ref=f18e14]:
+        - generic [ref=f18e15]:
+          - generic [ref=f18e16]: Principal
+          - generic [ref=f18e17]:
+            - link " Tableau de bord" [ref=f18e18] [cursor=pointer]:
+              - /url: /
+              - generic [ref=f18e19]: 
+              - generic [ref=f18e20]: Tableau de bord
+            - link " Caisse / vente" [ref=f18e21] [cursor=pointer]:
+              - /url: /ventes/caisse/
+              - generic [ref=f18e22]: 
+              - generic [ref=f18e23]: Caisse / vente
+            - link " Ventes" [ref=f18e24] [cursor=pointer]:
+              - /url: /ventes/
+              - generic [ref=f18e25]: 
+              - generic [ref=f18e26]: Ventes
+            - link " 4 Alertes" [ref=f18e27] [cursor=pointer]:
+              - /url: /stock/alertes/
+              - generic [ref=f18e28]: 
+              - generic [ref=f18e29]: "4"
+              - generic [ref=f18e30]: Alertes
+        - generic [ref=f18e31]:
+          - generic [ref=f18e32]: Catalogue
+          - generic [ref=f18e33]:
+            - link " Médicaments" [ref=f18e34] [cursor=pointer]:
+              - /url: /medicaments/
+              - generic [ref=f18e35]: 
+              - generic [ref=f18e36]: Médicaments
+            - link " Catégories" [ref=f18e37] [cursor=pointer]:
+              - /url: /categories/
+              - generic [ref=f18e38]: 
+              - generic [ref=f18e39]: Catégories
+            - link " Fournisseurs" [ref=f18e40] [cursor=pointer]:
+              - /url: /fournisseurs/
+              - generic [ref=f18e41]: 
+              - generic [ref=f18e42]: Fournisseurs
+            - link " Clients" [ref=f18e43] [cursor=pointer]:
+              - /url: /clients/
+              - generic [ref=f18e44]: 
+              - generic [ref=f18e45]: Clients
+        - generic [ref=f18e46]:
+          - generic [ref=f18e47]: Approvisionnement
+          - generic [ref=f18e48]:
+            - link " Commandes d'achat" [ref=f18e49] [cursor=pointer]:
+              - /url: /achats/
+              - generic [ref=f18e50]: 
+              - generic [ref=f18e51]: Commandes d'achat
+            - link " Réceptions" [ref=f18e52] [cursor=pointer]:
+              - /url: /receptions/
+              - generic [ref=f18e53]: 
+              - generic [ref=f18e54]: Réceptions
+        - generic [ref=f18e55]:
+          - generic [ref=f18e56]: Stock
+          - generic [ref=f18e57]:
+            - link " État du stock" [ref=f18e58] [cursor=pointer]:
+              - /url: /stock/
+              - generic [ref=f18e59]: 
+              - generic [ref=f18e60]: État du stock
+            - link " Mouvements" [ref=f18e61] [cursor=pointer]:
+              - /url: /stock/mouvements/
+              - generic [ref=f18e62]: 
+              - generic [ref=f18e63]: Mouvements
+            - link " Inventaire" [ref=f18e64] [cursor=pointer]:
+              - /url: /stock/inventaire/
+              - generic [ref=f18e65]: 
+              - generic [ref=f18e66]: Inventaire
+        - generic [ref=f18e67]:
+          - generic [ref=f18e68]: Pilotage
+          - generic [ref=f18e69]:
+            - link " Rapports & PDF" [ref=f18e70] [cursor=pointer]:
+              - /url: /rapports/
+              - generic [ref=f18e71]: 
+              - generic [ref=f18e72]: Rapports & PDF
+            - link " Journal d'audit" [ref=f18e73] [cursor=pointer]:
+              - /url: /journal/
+              - generic [ref=f18e74]: 
+              - generic [ref=f18e75]: Journal d'audit
+            - link " Utilisateurs" [ref=f18e76] [cursor=pointer]:
+              - /url: /utilisateurs/
+              - generic [ref=f18e77]: 
+              - generic [ref=f18e78]: Utilisateurs
+      - generic [ref=f18e79]:
+        - generic [ref=f18e80]:
+          - generic [ref=f18e81]: AP
+          - generic [ref=f18e82]:
+            - generic [ref=f18e83]: Admin PharmaGest
+            - generic [ref=f18e84]: Administrateur
+        - generic [ref=f18e85]:
+          - link " Mot de passe" [ref=f18e86] [cursor=pointer]:
+            - /url: /mot-de-passe/
+            - generic [ref=f18e87]: 
+            - generic [ref=f18e88]: Mot de passe
+          - generic "Déconnexion" [ref=f18e89]:
+            - button " Quitter" [ref=f18e90] [cursor=pointer]:
+              - generic [ref=f18e91]: 
+              - generic [ref=f18e92]: Quitter
+    - generic [ref=f18e93]:
+      - banner [ref=f18e94]:
+        - text: 
+        - generic [ref=f18e96]: 
+        - generic [ref=f18e97]:
+          - generic [ref=f18e98]:
+            - generic [ref=f18e99]: 
+            - text: Espace officine
+            - generic [ref=f18e100]: 
+            - text: PharmaGest
+          - heading "Fournisseurs" [level=1] [ref=f18e101]
+          - paragraph [ref=f18e102]: Partenaires d'approvisionnement et historique d'achats
+        - generic [ref=f18e103]:
+          - generic [ref=f18e104]:
+            - generic [ref=f18e105]: 
+            - text: 2 novembre 2026
+          - link "Alertes" [ref=f18e106] [cursor=pointer]:
+            - /url: /stock/alertes/
+            - generic [ref=f18e107]: 
+            - generic [ref=f18e108]: "4"
+          - button "Basculer le menu compact" [ref=f18e109] [cursor=pointer]:
+            - generic [ref=f18e110]: 
+      - main [ref=f18e111]:
+        - generic [ref=f18e112]:
+          - generic [ref=f18e113]:
+            - heading "Fournisseurs" [level=2] [ref=f18e114]
+            - generic [ref=f18e115]: 3 fournisseurs
+          - link " Nouveau fournisseur" [ref=f18e116] [cursor=pointer]:
+            - /url: /fournisseurs/ajouter/
+            - generic [ref=f18e117]: 
+            - text: Nouveau fournisseur
+        - generic [ref=f18e120]:
+          - generic [ref=f18e121]:
+            - generic [ref=f18e122]: Recherche
+            - searchbox "Nom, téléphone ou e-mail" [ref=f18e123]
+          - generic [ref=f18e124]:
+            - generic [ref=f18e125]: Statut
+            - combobox [ref=f18e126]:
+              - option "Tous" [selected]
+              - option "Actif"
+              - option "Inactif"
+          - button " Filtrer" [ref=f18e128] [cursor=pointer]:
+            - generic [ref=f18e129]: 
+            - text: Filtrer
+          - link "Réinitialiser" [ref=f18e131] [cursor=pointer]:
+            - /url: /fournisseurs/
+        - table [ref=f18e134]:
+          - rowgroup [ref=f18e135]:
+            - row [ref=f18e136]:
+              - columnheader "Fournisseur" [ref=f18e137]
+              - columnheader "Contact" [ref=f18e138]
+              - columnheader "Téléphone" [ref=f18e139]
+              - columnheader "Statut" [ref=f18e140]
+              - columnheader "Actions" [ref=f18e141]
+          - rowgroup [ref=f18e142]:
+            - row [ref=f18e143]:
+              - cell "Opham contact@opham.mg" [ref=f18e144]:
+                - link "Opham" [ref=f18e145] [cursor=pointer]:
+                  - /url: /fournisseurs/2/
+                - generic [ref=f18e146]: contact@opham.mg
+              - cell "—" [ref=f18e147]
+              - cell "+261 20 22 000 02" [ref=f18e148]
+              - cell "Actif" [ref=f18e149]
+              - cell [ref=f18e151]:
+                - generic [ref=f18e152]:
+                  - link "Détail" [ref=f18e153] [cursor=pointer]:
+                    - /url: /fournisseurs/2/
+                    - generic [ref=f18e154]: 
+                  - link "Modifier" [ref=f18e155] [cursor=pointer]:
+                    - /url: /fournisseurs/2/modifier/
+                    - generic [ref=f18e156]: 
+                  - button "Désactiver" [ref=f18e158] [cursor=pointer]:
+                    - generic [ref=f18e159]: 
+            - row [ref=f18e160]:
+              - cell "Pmi Distribution contact@pmi.mg" [ref=f18e161]:
+                - link "Pmi Distribution" [ref=f18e162] [cursor=pointer]:
+                  - /url: /fournisseurs/3/
+                - generic [ref=f18e163]: contact@pmi.mg
+              - cell "—" [ref=f18e164]
+              - cell "+261 20 22 000 03" [ref=f18e165]
+              - cell "Actif" [ref=f18e166]
+              - cell [ref=f18e168]:
+                - generic [ref=f18e169]:
+                  - link "Détail" [ref=f18e170] [cursor=pointer]:
+                    - /url: /fournisseurs/3/
+                    - generic [ref=f18e171]: 
+                  - link "Modifier" [ref=f18e172] [cursor=pointer]:
+                    - /url: /fournisseurs/3/modifier/
+                    - generic [ref=f18e173]: 
+                  - button "Désactiver" [ref=f18e175] [cursor=pointer]:
+                    - generic [ref=f18e176]: 
+            - row [ref=f18e177]:
+              - cell "Somapharm contact@somapharm.mg" [ref=f18e178]:
+                - link "Somapharm" [ref=f18e179] [cursor=pointer]:
+                  - /url: /fournisseurs/1/
+                - generic [ref=f18e180]: contact@somapharm.mg
+              - cell "—" [ref=f18e181]
+              - cell "+261 20 22 000 01" [ref=f18e182]
+              - cell "Actif" [ref=f18e183]
+              - cell [ref=f18e185]:
+                - generic [ref=f18e186]:
+                  - link "Détail" [ref=f18e187] [cursor=pointer]:
+                    - /url: /fournisseurs/1/
+                    - generic [ref=f18e188]: 
+                  - link "Modifier" [ref=f18e189] [cursor=pointer]:
+                    - /url: /fournisseurs/1/modifier/
+                    - generic [ref=f18e190]: 
+                  - button "Désactiver" [ref=f18e192] [cursor=pointer]:
+                    - generic [ref=f18e193]: 
+      - contentinfo [ref=f18e194]:
+        - generic [ref=f18e195]: PharmaGest · Lot II B 12, Antananarivo, Madagascar · Tél. +261 34 00 000 00
+        - generic [ref=f18e196]: Application de gestion pharmaceutique

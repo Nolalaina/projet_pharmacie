@@ -1,0 +1,237 @@
+- generic [active] [ref=f5e1]:
+  - link "Aller au contenu" [ref=f5e2] [cursor=pointer]:
+    - /url: "#contenu"
+  - generic [ref=f5e3]:
+    - complementary "Menu principal de navigation" [ref=f5e4]:
+      - link "Accueil PharmaGest" [ref=f5e5] [cursor=pointer]:
+        - /url: /
+        - generic [ref=f5e6]: 
+        - generic [ref=f5e8]:
+          - generic [ref=f5e9]: PharmaGest
+          - generic [ref=f5e10]: Gestion pharmaceutique
+      - navigation "Navigation" [ref=f5e11]:
+        - generic [ref=f5e12]:
+          - generic [ref=f5e13]: Principal
+          - generic [ref=f5e14]:
+            - link " Tableau de bord" [ref=f5e15] [cursor=pointer]:
+              - /url: /
+              - generic [ref=f5e16]: 
+              - generic [ref=f5e17]: Tableau de bord
+            - link " Caisse / vente" [ref=f5e18] [cursor=pointer]:
+              - /url: /ventes/caisse/
+              - generic [ref=f5e19]: 
+              - generic [ref=f5e20]: Caisse / vente
+            - link " Ventes" [ref=f5e21] [cursor=pointer]:
+              - /url: /ventes/
+              - generic [ref=f5e22]: 
+              - generic [ref=f5e23]: Ventes
+            - link " 4 Alertes" [ref=f5e24] [cursor=pointer]:
+              - /url: /stock/alertes/
+              - generic [ref=f5e25]: 
+              - generic [ref=f5e26]: "4"
+              - generic [ref=f5e27]: Alertes
+        - generic [ref=f5e28]:
+          - generic [ref=f5e29]: Catalogue
+          - generic [ref=f5e30]:
+            - link " Médicaments" [ref=f5e31] [cursor=pointer]:
+              - /url: /medicaments/
+              - generic [ref=f5e32]: 
+              - generic [ref=f5e33]: Médicaments
+            - link " Catégories" [ref=f5e34] [cursor=pointer]:
+              - /url: /categories/
+              - generic [ref=f5e35]: 
+              - generic [ref=f5e36]: Catégories
+            - link " Fournisseurs" [ref=f5e37] [cursor=pointer]:
+              - /url: /fournisseurs/
+              - generic [ref=f5e38]: 
+              - generic [ref=f5e39]: Fournisseurs
+            - link " Clients" [ref=f5e40] [cursor=pointer]:
+              - /url: /clients/
+              - generic [ref=f5e41]: 
+              - generic [ref=f5e42]: Clients
+        - generic [ref=f5e43]:
+          - generic [ref=f5e44]: Approvisionnement
+          - generic [ref=f5e45]:
+            - link " Commandes d'achat" [ref=f5e46] [cursor=pointer]:
+              - /url: /achats/
+              - generic [ref=f5e47]: 
+              - generic [ref=f5e48]: Commandes d'achat
+            - link " Réceptions" [ref=f5e49] [cursor=pointer]:
+              - /url: /receptions/
+              - generic [ref=f5e50]: 
+              - generic [ref=f5e51]: Réceptions
+        - generic [ref=f5e52]:
+          - generic [ref=f5e53]: Stock
+          - generic [ref=f5e54]:
+            - link " État du stock" [ref=f5e55] [cursor=pointer]:
+              - /url: /stock/
+              - generic [ref=f5e56]: 
+              - generic [ref=f5e57]: État du stock
+            - link " Mouvements" [ref=f5e58] [cursor=pointer]:
+              - /url: /stock/mouvements/
+              - generic [ref=f5e59]: 
+              - generic [ref=f5e60]: Mouvements
+            - link " Inventaire" [ref=f5e61] [cursor=pointer]:
+              - /url: /stock/inventaire/
+              - generic [ref=f5e62]: 
+              - generic [ref=f5e63]: Inventaire
+        - generic [ref=f5e64]:
+          - generic [ref=f5e65]: Pilotage
+          - generic [ref=f5e66]:
+            - link " Rapports & PDF" [ref=f5e67] [cursor=pointer]:
+              - /url: /rapports/
+              - generic [ref=f5e68]: 
+              - generic [ref=f5e69]: Rapports & PDF
+            - link " Journal d'audit" [ref=f5e70] [cursor=pointer]:
+              - /url: /journal/
+              - generic [ref=f5e71]: 
+              - generic [ref=f5e72]: Journal d'audit
+            - link " Utilisateurs" [ref=f5e73] [cursor=pointer]:
+              - /url: /utilisateurs/
+              - generic [ref=f5e74]: 
+              - generic [ref=f5e75]: Utilisateurs
+      - generic [ref=f5e76]:
+        - generic [ref=f5e77]:
+          - generic [ref=f5e78]: AP
+          - generic [ref=f5e79]:
+            - generic [ref=f5e80]: Admin PharmaGest
+            - generic [ref=f5e81]: Administrateur
+        - generic [ref=f5e82]:
+          - link " Mot de passe" [ref=f5e83] [cursor=pointer]:
+            - /url: /mot-de-passe/
+            - generic [ref=f5e84]: 
+            - generic [ref=f5e85]: Mot de passe
+          - generic "Déconnexion" [ref=f5e86]:
+            - button " Quitter" [ref=f5e87] [cursor=pointer]:
+              - generic [ref=f5e88]: 
+              - generic [ref=f5e89]: Quitter
+    - generic [ref=f5e90]:
+      - banner [ref=f5e91]:
+        - text: 
+        - generic [ref=f5e92]:
+          - heading "Amoxil" [level=1] [ref=f5e93]
+          - paragraph [ref=f5e94]: Antibiotiques · 500 mg
+        - generic [ref=f5e95]:
+          - generic [ref=f5e96]:
+            - generic [ref=f5e97]: 
+            - text: 2 novembre 2026
+          - link "Alertes" [ref=f5e98] [cursor=pointer]:
+            - /url: /stock/alertes/
+            - generic [ref=f5e99]: 
+            - generic [ref=f5e100]: "4"
+          - button "Basculer le menu compact" [ref=f5e101] [cursor=pointer]:
+            - generic [ref=f5e102]: 
+      - main [ref=f5e103]:
+        - generic [ref=f5e104]:
+          - generic [ref=f5e105]:
+            - link "Retour" [ref=f5e106] [cursor=pointer]:
+              - /url: /medicaments/
+              - generic [ref=f5e107]: 
+            - generic [ref=f5e108]: Actif
+          - generic [ref=f5e109]:
+            - link " Vendre" [ref=f5e110] [cursor=pointer]:
+              - /url: /ventes/caisse/
+              - generic [ref=f5e111]: 
+              - text: Vendre
+            - link " Modifier" [ref=f5e112] [cursor=pointer]:
+              - /url: /medicaments/2/modifier/
+              - generic [ref=f5e113]: 
+              - text: Modifier
+            - link " Supprimer" [ref=f5e114] [cursor=pointer]:
+              - /url: /medicaments/2/supprimer/
+              - generic [ref=f5e115]: 
+              - text: Supprimer
+        - generic [ref=f5e116]:
+          - generic [ref=f5e119]:
+            - generic [ref=f5e120]: 
+            - generic [ref=f5e122]:
+              - generic [ref=f5e123]: Dénomination générique
+              - generic [ref=f5e124]: Amoxicilline
+            - generic [ref=f5e125]:
+              - generic [ref=f5e126]: Forme
+              - generic [ref=f5e127]: Gélule
+            - generic [ref=f5e128]:
+              - generic [ref=f5e129]: Laboratoire
+              - generic [ref=f5e130]: GSK
+            - generic [ref=f5e131]:
+              - generic [ref=f5e132]: Code-barres
+              - generic [ref=f5e133]: MG000002
+            - generic [ref=f5e134]:
+              - generic [ref=f5e135]: Prix d'achat
+              - generic [ref=f5e136]: 6 000,00 Ar
+            - generic [ref=f5e137]:
+              - generic [ref=f5e138]: Prix de vente
+              - generic [ref=f5e139]: 8 500,00 Ar
+            - generic [ref=f5e140]:
+              - generic [ref=f5e141]: Seuil d'alerte
+              - generic [ref=f5e142]: 15 unités
+            - generic [ref=f5e143]:
+              - generic [ref=f5e144]: Créé le
+              - generic [ref=f5e145]: 26/10/2026
+          - generic [ref=f5e146]:
+            - generic [ref=f5e147]:
+              - generic [ref=f5e149]:
+                - generic [ref=f5e150]: 
+                - generic [ref=f5e152]: "45"
+                - generic [ref=f5e153]: Stock total
+              - generic [ref=f5e155]:
+                - generic [ref=f5e156]: 
+                - generic [ref=f5e158]: "45"
+                - generic [ref=f5e159]: Unités vendables
+              - generic [ref=f5e161]:
+                - generic [ref=f5e162]: 
+                - generic [ref=f5e164]: 270 000,00 Ar
+                - generic [ref=f5e165]: Valeur du stock
+            - generic [ref=f5e166]:
+              - generic [ref=f5e167]:
+                - generic [ref=f5e168]:
+                  - heading "Lots de stock" [level=3] [ref=f5e169]
+                  - paragraph [ref=f5e170]: Péremptions et quantités disponibles
+                - link " Commander" [ref=f5e171] [cursor=pointer]:
+                  - /url: /achats/ajouter/
+                  - generic [ref=f5e172]: 
+                  - text: Commander
+              - table [ref=f5e174]:
+                - rowgroup [ref=f5e175]:
+                  - row [ref=f5e176]:
+                    - columnheader "Lot" [ref=f5e177]
+                    - columnheader "Péremption" [ref=f5e178]
+                    - columnheader "Quantité" [ref=f5e179]
+                    - columnheader "État" [ref=f5e180]
+                    - columnheader "Action" [ref=f5e181]
+                - rowgroup [ref=f5e182]:
+                  - row [ref=f5e183]:
+                    - cell "LOT-AMX-001" [ref=f5e184]
+                    - cell "03/06/2027" [ref=f5e185]
+                    - cell "45" [ref=f5e186]
+                    - cell "Disponible" [ref=f5e187]
+                    - cell [ref=f5e189]:
+                      - button "" [ref=f5e191] [cursor=pointer]
+        - generic [ref=f5e193]:
+          - generic [ref=f5e195]:
+            - generic [ref=f5e197]:
+              - heading "Derniers mouvements" [level=3] [ref=f5e198]
+              - paragraph [ref=f5e199]: Entrées, sorties et corrections
+            - table [ref=f5e201]:
+              - rowgroup [ref=f5e202]:
+                - row [ref=f5e203]:
+                  - columnheader "Date" [ref=f5e204]
+                  - columnheader "Type" [ref=f5e205]
+                  - columnheader "Lot" [ref=f5e206]
+                  - columnheader "Quantité" [ref=f5e207]
+                  - columnheader "Par" [ref=f5e208]
+              - rowgroup [ref=f5e209]:
+                - row [ref=f5e210]:
+                  - cell " Aucun mouvement." [ref=f5e211]:
+                    - generic [ref=f5e212]: 
+                    - text: Aucun mouvement.
+          - generic [ref=f5e214]:
+            - generic [ref=f5e216]:
+              - heading "Dernières ventes" [level=3] [ref=f5e217]
+              - paragraph [ref=f5e218]: Historique des transactions
+            - generic [ref=f5e220]:
+              - generic [ref=f5e221]: 
+              - text: Aucune vente pour ce produit.
+      - contentinfo [ref=f5e222]:
+        - generic [ref=f5e223]: PharmaGest · Lot II B 12, Antananarivo, Madagascar · Tél. +261 34 00 000 00
+        - generic [ref=f5e224]: Application de gestion pharmaceutique
