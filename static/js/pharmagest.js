@@ -1,7 +1,31 @@
 document.addEventListener("DOMContentLoaded", () => {
   const sidebar = document.querySelector(".pg-sidebar");
-  document.querySelectorAll("[data-sidebar-toggle]").forEach((bouton) => {
-    bouton.addEventListener("click", () => sidebar && sidebar.classList.toggle("show"));
+  const boutonsSidebar = document.querySelectorAll("[data-sidebar-toggle]");
+
+  const fermerSidebar = () => {
+    if (!sidebar) return;
+    sidebar.classList.remove("show");
+    boutonsSidebar.forEach((bouton) => bouton.setAttribute("aria-expanded", "false"));
+  };
+
+  boutonsSidebar.forEach((bouton) => {
+    bouton.addEventListener("click", () => {
+      if (!sidebar) return;
+      const ouvert = sidebar.classList.toggle("show");
+      boutonsSidebar.forEach((b) => b.setAttribute("aria-expanded", ouvert ? "true" : "false"));
+    });
+  });
+
+  if (sidebar) {
+    sidebar.querySelectorAll(".pg-nav-link, .pg-side-cta").forEach((lien) => {
+      lien.addEventListener("click", () => {
+        if (window.matchMedia("(max-width: 991.98px)").matches) fermerSidebar();
+      });
+    });
+  }
+
+  document.addEventListener("keydown", (evenement) => {
+    if (evenement.key === "Escape") fermerSidebar();
   });
 
   document.querySelectorAll("form[data-confirm]").forEach((formulaire) => {

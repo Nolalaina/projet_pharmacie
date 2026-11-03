@@ -1,0 +1,2 @@
+[     107ms] [WARNING] The specified value "01/11/2026" does not conform to the required format, "yyyy-MM-dd". @ http://127.0.0.1:8765/rapports/:215
+[     107ms] [WARNING] The specified value "02/11/2026" does not conform to the required format, "yyyy-MM-dd". @ http://127.0.0.1:8765/rapports/:220

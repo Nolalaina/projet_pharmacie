@@ -318,10 +318,12 @@ class AjustementStockForm(BootstrapMixin, forms.Form):
 
 class PeriodeForm(BootstrapMixin, forms.Form):
     date_debut = forms.DateField(
-        label="Du", widget=forms.DateInput(attrs={"type": "date"})
+        label="Du",
+        widget=forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"),
     )
     date_fin = forms.DateField(
-        label="Au", widget=forms.DateInput(attrs={"type": "date"})
+        label="Au",
+        widget=forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"),
     )
 
     def __init__(self, *args, **kwargs):

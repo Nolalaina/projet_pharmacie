@@ -72,7 +72,7 @@
             <form method="post" action="{% url 'gestion:lot_basculer' lot.pk %}" class="d-inline" data-confirm="Changer l'état de blocage de ce lot ?">
               {% csrf_token %}
               <button class="btn btn-sm btn-soft btn-icon" type="submit" title="{% if lot.bloque %}Débloquer{% else %}Bloquer{% endif %}">
-                <i class="bi {% if lot.bloque %}bi-unlock{% else %}bi-lock{% endif %}"></i>
+                <i class="bi {% if lot.bloque %}bi-unlock-fill{% else %}bi-lock-fill{% endif %}"></i>
               </button>
             </form>
             {% else %}—{% endif %}

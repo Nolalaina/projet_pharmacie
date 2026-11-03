@@ -1,0 +1,187 @@
+- generic [active] [ref=f21e1]:
+  - link "Aller au contenu" [ref=f21e2] [cursor=pointer]:
+    - /url: "#contenu"
+  - generic [ref=f21e3]:
+    - complementary "Menu principal de navigation" [ref=f21e4]:
+      - link "Accueil PharmaGest" [ref=f21e5] [cursor=pointer]:
+        - /url: /
+        - generic [ref=f21e6]: 
+        - generic [ref=f21e8]:
+          - generic [ref=f21e9]: PharmaGest
+          - generic [ref=f21e10]: Gestion pharmaceutique
+      - link " Nouvelle vente" [ref=f21e11] [cursor=pointer]:
+        - /url: /ventes/caisse/
+        - generic [ref=f21e12]: 
+        - generic [ref=f21e13]: Nouvelle vente
+      - navigation "Navigation" [ref=f21e14]:
+        - generic [ref=f21e15]:
+          - generic [ref=f21e16]: Principal
+          - generic [ref=f21e17]:
+            - link " Tableau de bord" [ref=f21e18] [cursor=pointer]:
+              - /url: /
+              - generic [ref=f21e19]: 
+              - generic [ref=f21e20]: Tableau de bord
+            - link " Caisse / vente" [ref=f21e21] [cursor=pointer]:
+              - /url: /ventes/caisse/
+              - generic [ref=f21e22]: 
+              - generic [ref=f21e23]: Caisse / vente
+            - link " Ventes" [ref=f21e24] [cursor=pointer]:
+              - /url: /ventes/
+              - generic [ref=f21e25]: 
+              - generic [ref=f21e26]: Ventes
+            - link " 4 Alertes" [ref=f21e27] [cursor=pointer]:
+              - /url: /stock/alertes/
+              - generic [ref=f21e28]: 
+              - generic [ref=f21e29]: "4"
+              - generic [ref=f21e30]: Alertes
+        - generic [ref=f21e31]:
+          - generic [ref=f21e32]: Catalogue
+          - generic [ref=f21e33]:
+            - link " Médicaments" [ref=f21e34] [cursor=pointer]:
+              - /url: /medicaments/
+              - generic [ref=f21e35]: 
+              - generic [ref=f21e36]: Médicaments
+            - link " Catégories" [ref=f21e37] [cursor=pointer]:
+              - /url: /categories/
+              - generic [ref=f21e38]: 
+              - generic [ref=f21e39]: Catégories
+            - link " Fournisseurs" [ref=f21e40] [cursor=pointer]:
+              - /url: /fournisseurs/
+              - generic [ref=f21e41]: 
+              - generic [ref=f21e42]: Fournisseurs
+            - link " Clients" [ref=f21e43] [cursor=pointer]:
+              - /url: /clients/
+              - generic [ref=f21e44]: 
+              - generic [ref=f21e45]: Clients
+        - generic [ref=f21e46]:
+          - generic [ref=f21e47]: Approvisionnement
+          - generic [ref=f21e48]:
+            - link " Commandes d'achat" [ref=f21e49] [cursor=pointer]:
+              - /url: /achats/
+              - generic [ref=f21e50]: 
+              - generic [ref=f21e51]: Commandes d'achat
+            - link " Réceptions" [ref=f21e52] [cursor=pointer]:
+              - /url: /receptions/
+              - generic [ref=f21e53]: 
+              - generic [ref=f21e54]: Réceptions
+        - generic [ref=f21e55]:
+          - generic [ref=f21e56]: Stock
+          - generic [ref=f21e57]:
+            - link " État du stock" [ref=f21e58] [cursor=pointer]:
+              - /url: /stock/
+              - generic [ref=f21e59]: 
+              - generic [ref=f21e60]: État du stock
+            - link " Mouvements" [ref=f21e61] [cursor=pointer]:
+              - /url: /stock/mouvements/
+              - generic [ref=f21e62]: 
+              - generic [ref=f21e63]: Mouvements
+            - link " Inventaire" [ref=f21e64] [cursor=pointer]:
+              - /url: /stock/inventaire/
+              - generic [ref=f21e65]: 
+              - generic [ref=f21e66]: Inventaire
+        - generic [ref=f21e67]:
+          - generic [ref=f21e68]: Pilotage
+          - generic [ref=f21e69]:
+            - link " Rapports & PDF" [ref=f21e70] [cursor=pointer]:
+              - /url: /rapports/
+              - generic [ref=f21e71]: 
+              - generic [ref=f21e72]: Rapports & PDF
+            - link " Journal d'audit" [ref=f21e73] [cursor=pointer]:
+              - /url: /journal/
+              - generic [ref=f21e74]: 
+              - generic [ref=f21e75]: Journal d'audit
+            - link " Utilisateurs" [ref=f21e76] [cursor=pointer]:
+              - /url: /utilisateurs/
+              - generic [ref=f21e77]: 
+              - generic [ref=f21e78]: Utilisateurs
+      - generic [ref=f21e79]:
+        - generic [ref=f21e80]:
+          - generic [ref=f21e81]: AP
+          - generic [ref=f21e82]:
+            - generic [ref=f21e83]: Admin PharmaGest
+            - generic [ref=f21e84]: Administrateur
+        - generic [ref=f21e85]:
+          - link " Mot de passe" [ref=f21e86] [cursor=pointer]:
+            - /url: /mot-de-passe/
+            - generic [ref=f21e87]: 
+            - generic [ref=f21e88]: Mot de passe
+          - generic "Déconnexion" [ref=f21e89]:
+            - button " Quitter" [ref=f21e90] [cursor=pointer]:
+              - generic [ref=f21e91]: 
+              - generic [ref=f21e92]: Quitter
+    - generic [ref=f21e93]:
+      - banner [ref=f21e94]:
+        - text: 
+        - generic [ref=f21e96]: 
+        - generic [ref=f21e97]:
+          - generic [ref=f21e98]:
+            - generic [ref=f21e99]: 
+            - text: Espace officine
+            - generic [ref=f21e100]: 
+            - text: PharmaGest
+          - heading "Rapports" [level=1] [ref=f21e101]
+          - paragraph [ref=f21e102]: Exports PDF pour le pilotage de l'officine
+        - generic [ref=f21e103]:
+          - generic [ref=f21e104]:
+            - generic [ref=f21e105]: 
+            - text: 2 novembre 2026
+          - link "Alertes" [ref=f21e106] [cursor=pointer]:
+            - /url: /stock/alertes/
+            - generic [ref=f21e107]: 
+            - generic [ref=f21e108]: "4"
+          - button "Basculer le menu compact" [ref=f21e109] [cursor=pointer]:
+            - generic [ref=f21e110]: 
+      - main [ref=f21e111]:
+        - generic [ref=f21e113]:
+          - heading "Rapports et exports" [level=2] [ref=f21e114]
+          - generic [ref=f21e115]: Documents générés en PDF avec l'en-tête de la pharmacie
+        - generic [ref=f21e116]:
+          - generic [ref=f21e118]:
+            - heading "Période des rapports de ventes et d'achats" [level=3] [ref=f21e120]
+            - generic [ref=f21e122]:
+              - generic [ref=f21e123]:
+                - generic [ref=f21e124]:
+                  - generic [ref=f21e125]: Du
+                  - textbox "Du" [ref=f21e126]
+                - generic [ref=f21e127]:
+                  - generic [ref=f21e128]: Au
+                  - textbox "Au" [ref=f21e129]
+              - button " Appliquer la période" [ref=f21e130] [cursor=pointer]:
+                - generic [ref=f21e131]: 
+                - text: Appliquer la période
+          - generic [ref=f21e133]:
+            - generic [ref=f21e136]:
+              - generic [ref=f21e137]: 
+              - heading "État du stock" [level=3] [ref=f21e139]
+              - paragraph [ref=f21e140]: Tous les lots disponibles avec quantités, valeurs et dates de péremption.
+              - link " Télécharger" [ref=f21e141] [cursor=pointer]:
+                - /url: /rapports/stock.pdf
+                - generic [ref=f21e142]: 
+                - text: Télécharger
+            - generic [ref=f21e145]:
+              - generic [ref=f21e146]: 
+              - heading "Ventes" [level=3] [ref=f21e148]
+              - paragraph [ref=f21e149]: Chiffre d'affaires et détail des ventes validées sur la période.
+              - link " Télécharger" [ref=f21e150] [cursor=pointer]:
+                - /url: /rapports/ventes.pdf?date_debut=2026-11-01&date_fin=2026-11-02
+                - generic [ref=f21e151]: 
+                - text: Télécharger
+            - generic [ref=f21e154]:
+              - generic [ref=f21e155]: 
+              - heading "Achats" [level=3] [ref=f21e157]
+              - paragraph [ref=f21e158]: Commandes fournisseurs et montants engagés sur la période.
+              - link " Télécharger" [ref=f21e159] [cursor=pointer]:
+                - /url: /rapports/achats.pdf?date_debut=2026-11-01&date_fin=2026-11-02
+                - generic [ref=f21e160]: 
+                - text: Télécharger
+            - generic [ref=f21e163]:
+              - generic [ref=f21e164]: 
+              - heading "Péremptions" [level=3] [ref=f21e166]
+              - paragraph [ref=f21e167]: Lots périmés et lots arrivant à expiration dans les 30 jours.
+              - link " Télécharger" [ref=f21e168] [cursor=pointer]:
+                - /url: /rapports/peremptions.pdf
+                - generic [ref=f21e169]: 
+                - text: Télécharger
+      - contentinfo [ref=f21e170]:
+        - generic [ref=f21e171]: PharmaGest · Lot II B 12, Antananarivo, Madagascar · Tél. +261 34 00 000 00
+        - generic [ref=f21e172]: Application de gestion pharmaceutique

@@ -58,10 +58,10 @@
               <form method="post" action="{% url 'gestion:fournisseur_basculer' fournisseur.pk %}" class="d-inline" data-confirm="{% if fournisseur.est_actif %}Désactiver{% else %}Réactiver{% endif %} ce fournisseur ?">
                 {% csrf_token %}
                 <button class="btn btn-sm btn-soft btn-icon" type="submit" title="{% if fournisseur.est_actif %}Désactiver{% else %}Réactiver{% endif %}">
-                  <i class="bi {% if fournisseur.est_actif %}bi-pause-circle{% else %}bi-play-circle{% endif %}"></i>
+                  <i class="bi {% if fournisseur.est_actif %}bi-toggle-on{% else %}bi-toggle-off{% endif %}"></i>
                 </button>
               </form>
-{% endif %}
+              {% endif %}
             </div>
           </td>
         </tr>

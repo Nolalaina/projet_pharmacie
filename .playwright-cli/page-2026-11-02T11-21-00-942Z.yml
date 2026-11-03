@@ -1,0 +1,283 @@
+- generic [active] [ref=f19e1]:
+  - link "Aller au contenu" [ref=f19e2] [cursor=pointer]:
+    - /url: "#contenu"
+  - generic [ref=f19e3]:
+    - complementary "Menu principal de navigation" [ref=f19e4]:
+      - link "Accueil PharmaGest" [ref=f19e5] [cursor=pointer]:
+        - /url: /
+        - generic [ref=f19e6]: 
+        - generic [ref=f19e8]:
+          - generic [ref=f19e9]: PharmaGest
+          - generic [ref=f19e10]: Gestion pharmaceutique
+      - link " Nouvelle vente" [ref=f19e11] [cursor=pointer]:
+        - /url: /ventes/caisse/
+        - generic [ref=f19e12]: 
+        - generic [ref=f19e13]: Nouvelle vente
+      - navigation "Navigation" [ref=f19e14]:
+        - generic [ref=f19e15]:
+          - generic [ref=f19e16]: Principal
+          - generic [ref=f19e17]:
+            - link " Tableau de bord" [ref=f19e18] [cursor=pointer]:
+              - /url: /
+              - generic [ref=f19e19]: 
+              - generic [ref=f19e20]: Tableau de bord
+            - link " Caisse / vente" [ref=f19e21] [cursor=pointer]:
+              - /url: /ventes/caisse/
+              - generic [ref=f19e22]: 
+              - generic [ref=f19e23]: Caisse / vente
+            - link " Ventes" [ref=f19e24] [cursor=pointer]:
+              - /url: /ventes/
+              - generic [ref=f19e25]: 
+              - generic [ref=f19e26]: Ventes
+            - link " 4 Alertes" [ref=f19e27] [cursor=pointer]:
+              - /url: /stock/alertes/
+              - generic [ref=f19e28]: 
+              - generic [ref=f19e29]: "4"
+              - generic [ref=f19e30]: Alertes
+        - generic [ref=f19e31]:
+          - generic [ref=f19e32]: Catalogue
+          - generic [ref=f19e33]:
+            - link " Médicaments" [ref=f19e34] [cursor=pointer]:
+              - /url: /medicaments/
+              - generic [ref=f19e35]: 
+              - generic [ref=f19e36]: Médicaments
+            - link " Catégories" [ref=f19e37] [cursor=pointer]:
+              - /url: /categories/
+              - generic [ref=f19e38]: 
+              - generic [ref=f19e39]: Catégories
+            - link " Fournisseurs" [ref=f19e40] [cursor=pointer]:
+              - /url: /fournisseurs/
+              - generic [ref=f19e41]: 
+              - generic [ref=f19e42]: Fournisseurs
+            - link " Clients" [ref=f19e43] [cursor=pointer]:
+              - /url: /clients/
+              - generic [ref=f19e44]: 
+              - generic [ref=f19e45]: Clients
+        - generic [ref=f19e46]:
+          - generic [ref=f19e47]: Approvisionnement
+          - generic [ref=f19e48]:
+            - link " Commandes d'achat" [ref=f19e49] [cursor=pointer]:
+              - /url: /achats/
+              - generic [ref=f19e50]: 
+              - generic [ref=f19e51]: Commandes d'achat
+            - link " Réceptions" [ref=f19e52] [cursor=pointer]:
+              - /url: /receptions/
+              - generic [ref=f19e53]: 
+              - generic [ref=f19e54]: Réceptions
+        - generic [ref=f19e55]:
+          - generic [ref=f19e56]: Stock
+          - generic [ref=f19e57]:
+            - link " État du stock" [ref=f19e58] [cursor=pointer]:
+              - /url: /stock/
+              - generic [ref=f19e59]: 
+              - generic [ref=f19e60]: État du stock
+            - link " Mouvements" [ref=f19e61] [cursor=pointer]:
+              - /url: /stock/mouvements/
+              - generic [ref=f19e62]: 
+              - generic [ref=f19e63]: Mouvements
+            - link " Inventaire" [ref=f19e64] [cursor=pointer]:
+              - /url: /stock/inventaire/
+              - generic [ref=f19e65]: 
+              - generic [ref=f19e66]: Inventaire
+        - generic [ref=f19e67]:
+          - generic [ref=f19e68]: Pilotage
+          - generic [ref=f19e69]:
+            - link " Rapports & PDF" [ref=f19e70] [cursor=pointer]:
+              - /url: /rapports/
+              - generic [ref=f19e71]: 
+              - generic [ref=f19e72]: Rapports & PDF
+            - link " Journal d'audit" [ref=f19e73] [cursor=pointer]:
+              - /url: /journal/
+              - generic [ref=f19e74]: 
+              - generic [ref=f19e75]: Journal d'audit
+            - link " Utilisateurs" [ref=f19e76] [cursor=pointer]:
+              - /url: /utilisateurs/
+              - generic [ref=f19e77]: 
+              - generic [ref=f19e78]: Utilisateurs
+      - generic [ref=f19e79]:
+        - generic [ref=f19e80]:
+          - generic [ref=f19e81]: AP
+          - generic [ref=f19e82]:
+            - generic [ref=f19e83]: Admin PharmaGest
+            - generic [ref=f19e84]: Administrateur
+        - generic [ref=f19e85]:
+          - link " Mot de passe" [ref=f19e86] [cursor=pointer]:
+            - /url: /mot-de-passe/
+            - generic [ref=f19e87]: 
+            - generic [ref=f19e88]: Mot de passe
+          - generic "Déconnexion" [ref=f19e89]:
+            - button " Quitter" [ref=f19e90] [cursor=pointer]:
+              - generic [ref=f19e91]: 
+              - generic [ref=f19e92]: Quitter
+    - generic [ref=f19e93]:
+      - banner [ref=f19e94]:
+        - text: 
+        - generic [ref=f19e96]: 
+        - generic [ref=f19e97]:
+          - generic [ref=f19e98]:
+            - generic [ref=f19e99]: 
+            - text: Espace officine
+            - generic [ref=f19e100]: 
+            - text: PharmaGest
+          - heading "État du stock" [level=1] [ref=f19e101]
+          - paragraph [ref=f19e102]: Lots, quantités disponibles et péremptions
+        - generic [ref=f19e103]:
+          - generic [ref=f19e104]:
+            - generic [ref=f19e105]: 
+            - text: 2 novembre 2026
+          - link "Alertes" [ref=f19e106] [cursor=pointer]:
+            - /url: /stock/alertes/
+            - generic [ref=f19e107]: 
+            - generic [ref=f19e108]: "4"
+          - button "Basculer le menu compact" [ref=f19e109] [cursor=pointer]:
+            - generic [ref=f19e110]: 
+      - main [ref=f19e111]:
+        - generic [ref=f19e112]:
+          - generic [ref=f19e113]:
+            - heading "Lots en stock" [level=2] [ref=f19e114]
+            - generic [ref=f19e115]: 7 lots · 268 unités au total
+          - generic [ref=f19e116]:
+            - link " Mouvements" [ref=f19e117] [cursor=pointer]:
+              - /url: /stock/mouvements/
+              - generic [ref=f19e118]: 
+              - text: Mouvements
+            - link " Inventaire" [ref=f19e119] [cursor=pointer]:
+              - /url: /stock/inventaire/
+              - generic [ref=f19e120]: 
+              - text: Inventaire
+        - generic [ref=f19e123]:
+          - generic [ref=f19e124]:
+            - generic [ref=f19e125]: Recherche
+            - searchbox "Médicament, code-barres ou lot" [ref=f19e126]
+          - generic [ref=f19e127]:
+            - generic [ref=f19e128]: État
+            - combobox [ref=f19e129]:
+              - option "Tous les lots" [selected]
+              - option "Stock faible"
+              - option "Proche péremption"
+              - option "Périmé"
+              - option "Bloqué"
+          - button " Filtrer" [ref=f19e131] [cursor=pointer]:
+            - generic [ref=f19e132]: 
+            - text: Filtrer
+          - link "Réinitialiser" [ref=f19e134] [cursor=pointer]:
+            - /url: /stock/
+        - table [ref=f19e137]:
+          - rowgroup [ref=f19e138]:
+            - row [ref=f19e139]:
+              - columnheader "Médicament" [ref=f19e140]
+              - columnheader "Lot" [ref=f19e141]
+              - columnheader "Péremption" [ref=f19e142]
+              - columnheader "Quantité" [ref=f19e143]
+              - columnheader "Seuil" [ref=f19e144]
+              - columnheader "Valeur" [ref=f19e145]
+              - columnheader "État" [ref=f19e146]
+              - columnheader "Actions" [ref=f19e147]
+          - rowgroup [ref=f19e148]:
+            - row [ref=f19e149]:
+              - cell "Amoxil 500 mg" [ref=f19e150]:
+                - link "Amoxil" [ref=f19e151] [cursor=pointer]:
+                  - /url: /medicaments/2/
+                - generic [ref=f19e152]: 500 mg
+              - cell "LOT-AMX-001" [ref=f19e153]
+              - cell "03/06/2027" [ref=f19e154]
+              - cell "45" [ref=f19e155]
+              - cell "15" [ref=f19e156]
+              - cell "270 000,00 Ar" [ref=f19e157]
+              - cell "Disponible" [ref=f19e158]
+              - cell [ref=f19e160]:
+                - button "Bloquer" [ref=f19e162] [cursor=pointer]:
+                  - generic [ref=f19e163]: 
+            - row [ref=f19e164]:
+              - cell "Bétadine 10 %" [ref=f19e165]:
+                - link "Bétadine" [ref=f19e166] [cursor=pointer]:
+                  - /url: /medicaments/5/
+                - generic [ref=f19e167]: 10 %
+              - cell "LOT-BET-001" [ref=f19e168]
+              - cell "20/11/2026 J-18" [ref=f19e169]:
+                - text: 20/11/2026
+                - generic [ref=f19e170]: J-18
+              - cell "30" [ref=f19e171]
+              - cell "8" [ref=f19e172]
+              - cell "210 000,00 Ar" [ref=f19e173]
+              - cell "Disponible" [ref=f19e174]
+              - cell [ref=f19e176]:
+                - button "Bloquer" [ref=f19e178] [cursor=pointer]:
+                  - generic [ref=f19e179]: 
+            - row [ref=f19e180]:
+              - cell "Coartem 20/120 mg" [ref=f19e181]:
+                - link "Coartem" [ref=f19e182] [cursor=pointer]:
+                  - /url: /medicaments/3/
+                - generic [ref=f19e183]: 20/120 mg
+              - cell "LOT-COA-001" [ref=f19e184]
+              - cell "25/03/2027" [ref=f19e185]
+              - cell "8" [ref=f19e186]
+              - cell "10" [ref=f19e187]
+              - cell "72 000,00 Ar" [ref=f19e188]
+              - cell "Faible" [ref=f19e189]
+              - cell [ref=f19e191]:
+                - button "Bloquer" [ref=f19e193] [cursor=pointer]:
+                  - generic [ref=f19e194]: 
+            - row [ref=f19e195]:
+              - cell "Doliprane 500 mg" [ref=f19e196]:
+                - link "Doliprane" [ref=f19e197] [cursor=pointer]:
+                  - /url: /medicaments/1/
+                - generic [ref=f19e198]: 500 mg
+              - cell "LOT-DOL-OLD" [ref=f19e199]
+              - cell "16/10/2026 Périmé" [ref=f19e200]:
+                - text: 16/10/2026
+                - generic [ref=f19e201]: Périmé
+              - cell "12" [ref=f19e202]
+              - cell "20" [ref=f19e203]
+              - cell "36 000,00 Ar" [ref=f19e204]
+              - cell "Faible" [ref=f19e205]
+              - cell [ref=f19e207]:
+                - button "Bloquer" [ref=f19e209] [cursor=pointer]:
+                  - generic [ref=f19e210]: 
+            - row [ref=f19e211]:
+              - cell "Doliprane 500 mg" [ref=f19e212]:
+                - link "Doliprane" [ref=f19e213] [cursor=pointer]:
+                  - /url: /medicaments/1/
+                - generic [ref=f19e214]: 500 mg
+              - cell "LOT-DOL-002" [ref=f19e215]
+              - cell "13/11/2026 J-11" [ref=f19e216]:
+                - text: 13/11/2026
+                - generic [ref=f19e217]: J-11
+              - cell "25" [ref=f19e218]
+              - cell "20" [ref=f19e219]
+              - cell "75 000,00 Ar" [ref=f19e220]
+              - cell "Disponible" [ref=f19e221]
+              - cell [ref=f19e223]:
+                - button "Bloquer" [ref=f19e225] [cursor=pointer]:
+                  - generic [ref=f19e226]: 
+            - row [ref=f19e227]:
+              - cell "Doliprane 500 mg" [ref=f19e228]:
+                - link "Doliprane" [ref=f19e229] [cursor=pointer]:
+                  - /url: /medicaments/1/
+                - generic [ref=f19e230]: 500 mg
+              - cell "LOT-DOL-001" [ref=f19e231]
+              - cell "30/11/2027" [ref=f19e232]
+              - cell "88" [ref=f19e233]
+              - cell "20" [ref=f19e234]
+              - cell "264 000,00 Ar" [ref=f19e235]
+              - cell "Disponible" [ref=f19e236]
+              - cell [ref=f19e238]:
+                - button "Bloquer" [ref=f19e240] [cursor=pointer]:
+                  - generic [ref=f19e241]: 
+            - row [ref=f19e242]:
+              - cell "Vitamine C 1000 mg" [ref=f19e243]:
+                - link "Vitamine C" [ref=f19e244] [cursor=pointer]:
+                  - /url: /medicaments/4/
+                - generic [ref=f19e245]: 1000 mg
+              - cell "LOT-VIT-001" [ref=f19e246]
+              - cell "22/08/2027" [ref=f19e247]
+              - cell "60" [ref=f19e248]
+              - cell "12" [ref=f19e249]
+              - cell "240 000,00 Ar" [ref=f19e250]
+              - cell "Disponible" [ref=f19e251]
+              - cell [ref=f19e253]:
+                - button "Bloquer" [ref=f19e255] [cursor=pointer]:
+                  - generic [ref=f19e256]: 
+      - contentinfo [ref=f19e257]:
+        - generic [ref=f19e258]: PharmaGest · Lot II B 12, Antananarivo, Madagascar · Tél. +261 34 00 000 00
+        - generic [ref=f19e259]: Application de gestion pharmaceutique

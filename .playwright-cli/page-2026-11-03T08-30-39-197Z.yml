@@ -1,0 +1,125 @@
+- generic [active] [ref=f8e1]:
+  - link "Aller au contenu" [ref=f8e2] [cursor=pointer]:
+    - /url: "#contenu"
+  - generic [ref=f8e3]:
+    - complementary "Menu principal de navigation" [ref=f8e4]:
+      - link "Accueil PharmaGest" [ref=f8e5] [cursor=pointer]:
+        - /url: /
+      - link "" [ref=f8e11] [cursor=pointer]:
+        - /url: /ventes/caisse/
+      - navigation "Navigation" [ref=f8e13]:
+        - generic [ref=f8e15]:
+          - link "" [ref=f8e16] [cursor=pointer]:
+            - /url: /
+          - link "" [ref=f8e18] [cursor=pointer]:
+            - /url: /ventes/caisse/
+          - link "" [ref=f8e20] [cursor=pointer]:
+            - /url: /ventes/
+          - link "" [ref=f8e22] [cursor=pointer]:
+            - /url: /stock/alertes/
+        - generic [ref=f8e25]:
+          - link "" [ref=f8e26] [cursor=pointer]:
+            - /url: /medicaments/
+          - link "" [ref=f8e28] [cursor=pointer]:
+            - /url: /categories/
+          - link "" [ref=f8e30] [cursor=pointer]:
+            - /url: /fournisseurs/
+          - link "" [ref=f8e32] [cursor=pointer]:
+            - /url: /clients/
+        - generic [ref=f8e35]:
+          - link "" [ref=f8e36] [cursor=pointer]:
+            - /url: /achats/
+          - link "" [ref=f8e38] [cursor=pointer]:
+            - /url: /receptions/
+        - generic [ref=f8e41]:
+          - link "" [ref=f8e42] [cursor=pointer]:
+            - /url: /stock/
+          - link "" [ref=f8e44] [cursor=pointer]:
+            - /url: /stock/mouvements/
+          - link "" [ref=f8e46] [cursor=pointer]:
+            - /url: /stock/inventaire/
+        - generic [ref=f8e49]:
+          - link "" [ref=f8e50] [cursor=pointer]:
+            - /url: /rapports/
+          - link "" [ref=f8e52] [cursor=pointer]:
+            - /url: /journal/
+          - link "" [ref=f8e54] [cursor=pointer]:
+            - /url: /utilisateurs/
+      - generic [ref=f8e56]:
+        - generic [ref=f8e57]: AP
+        - generic [ref=f8e59]:
+          - link "" [ref=f8e60] [cursor=pointer]:
+            - /url: /mot-de-passe/
+          - generic "Déconnexion" [ref=f8e62]:
+            - button "" [ref=f8e63] [cursor=pointer]
+    - generic [ref=f8e65]:
+      - banner [ref=f8e66]:
+        - text: 
+        - generic [ref=f8e68]: 
+        - generic [ref=f8e69]:
+          - heading "Rapports" [level=1] [ref=f8e70]
+          - paragraph [ref=f8e71]: Exports PDF pour le pilotage de l'officine
+        - generic [ref=f8e72]:
+          - generic [ref=f8e73]:
+            - generic [ref=f8e74]: 
+            - text: 3 novembre 2026
+          - link "Alertes" [ref=f8e75] [cursor=pointer]:
+            - /url: /stock/alertes/
+            - generic [ref=f8e76]: 
+            - generic [ref=f8e77]: "4"
+          - button "Basculer le menu compact" [pressed] [ref=f8e78] [cursor=pointer]:
+            - generic [ref=f8e79]: 
+      - main [ref=f8e80]:
+        - generic [ref=f8e82]:
+          - heading "Rapports et exports" [level=2] [ref=f8e83]
+          - generic [ref=f8e84]: Documents générés en PDF avec l'en-tête de la pharmacie
+        - generic [ref=f8e85]:
+          - generic [ref=f8e87]:
+            - heading "Période des rapports de ventes et d'achats" [level=3] [ref=f8e89]
+            - generic [ref=f8e91]:
+              - generic [ref=f8e92]:
+                - generic [ref=f8e93]:
+                  - generic [ref=f8e94]: Du
+                  - textbox "Du" [ref=f8e95]: 2026-11-01
+                - generic [ref=f8e96]:
+                  - generic [ref=f8e97]: Au
+                  - textbox "Au" [ref=f8e98]: 2026-11-03
+              - button " Appliquer la période" [ref=f8e99] [cursor=pointer]:
+                - generic [ref=f8e100]: 
+                - text: Appliquer la période
+          - generic [ref=f8e102]:
+            - generic [ref=f8e105]:
+              - generic [ref=f8e106]: 
+              - heading "État du stock" [level=3] [ref=f8e108]
+              - paragraph [ref=f8e109]: Tous les lots disponibles avec quantités, valeurs et dates de péremption.
+              - link " Télécharger" [ref=f8e110] [cursor=pointer]:
+                - /url: /rapports/stock.pdf
+                - generic [ref=f8e111]: 
+                - text: Télécharger
+            - generic [ref=f8e114]:
+              - generic [ref=f8e115]: 
+              - heading "Ventes" [level=3] [ref=f8e117]
+              - paragraph [ref=f8e118]: Chiffre d'affaires et détail des ventes validées sur la période.
+              - link " Télécharger" [ref=f8e119] [cursor=pointer]:
+                - /url: /rapports/ventes.pdf?date_debut=2026-11-01&date_fin=2026-11-03
+                - generic [ref=f8e120]: 
+                - text: Télécharger
+            - generic [ref=f8e123]:
+              - generic [ref=f8e124]: 
+              - heading "Achats" [level=3] [ref=f8e126]
+              - paragraph [ref=f8e127]: Commandes fournisseurs et montants engagés sur la période.
+              - link " Télécharger" [ref=f8e128] [cursor=pointer]:
+                - /url: /rapports/achats.pdf?date_debut=2026-11-01&date_fin=2026-11-03
+                - generic [ref=f8e129]: 
+                - text: Télécharger
+            - generic [ref=f8e132]:
+              - generic [ref=f8e133]: 
+              - heading "Péremptions" [level=3] [ref=f8e135]
+              - paragraph [ref=f8e136]: Lots périmés et lots arrivant à expiration dans les 30 jours.
+              - link " Télécharger" [ref=f8e137] [cursor=pointer]:
+                - /url: /rapports/peremptions.pdf
+                - generic [ref=f8e138]: 
+                - text: Télécharger
+      - contentinfo [ref=f8e139]:
+        - generic [ref=f8e140]: PharmaGest · Lot II B 12, Antananarivo, Madagascar · Tél. +261 34 00 000 00
+        - generic [ref=f8e141]: Application de gestion pharmaceutique

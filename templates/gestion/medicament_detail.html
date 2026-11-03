@@ -29,7 +29,7 @@
         {% if medicament.photo %}
         <img src="{{ medicament.photo.url }}" alt="{{ medicament.nom_commercial }}" class="pg-detail-photo mb-3">
         {% else %}
-        <div class="pg-detail-photo d-grid place-items-center mb-3" style="display:grid;place-items:center;height:200px;color:#9bb8ac;font-size:2.2rem">
+        <div class="pg-detail-photo d-grid place-items-center mb-3" style="display:grid;place-items:center;height:200px;color:var(--pg-sage);font-size:2.2rem">
           <i class="bi bi-capsule"></i>
         </div>
         {% endif %}
@@ -104,8 +104,8 @@
                 {% if user.peut_gerer_achats %}
                 <form method="post" action="{% url 'gestion:lot_basculer' lot.pk %}" class="d-inline">
                   {% csrf_token %}
-                  <button class="btn btn-sm btn-soft" type="submit" title="Bloquer / débloquer">
-                    <i class="bi {% if lot.bloque %}bi-unlock{% else %}bi-lock{% endif %}"></i>
+                  <button class="btn btn-sm btn-soft btn-icon" type="submit" title="Bloquer / débloquer">
+                    <i class="bi {% if lot.bloque %}bi-unlock-fill{% else %}bi-lock-fill{% endif %}"></i>
                   </button>
                 </form>
                 {% endif %}
