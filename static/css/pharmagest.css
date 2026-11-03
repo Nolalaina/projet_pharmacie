@@ -7,8 +7,8 @@
 :root {
   --pg-ink: #2b2418;
   --pg-ink-soft: #463d2f;
-  --pg-muted: #7a6e5c;
-  --pg-faint: #a2967f;
+  --pg-muted: #6f6351;
+  --pg-faint: #746855;
 
   --pg-line: #e4d9c7;
   --pg-line-strong: #d3c4ab;
@@ -1212,7 +1212,7 @@ img {
 }
 
 .form-control::placeholder {
-  color: #ab9f8b;
+  color: #786c58;
   opacity: 1;
 }
 
