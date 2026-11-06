@@ -1,125 +1,161 @@
 {% load static %}
 <!doctype html>
 <html lang="fr">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Connexion · {{ pharmacie_nom }}</title>
   <link rel="icon" type="image/svg+xml" href="{% static 'img/favicon.svg' %}">
   <meta name="color-scheme" content="light">
-  <meta name="theme-color" content="#1b3327">
+  <meta name="theme-color" content="#0f172a">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500;600;700&family=Marcellus&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap"
+    rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'css/pharmagest.css' %}">
 </head>
+
 <body>
-<main class="pg-login">
-  <section class="pg-login-visual" aria-label="Présentation de {{ pharmacie_nom }}">
-    <div class="pg-login-brand">
-      <span class="pg-brand-mark">
-        <svg class="pg-brand-glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M4.2 10.5h15.6v2.9a5.4 5.4 0 0 1-5.4 5.4h-4.8a5.4 5.4 0 0 1-5.4-5.4v-2.9Z"/>
-          <path d="M15 10.5 18.6 3.4"/>
-          <circle cx="19" cy="2.9" r="1.3"/>
-        </svg>
-      </span>
-      <span>
-        <span class="pg-login-brand-name">{{ pharmacie_nom }}</span>
-        <span class="pg-login-brand-sub">Gestion pharmaceutique</span>
-      </span>
-    </div>
-
-    <div>
-      <h1 class="pg-login-headline">La gestion de votre officine, <em>claire et sereine.</em></h1>
-      <div class="pg-login-points mt-4">
-        <div class="pg-login-point"><i class="bi bi-boxes"></i> Stock, lots et péremptions en temps réel</div>
-        <div class="pg-login-point"><i class="bi bi-receipt"></i> Ventes, encaissements et retours centralisés</div>
-        <div class="pg-login-point"><i class="bi bi-journal-check"></i> Traçabilité complète des mouvements</div>
-      </div>
-    </div>
-
-    <div class="pg-login-point">
-      <i class="bi bi-shield-lock"></i>
-      Accès sécurisé réservé aux équipes de {{ pharmacie_nom }}
-    </div>
-  </section>
-
-  <section class="pg-login-form">
-    <div class="pg-login-card">
-      <div class="pg-login-mobile-brand">
+  <main class="pg-login">
+    <section class="pg-login-visual" aria-label="Présentation de {{ pharmacie_nom }}">
+      <div class="pg-login-brand">
         <span class="pg-brand-mark">
-        <svg class="pg-brand-glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M4.2 10.5h15.6v2.9a5.4 5.4 0 0 1-5.4 5.4h-4.8a5.4 5.4 0 0 1-5.4-5.4v-2.9Z"/>
-          <path d="M15 10.5 18.6 3.4"/>
-          <circle cx="19" cy="2.9" r="1.3"/>
-        </svg>
-      </span>
+          <svg class="pg-brand-glyph" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path
+              d="M9 3a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v6h6a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1h-6v6a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-6H3a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1h6V3z" />
+          </svg>
+        </span>
         <span>
           <span class="pg-login-brand-name">{{ pharmacie_nom }}</span>
-          <span class="pg-login-brand-sub">Gestion pharmaceutique</span>
+          <span class="pg-login-brand-sub">Système de gestion d'officine</span>
         </span>
       </div>
 
-      <h1>Connexion</h1>
-      <p>Identifiez-vous pour accéder à votre espace de gestion.</p>
+      <div>
+        <span class="pg-login-eyebrow"><i class="bi bi-shield-check"></i> Plateforme d'officine moderne</span>
+        <h1 class="pg-login-headline">La gestion pharmaceutique, <em>rapide, intuitive et connectée.</em></h1>
+        <div class="pg-login-points mt-4">
+          <div class="pg-login-point"><i class="bi bi-boxes"></i> Stock, lots et seuils d'alerte en temps réel</div>
+          <div class="pg-login-point"><i class="bi bi-receipt"></i> Caisse rapide avec lecteur code-barres</div>
+          <div class="pg-login-point"><i class="bi bi-journal-check"></i> Traçabilité complète et conformité
+            réglementaire</div>
+        </div>
+      </div>
 
-      <form method="post" novalidate>
-        {% csrf_token %}
+      <div class="pg-login-point">
+        <i class="bi bi-lock"></i>
+        Espace sécurisé réservé aux professionnels de santé de {{ pharmacie_nom }}
+      </div>
+    </section>
 
-        {% if messages %}
+    <section class="pg-login-form">
+      <div class="pg-login-card">
+        <div class="pg-login-mobile-brand">
+          <span class="pg-brand-mark">
+            <svg class="pg-brand-glyph" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path
+                d="M9 3a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v6h6a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1h-6v6a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-6H3a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1h6V3z" />
+            </svg>
+          </span>
+          <span>
+            <span class="pg-login-brand-name" style="color:var(--pg-ink)">{{ pharmacie_nom }}</span>
+            <span class="pg-login-brand-sub" style="color:var(--pg-pine-600)">Gestion pharmaceutique</span>
+          </span>
+        </div>
+
+        <h1>Connexion</h1>
+        <p>Identifiez-vous pour accéder à votre espace de gestion.</p>
+
+        <form method="post" novalidate id="form-connexion">
+          {% csrf_token %}
+
+          {% if messages %}
           {% for message in messages %}
           <div class="alert pg-alert pg-alert-{{ message.tags }} mb-3" role="alert">
             <i class="bi bi-info-circle"></i>
             <div>{{ message }}</div>
           </div>
           {% endfor %}
-        {% endif %}
+          {% endif %}
 
-        {% if form.non_field_errors %}
-        <div class="alert pg-alert pg-alert-danger mb-3" role="alert">
-          <i class="bi bi-exclamation-octagon"></i>
-          <div>{% for error in form.non_field_errors %}{{ error }}{% endfor %}</div>
-        </div>
-        {% endif %}
-
-        <div class="mb-3">
-          <label class="form-label" for="{{ form.username.id_for_label }}">Nom d'utilisateur</label>
-          {{ form.username }}
-          {% for error in form.username.errors %}<div class="text-danger small mt-1">{{ error }}</div>{% endfor %}
-        </div>
-
-        <div class="mb-4">
-          <label class="form-label" for="{{ form.password.id_for_label }}">Mot de passe</label>
-          {{ form.password }}
-          {% for error in form.password.errors %}<div class="text-danger small mt-1">{{ error }}</div>{% endfor %}
-        </div>
-
-        {% if next %}<input type="hidden" name="next" value="{{ next }}">{% endif %}
-
-        <button class="btn btn-primary w-100" type="submit">
-          <i class="bi bi-box-arrow-in-right me-1"></i> Se connecter
-        </button>
-      </form>
-
-      <div class="pg-login-foot">
-        <span class="pg-muted small">Mot de passe oublié ? Contactez l'administrateur.</span>
-
-        <details class="pg-login-credentials">
-          <summary><i class="bi bi-chevron-down"></i> Afficher les identifiants de démonstration</summary>
-          <div class="pg-login-credentials-grid">
-            <div><strong>Administrateur :</strong> admin / admin123</div>
-            <div><strong>Pharmacien :</strong> pharmacien / pharma123</div>
-            <div><strong>Gestionnaire :</strong> gestionnaire / gest123</div>
-            <div><strong>Caissier :</strong> caissier / caisse123</div>
-            <div><strong>Responsable :</strong> responsable / resp123</div>
+          {% if form.non_field_errors %}
+          <div class="alert pg-alert pg-alert-danger mb-3" role="alert">
+            <i class="bi bi-exclamation-octagon"></i>
+            <div>{% for error in form.non_field_errors %}{{ error }}{% endfor %}</div>
           </div>
-        </details>
+          {% endif %}
+
+          <div class="mb-3">
+            <label class="form-label" for="{{ form.username.id_for_label }}">Nom d'utilisateur</label>
+            {{ form.username }}
+            {% for error in form.username.errors %}<div class="text-danger small mt-1">{{ error }}</div>{% endfor %}
+          </div>
+
+          <div class="mb-4">
+            <div class="d-flex justify-content-between align-items-center mb-1">
+              <label class="form-label mb-0" for="{{ form.password.id_for_label }}">Mot de passe</label>
+            </div>
+            {{ form.password }}
+            {% for error in form.password.errors %}<div class="text-danger small mt-1">{{ error }}</div>{% endfor %}
+          </div>
+
+          {% if next %}<input type="hidden" name="next" value="{{ next }}">{% endif %}
+
+          <button class="btn btn-primary w-100" type="submit">
+            <i class="bi bi-box-arrow-in-right me-1"></i> Se connecter
+          </button>
+        </form>
+
+        <div class="pg-login-foot">
+          <details class="pg-login-credentials">
+            <summary><i class="bi bi-key-fill text-emerald me-1"></i> Comptes de démonstration (clic pour remplir)
+            </summary>
+            <div class="pg-login-credentials-grid">
+              <button type="button" class="pg-demo-btn" data-login="admin" data-pwd="admin123">
+                <span><strong>Administrateur</strong> (admin)</span>
+                <span class="badge bg-dark-subtle text-dark">Remplir</span>
+              </button>
+              <button type="button" class="pg-demo-btn" data-login="pharmacien" data-pwd="pharma123">
+                <span><strong>Pharmacien</strong> (pharmacien)</span>
+                <span class="badge bg-dark-subtle text-dark">Remplir</span>
+              </button>
+              <button type="button" class="pg-demo-btn" data-login="gestionnaire" data-pwd="gest123">
+                <span><strong>Gestionnaire</strong> (gestionnaire)</span>
+                <span class="badge bg-dark-subtle text-dark">Remplir</span>
+              </button>
+              <button type="button" class="pg-demo-btn" data-login="caissier" data-pwd="caisse123">
+                <span><strong>Caissier</strong> (caissier)</span>
+                <span class="badge bg-dark-subtle text-dark">Remplir</span>
+              </button>
+              <button type="button" class="pg-demo-btn" data-login="responsable" data-pwd="resp123">
+                <span><strong>Responsable</strong> (responsable)</span>
+                <span class="badge bg-dark-subtle text-dark">Remplir</span>
+              </button>
+            </div>
+          </details>
+        </div>
       </div>
-    </div>
-  </section>
-</main>
+    </section>
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const userField = document.getElementById('{{ form.username.id_for_label }}');
+      const pwdField = document.getElementById('{{ form.password.id_for_label }}');
+
+      document.querySelectorAll('.pg-demo-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          if (userField) userField.value = btn.dataset.login;
+          if (pwdField) pwdField.value = btn.dataset.pwd;
+          userField?.focus();
+        });
+      });
+    });
+  </script>
 </body>
+
 </html>
