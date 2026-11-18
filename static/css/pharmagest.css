@@ -784,6 +784,17 @@ img {
   border-top: 1px solid var(--pg-line-subtle);
 }
 
+.pg-footer .pg-copyright {
+  color: var(--pg-faint);
+  font-size: 0.7rem;
+}
+
+.pg-footer .pg-powerby {
+  color: var(--pg-faint);
+  font-size: 0.7rem;
+  margin-top: 4px;
+}
+
 /* --------------------------------------------------------------------------
    Cards & Stats
    -------------------------------------------------------------------------- */
@@ -1533,6 +1544,261 @@ textarea.form-control {
   font-size: 0.65rem;
 }
 
+.pg-alert .btn-close:hover {
+  opacity: 0.7;
+}
+
+/* Focus visible improvements */
+.btn:focus-visible {
+  outline: 2px solid var(--pg-pine-500);
+  outline-offset: 2px;
+  box-shadow: none;
+}
+
+/* Badge improvements */
+.pg-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border: 1px solid transparent;
+  border-radius: var(--pg-radius-full);
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+/* Statut badges */
+.badge.statut-actif {
+  background: var(--pg-pine-50);
+  color: var(--pg-pine-700);
+}
+
+.badge.statut-archive {
+  background: var(--pg-surface-alt);
+  color: var(--pg-muted);
+}
+
+.badge.statut-en-retard {
+  background: var(--pg-ochre-soft);
+  color: var(--pg-ochre-ink);
+}
+
+.badge.statut-perime {
+  background: var(--pg-terra-soft);
+  color: var(--pg-terra-ink);
+}
+
+/* Table row hover */
+.table-hover > tbody > tr:hover > * {
+  background-color: var(--pg-surface-hover);
+}
+
+/* Improved labels */
+.form-label {
+  margin-bottom: 0.38rem;
+  color: var(--pg-ink-soft);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+/* Form control states */
+.form-control,
+.form-select {
+  border: 1px solid var(--pg-line-strong);
+  border-radius: var(--pg-radius-sm);
+  padding: 0.58rem 0.85rem;
+  background-color: #ffffff;
+  color: var(--pg-ink);
+  font-size: 0.88rem;
+  transition: border-color var(--pg-transition), box-shadow var(--pg-transition);
+}
+
+.form-control::placeholder {
+  color: var(--pg-faint);
+  opacity: 1;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--pg-pine-500);
+  background-color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.16);
+  outline: none;
+}
+
+.form-control[disabled],
+.form-select[disabled] {
+  background-color: var(--pg-surface-alt);
+  opacity: 0.85;
+}
+
+.form-text {
+  margin-top: 0.32rem;
+  color: var(--pg-muted);
+  font-size: 0.74rem;
+}
+
+/* Form check */
+.form-check-input {
+  border-color: var(--pg-line-strong);
+  border-radius: 4px;
+}
+
+.form-check-input:checked {
+  background-color: var(--pg-pine-600);
+  border-color: var(--pg-pine-600);
+}
+
+.form-check-input:focus {
+  border-color: var(--pg-pine-500);
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.16);
+}
+
+/* Input group */
+.input-group-text {
+  border: 1px solid var(--pg-line-strong);
+  border-radius: var(--pg-radius-sm);
+  background: var(--pg-surface-alt);
+  color: var(--pg-muted);
+}
+
+/* Filters */
+.pg-filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+.pg-filters .form-control,
+.pg-filters .form-select {
+  min-width: 150px;
+}
+
+/* Section title */
+.pg-section-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.pg-section-title h2 {
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--pg-ink);
+}
+
+.pg-section-title h2::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-right: 10px;
+  border-radius: 2px;
+  background: var(--pg-pine-500);
+  vertical-align: 3px;
+}
+
+/* Empty state */
+.pg-empty {
+  padding: 48px 24px;
+  text-align: center;
+  color: var(--pg-muted);
+  font-size: 0.86rem;
+}
+
+.pg-empty i {
+  display: block;
+  margin-bottom: 12px;
+  color: var(--pg-faint);
+  font-size: 2.3rem;
+  line-height: 1;
+}
+
+/* Progress bar */
+.pg-progress {
+  height: 8px;
+  border-radius: 99px;
+  background: var(--pg-line);
+  overflow: hidden;
+}
+
+.pg-progress > span {
+  display: block;
+  height: 100%;
+  border-radius: 99px;
+  background: linear-gradient(90deg, #10b981, #059669);
+  transition: width 0.3s ease;
+}
+
+/* Sticky actions */
+.pg-sticky-actions {
+  position: sticky;
+  bottom: 0;
+  z-index: 5;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 16px 0 4px;
+  background: linear-gradient(180deg, rgba(248, 250, 252, 0) 0%, var(--pg-bg) 60%);
+}
+
+/* Badge statuts on tables */
+.badge.statut-actif {
+  background: var(--pg-pine-50);
+  color: var(--pg-pine-700);
+  border-color: var(--pg-pine-200);
+}
+
+.badge.statut-actif::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--pg-pine-500);
+}
+
+.badge.statut-archive {
+  background: var(--pg-surface-alt);
+  color: var(--pg-muted);
+  border-color: var(--pg-line);
+}
+
+.badge.statut-en-retard {
+  background: var(--pg-ochre-soft);
+  color: var(--pg-ochre-ink);
+  border-color: var(--pg-ochre-border);
+}
+
+.badge.statut-en-retard::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--pg-ochre);
+}
+
+.badge.statut-perime {
+  background: var(--pg-terra-soft);
+  color: var(--pg-terra-ink);
+  border-color: var(--pg-terra-border);
+}
+
+.badge.statut-perime::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--pg-terra);
+}
+
 /* Progress bar */
 .pg-progress {
   height: 8px;
@@ -2228,4 +2494,128 @@ textarea.form-control {
     border: 0;
     box-shadow: none;
   }
+}
+
+
+/* Footer enhancements */
+.pg-footer {
+  background: var(--pg-surface);
+  border-top: 1px solid var(--pg-line);
+  padding: 12px 32px;
+}
+
+.pg-footer .pg-partner {
+  color: var(--pg-muted);
+  font-size: 0.78rem;
+}
+
+.pg-footer .pg-partner a {
+  color: var(--pg-pine-600);
+  text-decoration: none;
+}
+
+.pg-footer .pg-partner a:hover {
+  color: var(--pg-pine-500);
+}
+
+/* Improve stat cards on hover */
+.pg-stat:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--pg-shadow-md);
+  border-color: var(--pg-line-strong);
+}
+
+/* Better badge interactions */
+.pg-badge {
+  cursor: pointer;
+  transition: all var(--pg-transition);
+}
+
+.pg-badge:hover {
+  opacity: 0.9;
+}
+
+/* Focus states for accessibility */
+.btn:focus-visible {
+  outline: 2px solid var(--pg-pine-500);
+  outline-offset: 2px;
+}
+
+/* Table row highlight */
+.table-hover > tbody > tr:hover > * {
+  background-color: var(--pg-surface-hover);
+}
+
+/* Form control improvements */
+.form-control:focus {
+  border-color: var(--pg-pine-500);
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.16);
+}
+
+/* Button hover states */
+.btn-primary:hover {
+  background: linear-gradient(135deg, #059669 0%, #047857 100%) !important;
+  border-color: #047857 !important;
+}
+
+/* Alert styles */
+.pg-alert {
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Progress bar on card stats */
+.pg-stat-trend {
+  margin-top: 10px;
+  font-size: 0.72rem;
+}
+
+/* Sticky actions bar */
+.pg-sticky-actions {
+  background: var(--pg-bg);
+  border-top: 1px solid var(--pg-line);
+}
+
+/* Improve the code_barres display - remove the if block issue */
+.code-barres-display {
+  display: inline;
+  margin-left: 8px;
+  font-size: 0.76rem;
+  color: var(--pg-pine-600);
+}
+
+/* Section title improvements */
+.pg-section-title {
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--pg-line);
+}
+
+/* Badge statuts specific styles */
+.badge.statut-actif {
+  background: var(--pg-pine-50);
+  color: var(--pg-pine-700);
+  border: 1px solid var(--pg-pine-200);
+}
+
+.badge.statut-archive {
+  background: var(--pg-surface-alt);
+  color: var(--pg-muted);
+  border: 1px solid var(--pg-line);
+}
+
+.badge.statut-en-retard {
+  background: var(--pg-ochre-soft);
+  color: var(--pg-ochre-ink);
+  border: 1px solid var(--pg-ochre-border);
+}
+
+.badge.statut-perime {
+  background: var(--pg-terra-soft);
+  color: var(--pg-terra-ink);
+  border: 1px solid var(--pg-terra-border);
 }

@@ -5,7 +5,7 @@
 {% block page_subtitle %}Vue d'ensemble de l'activité de la pharmacie{% endblock %}
 
 {% block contenu %}
-<div class="row g-3 mb-4">
+<div class="row g-4 mb-4">
   <div class="col-6 col-xl-3">
     <div class="pg-card pg-stat h-100">
       <div class="pg-stat-icon pg-icon-green"><i class="bi bi-capsule"></i></div>
@@ -40,7 +40,7 @@
   </div>
 </div>
 
-<div class="row g-3 mb-4">
+<div class="row g-4">
   <div class="col-lg-8">
     <div class="pg-card h-100">
       <div class="pg-card-header">
@@ -115,7 +115,7 @@
   </div>
 </div>
 
-<div class="row g-3">
+<div class="row g-4">
   <div class="col-lg-7">
     <div class="pg-card h-100">
       <div class="pg-card-header">
@@ -139,10 +139,10 @@
           <tbody>
             {% for vente in ventes_recentes %}
             <tr>
-              <td><a class="pg-mono" href="{% url 'gestion:vente_detail' vente.pk %}">{{ vente.numero }}</a></td>
+              <td><a class="pg-mono fw-semibold" href="{% url 'gestion:vente_detail' vente.pk %}">{{ vente.numero }}</a></td>
               <td>{{ vente.client.nom_affichage|default:"Client comptoir" }}</td>
               <td class="pg-muted">{{ vente.utilisateur.nom_complet|default:"—" }}</td>
-              <td><span class="pg-badge pg-badge-{{ vente.statut|couleur_statut }}">{{ vente.get_statut_display }}</span></td>
+              <td><span class="pg-badge pg-badge-{{ vente.statut|couleur_statut }}">{{vente.get_statut_display }}</span></td>
               <td class="text-end fw-bold">{{ vente.total|ariary }}</td>
             </tr>
             {% empty %}
@@ -183,7 +183,6 @@
           <h3 class="pg-card-title">Derniers mouvements</h3>
           <p class="pg-card-sub">Traçabilité du stock</p>
         </div>
-        <a class="btn btn-sm btn-soft ms-auto" href="{% url 'gestion:mouvement_liste' %}">Historique</a>
       </div>
       <div class="pg-card-body pt-2">
         {% for mouvement in mouvements_recents %}

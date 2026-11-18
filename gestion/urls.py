@@ -161,4 +161,6 @@ urlpatterns = [
         views.bon_reception_pdf,
         name="bon_reception_pdf",
     ),
+    # API AJAX
+    path("api/medicament/", views.api_recherche_medicament, name="api_medicament"),
 ]

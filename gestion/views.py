@@ -14,6 +14,7 @@ from django.db.models import DecimalField, ExpressionWrapper, F, Q, Sum
 from django.db.models.deletion import ProtectedError
 from django.db.models.functions import Coalesce
 from django.forms import formset_factory, inlineformset_factory
+from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse, reverse_lazy
 from django.utils import timezone
@@ -1724,3 +1725,56 @@ def rapport_peremptions_pdf(request):
         .order_by("date_peremption")
     )
     return pdf_rapport_peremptions(lots, aujourd_hui, limite)
+
+
+# ---------------------------------------------------------------------------
+# API AJAX — Recherche médicament par code-barres ou nom (caisse)
+# ---------------------------------------------------------------------------
+
+@login_required
+def api_recherche_medicament(request):
+    """
+    GET /api/medicament/?q=<code_barres_ou_nom>
+
+    Retourne les lots vendables (non bloqués, non périmés, quantité > 0)
+    triés par date de péremption croissante (FEFO).
+    Utilisé par le scanner code-barres de la caisse.
+    """
+    q = request.GET.get("q", "").strip()
+    if not q:
+        return JsonResponse({"lots": []})
+
+    aujourd_hui = timezone.localdate()
+
+    # Recherche : correspondance exacte code-barres en priorité, puis nom partiel
+    lots = (
+        LotStock.objects.select_related("medicament", "medicament__categorie")
+        .filter(
+            quantite__gt=0,
+            bloque=False,
+            date_peremption__gte=aujourd_hui,
+        )
+        .filter(
+            Q(medicament__code_barres__iexact=q)
+            | Q(medicament__nom_commercial__icontains=q)
+            | Q(medicament__denomination_generique__icontains=q)
+        )
+        .order_by("date_peremption")[:20]
+    )
+
+    data = []
+    for lot in lots:
+        med = lot.medicament
+        data.append(
+            {
+                "lot_id": lot.pk,
+                "nom": str(med),
+                "code_barres": med.code_barres or "",
+                "prix_vente": str(med.prix_vente),
+                "quantite_disponible": lot.quantite,
+                "numero_lot": lot.numero_lot,
+                "date_peremption": lot.date_peremption.strftime("%d/%m/%Y"),
+            }
+        )
+
+    return JsonResponse({"lots": data})

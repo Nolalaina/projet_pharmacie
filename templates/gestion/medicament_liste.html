@@ -88,18 +88,7 @@
           </td>
           <td>
             <a class="fw-bold text-reset" href="{% url 'gestion:medicament_detail' medicament.pk %}">{{ medicament.nom_commercial }}</a>
-            <div class="small pg-muted">{{ medicament.dosage }} {{ medicament.forme_pharmaceutique }}{% if medicament.code_barres %} · {{ medicament.code_barres }}{% endif %}</div>
-          </td>
-          <td><span class="pg-badge pg-badge-gray">{{ medicament.categorie.nom }}</span></td>
-          <td class="fw-semibold">{{ medicament.prix_vente|ariary }}</td>
-          <td>
-            {% if medicament.stock_total == 0 %}
-            <span class="pg-badge pg-badge-red">Rupture</span>
-            {% elif medicament.est_stock_faible %}
-            <span class="pg-badge pg-badge-amber">{{ medicament.stock_total }} unités</span>
-            {% else %}
-            <span class="pg-badge pg-badge-green">{{ medicament.stock_total }} unités</span>
-            {% endif %}
+            <div class="small pg-muted">{{ medicament.dosage }} {{ medicament.forme_pharmaceutique }}
           </td>
           <td><span class="pg-badge pg-badge-{{ medicament.statut|couleur_statut }}">{{ medicament.get_statut_display }}</span></td>
 <td class="text-end">

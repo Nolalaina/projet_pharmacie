@@ -38,7 +38,8 @@
             <h3 class="pg-card-title">Produits</h3>
             <p class="pg-card-sub">Les lots périmés ou bloqués ne sont pas proposés</p>
           </div>
-          <button class="btn btn-sm btn-soft ms-auto" type="button" data-add-row><i class="bi bi-plus-lg"></i> Ajouter</button>
+          <button class="btn btn-sm btn-soft ms-auto" type="button" data-add-row><i class="bi bi-plus-lg"></i>
+            Ajouter</button>
         </div>
         <div class="pg-card-body">
           {{ formset.management_form }}
@@ -48,17 +49,40 @@
           {% if form.non_field_errors %}
           <div class="alert pg-alert pg-alert-danger">{{ form.non_field_errors }}</div>
           {% endif %}
-          <div class="mb-3">
-            <label class="form-label" for="recherche-code">Scanner ou rechercher un médicament</label>
+
+          {# ── Zone de scan ── #}
+          <div class="mb-3 position-relative">
+            <label class="form-label fw-semibold" for="scan-input">
+              <i class="bi bi-upc-scan me-1 text-primary"></i>Scanner ou rechercher un médicament
+            </label>
             <div class="input-group">
-              <span class="input-group-text"><i class="bi bi-upc-scan"></i></span>
-              <input class="form-control" id="recherche-code" type="search" autocomplete="off" placeholder="Code-barres ou nom, puis Entrée" data-scan-code>
+              <span class="input-group-text bg-primary text-white border-primary"><i class="bi bi-upc-scan"></i></span>
+              <input class="form-control form-control-lg" id="scan-input" type="search" autocomplete="off"
+                autocorrect="off" spellcheck="false" placeholder="Code-barres ou nom… (Entrée pour confirmer)"
+                data-scan-code autofocus>
+              <button class="btn btn-outline-secondary" type="button" id="btn-scan-clear" title="Effacer"><i
+                  class="bi bi-x"></i></button>
             </div>
-            <div class="form-text" data-scan-aide>Le lot valide le plus proche de la péremption sera sélectionné.</div>
+            {# Dropdown de résultats #}
+            <ul id="scan-resultats" class="list-group shadow-sm position-absolute w-100 d-none"
+              style="z-index:1050;top:100%;left:0"></ul>
+            <div id="scan-feedback" class="form-text mt-1" data-scan-aide>
+              Pointez le lecteur ici ou tapez un nom. Le lot FEFO (première péremption) sera sélectionné
+              automatiquement.
+            </div>
           </div>
+
           <div class="pg-table-wrap">
             <table class="table align-middle">
-              <thead><tr><th style="min-width:250px">Lot / produit</th><th style="width:100px">Qté</th><th class="text-end" style="width:120px">Prix unitaire</th><th class="text-end" style="width:120px">Total</th><th style="width:46px"></th></tr></thead>
+              <thead>
+                <tr>
+                  <th style="min-width:250px">Lot / produit</th>
+                  <th style="width:100px">Qté</th>
+                  <th class="text-end" style="width:120px">Prix unitaire</th>
+                  <th class="text-end" style="width:120px">Total</th>
+                  <th style="width:46px"></th>
+                </tr>
+              </thead>
               <tbody data-formset-body>
                 {% for ligne_form in formset %}
                 <tr>
@@ -68,13 +92,15 @@
                   </td>
                   <td>
                     {{ ligne_form.quantite }}
-                    {% for error in ligne_form.quantite.errors %}<div class="text-danger small">{{ error }}</div>{% endfor %}
+                    {% for error in ligne_form.quantite.errors %}<div class="text-danger small">{{ error }}</div>{%
+                    endfor %}
                   </td>
-                  <td class="text-end" data-prix-cell>—</td>
-                  <td class="text-end fw-semibold" data-line-total>—</td>
+                  <td class="text-end data-prix-cell">—</td>
+                  <td class="text-end fw-semibold data-line-total">—</td>
                   <td class="text-end">
                     <span class="d-none">{{ ligne_form.DELETE }}</span>
-                    <button class="btn btn-sm btn-soft btn-icon" type="button" data-remove-row title="Retirer"><i class="bi bi-x-lg"></i></button>
+                    <button class="btn btn-sm btn-soft btn-icon" type="button" data-remove-row title="Retirer"><i
+                        class="bi bi-x-lg"></i></button>
                   </td>
                 </tr>
                 {% endfor %}
@@ -85,11 +111,12 @@
             <tr>
               <td>{{ formset.empty_form.id }}{{ formset.empty_form.lot }}</td>
               <td>{{ formset.empty_form.quantite }}</td>
-              <td class="text-end" data-prix-cell>—</td>
-              <td class="text-end fw-semibold" data-line-total>—</td>
+              <td class="text-end data-prix-cell">—</td>
+              <td class="text-end fw-semibold data-line-total">—</td>
               <td class="text-end">
                 <span class="d-none">{{ formset.empty_form.DELETE }}</span>
-                <button class="btn btn-sm btn-soft btn-icon" type="button" data-remove-row title="Retirer"><i class="bi bi-x-lg"></i></button>
+                <button class="btn btn-sm btn-soft btn-icon" type="button" data-remove-row title="Retirer"><i
+                    class="bi bi-x-lg"></i></button>
               </td>
             </tr>
           </template>
@@ -99,7 +126,9 @@
 
     <div class="col-lg-4">
       <div class="pg-card sticky-top" style="top:100px">
-        <div class="pg-card-header"><h3 class="pg-card-title">Paiement</h3></div>
+        <div class="pg-card-header">
+          <h3 class="pg-card-title">Paiement</h3>
+        </div>
         <div class="pg-card-body">
           <div class="mb-3">
             <label class="form-label" for="{{ form.mode_paiement.id_for_label }}">Mode de paiement</label>
@@ -110,11 +139,13 @@
             <label class="form-label" for="{{ form.reference_paiement.id_for_label }}">Référence</label>
             {{ form.reference_paiement }}
             <div class="form-text">{{ form.reference_paiement.help_text }}</div>
-            {% for error in form.reference_paiement.errors %}<div class="text-danger small">{{ error }}</div>{% endfor %}
+            {% for error in form.reference_paiement.errors %}<div class="text-danger small">{{ error }}</div>{% endfor
+            %}
           </div>
           <div class="pg-check-line mb-3">
             {{ form.paiement_confirme }}
-            <label class="form-check-label" for="{{ form.paiement_confirme.id_for_label }}">{{ form.paiement_confirme.label }}</label>
+            <label class="form-check-label" for="{{ form.paiement_confirme.id_for_label }}">{{
+              form.paiement_confirme.label }}</label>
           </div>
           {% for error in form.paiement_confirme.errors %}<div class="text-danger small">{{ error }}</div>{% endfor %}
 
@@ -125,11 +156,246 @@
           </div>
         </div>
         <div class="pg-card-body pt-0 d-grid gap-2">
-          <button class="btn btn-primary btn-lg" type="submit"><i class="bi bi-check2-circle me-1"></i> Encaisser la vente</button>
+          <button class="btn btn-primary btn-lg" type="submit"><i class="bi bi-check2-circle me-1"></i> Encaisser la
+            vente</button>
           <a class="btn btn-outline-secondary" href="{% url 'gestion:tableau_bord' %}">Annuler</a>
         </div>
       </div>
     </div>
   </div>
 </form>
-{% endblock %}
+{% endblock contenu %}
+
+{% block scripts %}
+<script>
+  /* ═══════════════════════════════════════════════════════
+     PharmaGest — Scan code-barres caisse (AJAX + FEFO)
+     ═══════════════════════════════════════════════════════ */
+  (function () {
+    "use strict";
+
+    const API_URL = "{% url 'gestion:api_medicament' %}";
+    const scanInput = document.getElementById("scan-input");
+    const dropdown = document.getElementById("scan-resultats");
+    const feedback = document.getElementById("scan-feedback");
+    const btnClear = document.getElementById("btn-scan-clear");
+
+    /* ── Utilitaires ──────────────────────────────────── */
+    const fmt = (n) => Number(n).toLocaleString("fr-MG") + " Ar";
+
+    function setFeedback(msg, ok) {
+      feedback.textContent = msg;
+      feedback.style.color = ok === false ? "var(--pg-danger)" : ok === true ? "var(--pg-success)" : "";
+    }
+
+    function hideDropdown() {
+      dropdown.classList.add("d-none");
+      dropdown.innerHTML = "";
+    }
+
+    /* ── Ajout d'une ligne au formset ─────────────────── */
+    function getNextFormIndex() {
+      const total = document.querySelector('[name$="-TOTAL_FORMS"]');
+      return total ? parseInt(total.value, 10) : 0;
+    }
+
+    function incrementTotal() {
+      const total = document.querySelector('[name$="-TOTAL_FORMS"]');
+      if (total) total.value = String(parseInt(total.value, 10) + 1);
+    }
+
+    function addLigneFormset(lotId) {
+      const template = document.querySelector("[data-formset-empty]");
+      if (!template) return null;
+      const idx = getNextFormIndex();
+      const html = template.innerHTML.replace(/__prefix__/g, String(idx));
+      const tbody = document.querySelector("[data-formset-body]");
+      tbody.insertAdjacentHTML("beforeend", html);
+      incrementTotal();
+      const newRow = tbody.lastElementChild;
+      // renvoi le <select> lot de la nouvelle ligne
+      return newRow.querySelector("select");
+    }
+
+    /* ── Chercher une ligne libre avec ce lot déjà présent ── */
+    function ligneExistante(lotId) {
+      const selects = document.querySelectorAll("[data-formset-body] select");
+      for (const sel of selects) {
+        if (sel.value === String(lotId)) {
+          // retrouver la cellule quantité
+          const tr = sel.closest("tr");
+          return tr ? tr.querySelector("input[type=number],input[name$=-quantite]") : null;
+        }
+      }
+      return null;
+    }
+
+    /* ── Sélectionner un lot dans le formset ─────────── */
+    function selectionnerLot(lot) {
+      hideDropdown();
+      scanInput.value = "";
+      setFeedback("", null);
+
+      // Si ce lot est déjà dans une ligne → incrémenter la quantité
+      const qteExist = ligneExistante(lot.lot_id);
+      if (qteExist) {
+        const actuelle = parseInt(qteExist.value || "0", 10);
+        const max = lot.quantite_disponible;
+        if (actuelle >= max) {
+          setFeedback(`Stock maximum atteint pour ce lot (${max} unités).`, false);
+        } else {
+          qteExist.value = String(actuelle + 1);
+          qteExist.dispatchEvent(new Event("input", { bubbles: true }));
+          setFeedback(`✓ Quantité mise à jour : ${lot.nom} (lot ${lot.numero_lot})`, true);
+        }
+        scanInput.focus();
+        return;
+      }
+
+      // Sinon ajouter une nouvelle ligne
+      const lotSelect = addLigneFormset(lot.lot_id);
+      if (!lotSelect) {
+        setFeedback("Impossible d'ajouter une ligne. Rechargez la page.", false);
+        return;
+      }
+
+      // Trouver l'option correspondant à ce lot dans le <select>
+      const option = Array.from(lotSelect.options).find(
+        (o) => o.value === String(lot.lot_id)
+      );
+      if (option) {
+        lotSelect.value = String(lot.lot_id);
+        lotSelect.dispatchEvent(new Event("change", { bubbles: true }));
+        setFeedback(`✓ ${lot.nom} — Lot ${lot.numero_lot} (pér. ${lot.date_peremption}) · Stock : ${lot.quantite_disponible}`, true);
+      } else {
+        setFeedback("Lot introuvable dans le formulaire. Essayez « Ajouter » manuellement.", false);
+      }
+      scanInput.focus();
+    }
+
+    /* ── Afficher le dropdown de résultats ───────────── */
+    function afficherResultats(lots) {
+      dropdown.innerHTML = "";
+      if (!lots.length) {
+        dropdown.innerHTML = '<li class="list-group-item text-muted small py-2">Aucun lot disponible pour cette recherche.</li>';
+        dropdown.classList.remove("d-none");
+        return;
+      }
+      lots.forEach((lot) => {
+        const li = document.createElement("li");
+        li.className = "list-group-item list-group-item-action d-flex justify-content-between align-items-start py-2 px-3";
+        li.style.cursor = "pointer";
+        li.innerHTML = `
+        <div class="me-3">
+          <div class="fw-semibold">${lot.nom}</div>
+          <small class="text-muted">Lot <code>${lot.numero_lot}</code> · pér. ${lot.date_peremption} · dispo : ${lot.quantite_disponible}</small>
+          ${lot.code_barres ? `<br><small class="text-muted"><i class="bi bi-upc"></i> ${lot.code_barres}</small>` : ""}
+        </div>
+        <span class="badge bg-primary rounded-pill align-self-center">${fmt(lot.prix_vente)}</span>
+      `;
+        li.addEventListener("mousedown", (e) => {
+          e.preventDefault(); // éviter blur avant click
+          selectionnerLot(lot);
+        });
+        dropdown.appendChild(li);
+      });
+      dropdown.classList.remove("d-none");
+    }
+
+    /* ── Appel API avec debounce ──────────────────────── */
+    let timer = null;
+    let lastQ = "";
+
+    function rechercher(q) {
+      if (!q || q === lastQ) return;
+      lastQ = q;
+      clearTimeout(timer);
+      timer = setTimeout(async () => {
+        try {
+          const resp = await fetch(`${API_URL}?q=${encodeURIComponent(q)}`, {
+            headers: { "X-Requested-With": "XMLHttpRequest" },
+          });
+          if (!resp.ok) throw new Error("Erreur réseau");
+          const json = await resp.json();
+          afficherResultats(json.lots || []);
+        } catch (err) {
+          setFeedback("Erreur de communication avec le serveur.", false);
+        }
+      }, 220);  // 220 ms debounce — assez rapide pour un scanner USB
+    }
+
+    /* ── Événements clavier ───────────────────────────── */
+    scanInput.addEventListener("input", (e) => {
+      const q = e.target.value.trim();
+      if (!q) { hideDropdown(); setFeedback("", null); lastQ = ""; return; }
+      rechercher(q);
+    });
+
+    scanInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        const visible = dropdown.querySelectorAll("li.list-group-item-action");
+        if (visible.length === 1) {
+          // Un seul résultat → sélectionner automatiquement (FEFO)
+          visible[0].dispatchEvent(new MouseEvent("mousedown", { bubbles: true }));
+        } else if (visible.length > 1) {
+          // Plusieurs résultats → mettre le focus sur le premier
+          visible[0].focus();
+        } else {
+          // Lancer la recherche si rien n'est encore affiché
+          rechercher(scanInput.value.trim());
+        }
+      }
+      if (e.key === "Escape") {
+        hideDropdown();
+        scanInput.value = "";
+        lastQ = "";
+      }
+      if (e.key === "ArrowDown") {
+        e.preventDefault();
+        const first = dropdown.querySelector("li.list-group-item-action");
+        if (first) first.focus();
+      }
+    });
+
+    // Navigation clavier dans le dropdown
+    dropdown.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        e.target.dispatchEvent(new MouseEvent("mousedown", { bubbles: true }));
+      }
+      if (e.key === "ArrowDown") {
+        e.preventDefault();
+        const next = e.target.nextElementSibling;
+        if (next) next.focus();
+      }
+      if (e.key === "ArrowUp") {
+        e.preventDefault();
+        const prev = e.target.previousElementSibling;
+        if (prev) prev.focus(); else scanInput.focus();
+      }
+      if (e.key === "Escape") {
+        hideDropdown();
+        scanInput.focus();
+      }
+    });
+
+    // Fermer le dropdown si clic en dehors
+    document.addEventListener("click", (e) => {
+      if (!scanInput.contains(e.target) && !dropdown.contains(e.target)) {
+        hideDropdown();
+      }
+    });
+
+    // Bouton effacer
+    btnClear.addEventListener("click", () => {
+      scanInput.value = "";
+      lastQ = "";
+      hideDropdown();
+      setFeedback("", null);
+      scanInput.focus();
+    });
+
+  })();
+</script>
+{% endblock scripts %}

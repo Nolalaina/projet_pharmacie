@@ -508,3 +508,55 @@ class RenduDesPagesTests(DonneesTestMixin, TestCase):
                 reponse = self.client.get(url)
                 self.assertEqual(reponse.status_code, 200, url)
                 self.assertEqual(reponse["Content-Type"], "application/pdf")
+
+
+    def test_api_recherche_medicament_scan(self):
+        self.client.force_login(self.pharmacien)
+        med_scan = Medicament.objects.create(
+            nom_commercial="Amoxicilline 500mg",
+            categorie=self.categorie,
+            dosage="500 mg",
+            prix_achat=Decimal("4000.00"),
+            prix_vente=Decimal("6000.00"),
+            seuil_alerte=5,
+            code_barres="3400930000001",
+        )
+
+        lot_lointain = LotStock.objects.create(
+            medicament=med_scan,
+            numero_lot="LOT-LATER",
+            date_peremption=self.aujourd_hui + timedelta(days=365),
+            quantite=50,
+            quantite_recue=50,
+        )
+        lot_plus_proche = LotStock.objects.create(
+            medicament=med_scan,
+            numero_lot="LOT-EARLY",
+            date_peremption=self.aujourd_hui + timedelta(days=30),
+            quantite=10,
+            quantite_recue=10,
+        )
+
+        url = reverse("gestion:api_medicament")
+
+        # Recherche par code-barres exact
+        reponse = self.client.get(url, {"q": "3400930000001"})
+        self.assertEqual(reponse.status_code, 200)
+        data = reponse.json()
+        self.assertIn("lots", data)
+        self.assertEqual(len(data["lots"]), 2)
+        # FEFO : le lot qui expire dans 30 jours doit arriver en premier
+        self.assertEqual(data["lots"][0]["numero_lot"], "LOT-EARLY")
+        self.assertEqual(data["lots"][1]["numero_lot"], "LOT-LATER")
+
+        # Recherche par nom partiel
+        reponse_nom = self.client.get(url, {"q": "Amoxi"})
+        self.assertEqual(reponse_nom.status_code, 200)
+        self.assertEqual(len(reponse_nom.json()["lots"]), 2)
+
+        # Lot bloqué exclu de la vente
+        lot_plus_proche.bloque = True
+        lot_plus_proche.save()
+        reponse_bloque = self.client.get(url, {"q": "3400930000001"})
+        self.assertEqual(len(reponse_bloque.json()["lots"]), 1)
+        self.assertEqual(reponse_bloque.json()["lots"][0]["numero_lot"], "LOT-LATER")

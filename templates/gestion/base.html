@@ -103,8 +103,7 @@
           </div>
         </div>
 
-        {% if user.est_admin or user.role == 'PHARMACIEN' or user.role == 'GESTIONNAIRE' or user.role == 'RESPONSABLE'
-        %}
+        {% if user.est_admin or user.role == 'PHARMACIEN' or user.role == 'GESTIONNAIRE' or user.role == 'RESPONSABLE' %}
         <div class="pg-nav-group">
           <div class="pg-nav-label">Approvisionnement</div>
           <div class="pg-nav">
@@ -172,7 +171,6 @@
           </div>
         </div>
       </nav>
-
       <div class="pg-sidebar-foot">
         <div class="pg-user">
           <span class="pg-avatar">{{ user.nom_complet|initiales }}</span>
@@ -281,5 +279,4 @@
     });
   </script>
 </body>
-
 </html>
