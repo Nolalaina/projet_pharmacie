@@ -1,77 +1,165 @@
 {% extends "gestion/base.html" %}
 {% load gestion_extras %}
-{% block titre %}État du stock{% endblock %}
-{% block page_title %}État du stock{% endblock %}
-{% block page_subtitle %}Lots, quantités disponibles et péremptions{% endblock %}
+{% block titre %}Gestion des lots et stock{% endblock %}
+{% block page_title %}Lots & Stock (Batch Management){% endblock %}
+{% block page_subtitle %}Suivi des lots, dates de péremption et traçabilité{% endblock %}
 
 {% block contenu %}
-<div class="pg-section-title">
+{# ── Header & Action Links (Mockup 4 : ShelfLifePro) ── #}
+<div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
   <div>
-    <h2 class="mb-1">Lots en stock</h2>
-    <div class="pg-muted small">{{ paginator.count }} lot{{ paginator.count|pluralize }} · {{ total_lots }} unité{{ total_lots|pluralize }} au total</div>
+    <h2 class="h4 mb-0 fw-bold">Gestion des Lots & Péremptions</h2>
+    <div class="text-muted small">Traçabilité complète des lots de fabrication et alertes sanitaires</div>
   </div>
   <div class="d-flex gap-2">
-    <a class="btn btn-outline-primary" href="{% url 'gestion:mouvement_liste' %}"><i class="bi bi-arrow-left-right me-1"></i> Mouvements</a>
+    <a class="btn btn-outline-danger btn-sm fw-semibold" href="{% url 'gestion:alertes' %}">
+      <i class="bi bi-clock-history me-1"></i> Voir péremptions imminentes
+    </a>
+    <a class="btn btn-outline-primary btn-sm" href="{% url 'gestion:mouvement_liste' %}">
+      <i class="bi bi-arrow-left-right me-1"></i> Mouvements
+    </a>
     {% if user.est_admin or user.role == 'PHARMACIEN' or user.role == 'GESTIONNAIRE' %}
-    <a class="btn btn-primary" href="{% url 'gestion:inventaire' %}"><i class="bi bi-clipboard-check me-1"></i> Inventaire</a>
+    <a class="btn btn-primary btn-sm fw-semibold" href="{% url 'gestion:inventaire' %}">
+      <i class="bi bi-clipboard-check me-1"></i> Inventaire
+    </a>
     {% endif %}
   </div>
 </div>
 
+{# ── 4 KPI Stat Cards (Mockup 4 : Total Batches / Expired / Expiring Soon / Valid) ── #}
+<div class="pg-batch-stat-row">
+  <div class="pg-batch-card pg-batch-card-total">
+    <div class="pg-batch-card-icon"><i class="bi bi-boxes"></i></div>
+    <div>
+      <div class="pg-batch-card-label">Total des Lots</div>
+      <div class="pg-batch-card-num">{{ count_total_lots }}</div>
+      <div class="small text-muted" style="font-size:0.72rem">{{ total_lots }} unités en stock</div>
+    </div>
+  </div>
+
+  <div class="pg-batch-card pg-batch-card-perime">
+    <div class="pg-batch-card-icon"><i class="bi bi-exclamation-octagon-fill"></i></div>
+    <div>
+      <div class="pg-batch-card-label text-danger">Lots Périmés</div>
+      <div class="pg-batch-card-num text-danger">{{ count_perimes }}</div>
+      <div class="small text-danger" style="font-size:0.72rem">Sortie de stock requise</div>
+    </div>
+  </div>
+
+  <div class="pg-batch-card pg-batch-card-proche">
+    <div class="pg-batch-card-icon"><i class="bi bi-clock-fill"></i></div>
+    <div>
+      <div class="pg-batch-card-label text-warning-emphasis">Péremption Proche</div>
+      <div class="pg-batch-card-num text-warning-emphasis">{{ count_proches }}</div>
+      <div class="small text-muted" style="font-size:0.72rem">Sous 30 jours (FEFO)</div>
+    </div>
+  </div>
+
+  <div class="pg-batch-card pg-batch-card-valide">
+    <div class="pg-batch-card-icon"><i class="bi bi-check-circle-fill"></i></div>
+    <div>
+      <div class="pg-batch-card-label text-success">Lots Valides</div>
+      <div class="pg-batch-card-num text-success">{{ count_valides }}</div>
+      <div class="small text-muted" style="font-size:0.72rem">Conformes & vendables</div>
+    </div>
+  </div>
+</div>
+
+{# ── Filter Box (Mockup 4 : Search Product / Expiry Status / Stock Status) ── #}
 <div class="pg-card mb-3">
-  <div class="pg-card-body">
-    <form method="get" class="pg-filters">
-      <div class="flex-grow-1" style="min-width:220px">
-        <label class="form-label">Recherche</label>
-        <input class="form-control" type="search" name="q" value="{{ q }}" placeholder="Médicament, code-barres ou lot">
+  <div class="pg-card-body py-3">
+    <form method="get" class="row g-2 align-items-end">
+      <div class="col-md-4">
+        <label class="form-label small fw-semibold mb-1">Recherche Médicament ou N° Lot</label>
+        <div class="input-group input-group-sm">
+          <span class="input-group-text bg-light"><i class="bi bi-search"></i></span>
+          <input class="form-control" type="search" name="q" value="{{ q }}"
+            placeholder="Nom, code-barres ou N° de lot">
+        </div>
       </div>
-      <div>
-        <label class="form-label">État</label>
-        <select class="form-select" name="etat">
-          <option value="">Tous les lots</option>
-          <option value="faible" {% if etat_selectionne == 'faible' %}selected{% endif %}>Stock faible</option>
-          <option value="proche" {% if etat_selectionne == 'proche' %}selected{% endif %}>Proche péremption</option>
-          <option value="perime" {% if etat_selectionne == 'perime' %}selected{% endif %}>Périmé</option>
-          <option value="bloque" {% if etat_selectionne == 'bloque' %}selected{% endif %}>Bloqué</option>
+      <div class="col-md-3">
+        <label class="form-label small fw-semibold mb-1">Statut du lot</label>
+        <select class="form-select form-select-sm" name="etat">
+          <option value="">- Tous les statuts -</option>
+          <option value="perime" {% if etat_selectionne=='perime' %}selected{% endif %}>Périmé (Expiré)</option>
+          <option value="proche" {% if etat_selectionne=='proche' %}selected{% endif %}>Proche péremption (J-30)
+          </option>
+          <option value="faible" {% if etat_selectionne=='faible' %}selected{% endif %}>Stock faible (≤ Seuil)</option>
+          <option value="bloque" {% if etat_selectionne=='bloque' %}selected{% endif %}>Bloqué (Interdit vente)</option>
         </select>
       </div>
-      <div><button class="btn btn-primary" type="submit"><i class="bi bi-search me-1"></i> Filtrer</button></div>
-      <div><a class="btn btn-outline-secondary" href="{% url 'gestion:stock_liste' %}">Réinitialiser</a></div>
+      <div class="col-md-5 d-flex gap-2">
+        <button class="btn btn-primary btn-sm flex-grow-1" type="submit"><i class="bi bi-funnel me-1"></i> Appliquer les
+          filtres</button>
+        <a class="btn btn-outline-secondary btn-sm" href="{% url 'gestion:stock_liste' %}">Effacer filtres</a>
+      </div>
     </form>
   </div>
 </div>
 
+{# ── Table (Mockup 4 : Product | Batch # | Expiry Date | Days Left | Stock Qty | Status | Actions) ── #}
 <div class="pg-card">
   <div class="pg-table-wrap">
-    <table class="table table-hover align-middle">
-      <thead><tr><th>Médicament</th><th>Lot</th><th>Péremption</th><th class="text-end">Quantité</th><th class="text-end">Seuil</th><th class="text-end">Valeur</th><th>État</th><th class="text-end">Actions</th></tr></thead>
+    <table class="table table-hover align-middle mb-0">
+      <thead>
+        <tr>
+          <th>Produit</th>
+          <th>N° de Lot</th>
+          <th>Date de Péremption</th>
+          <th>Délai Restant</th>
+          <th class="text-end">Qté Stock</th>
+          <th class="text-end">Valeur</th>
+          <th>Statut</th>
+          <th class="text-end" style="width:100px">Action</th>
+        </tr>
+      </thead>
       <tbody>
         {% for lot in lots %}
-        <tr>
+        <tr
+          class="{% if lot.perime %}table-danger-subtle{% elif lot.proche_peremption %}table-warning-subtle{% endif %}">
           <td>
-            <a class="fw-semibold text-reset" href="{% url 'gestion:medicament_detail' lot.medicament.pk %}">{{ lot.medicament.nom_commercial }}</a>
-            <div class="small pg-muted">{{ lot.medicament.dosage }}</div>
+            <a class="fw-bold text-reset text-decoration-none"
+              href="{% url 'gestion:medicament_detail' lot.medicament.pk %}">
+              {{ lot.medicament.nom_commercial }}
+            </a>
+            <div class="small text-muted" style="font-size:0.75rem">{{ lot.medicament.dosage }} · {{
+              lot.medicament.forme_pharmaceutique }}</div>
           </td>
-          <td class="pg-mono">{{ lot.numero_lot }}</td>
+          <td><code class="fw-bold text-dark fs-6">{{ lot.numero_lot }}</code></td>
+          <td>{{ lot.date_peremption|date:"d M Y" }}</td>
           <td>
-            {{ lot.date_peremption|date:"d/m/Y" }}
-            {% if lot.perime %}<span class="pg-badge pg-badge-red ms-1">Périmé</span>
-            {% elif lot.proche_peremption %}<span class="pg-badge pg-badge-amber ms-1">J-{{ lot.jours_avant_peremption }}</span>{% endif %}
+            {% if lot.perime %}
+            <span class="badge bg-danger text-white fw-bold"><i class="bi bi-exclamation-octagon me-1"></i>Expiré</span>
+            {% elif lot.proche_peremption %}
+            <span class="badge bg-warning text-dark fw-bold"><i class="bi bi-clock me-1"></i>J-{{
+              lot.jours_avant_peremption }}</span>
+            {% else %}
+            <span class="text-success small fw-semibold"><i class="bi bi-check-circle me-1"></i>{{
+              lot.jours_avant_peremption }} jours</span>
+            {% endif %}
           </td>
-          <td class="text-end fw-bold">{{ lot.quantite }}</td>
-          <td class="text-end pg-muted">{{ lot.medicament.seuil_alerte }}</td>
-          <td class="text-end">{{ lot.valeur_stock|ariary }}</td>
+          <td class="text-end fw-bold fs-6">{{ lot.quantite }}</td>
+          <td class="text-end small text-muted">{{ lot.valeur_stock|ariary }}</td>
           <td>
-            {% if lot.bloque %}<span class="pg-badge pg-badge-red">Bloqué</span>
-            {% elif lot.quantite == 0 %}<span class="pg-badge pg-badge-gray">Épuisé</span>
-            {% elif lot.quantite <= lot.medicament.seuil_alerte %}<span class="pg-badge pg-badge-amber">Faible</span>
-            {% else %}<span class="pg-badge pg-badge-green">Disponible</span>{% endif %}
+            {% if lot.bloque %}
+            <span class="badge bg-danger text-white"><i class="bi bi-lock-fill me-1"></i>BLOQUÉ</span>
+            {% elif lot.perime %}
+            <span class="badge bg-danger text-white">PÉRIMÉ</span>
+            {% elif lot.proche_peremption %}
+            <span class="badge bg-warning text-dark">PROCHE</span>
+            {% elif lot.quantite == 0 %}
+            <span class="badge bg-secondary text-white">ÉPUISÉ</span>
+            {% else %}
+            <span class="badge bg-success text-white"><i class="bi bi-check-lg me-1"></i>VALIDE</span>
+            {% endif %}
           </td>
           <td class="text-end">
             {% if user.est_admin or user.role == 'PHARMACIEN' or user.role == 'GESTIONNAIRE' %}
-            <form method="post" action="{% url 'gestion:lot_basculer' lot.pk %}" class="d-inline" data-confirm="Changer l'état de blocage de ce lot ?">
+            <form method="post" action="{% url 'gestion:lot_basculer' lot.pk %}" class="d-inline"
+              data-confirm="Confirmer le changement d'état du lot {{ lot.numero_lot }} ?">
               {% csrf_token %}
-              <button class="btn btn-sm btn-soft btn-icon" type="submit" title="{% if lot.bloque %}Débloquer{% else %}Bloquer{% endif %}">
+              <button class="btn btn-sm btn-outline-{% if lot.bloque %}success{% else %}danger{% endif %}" type="submit"
+                title="{% if lot.bloque %}Débloquer le lot{% else %}Bloquer le lot{% endif %}">
                 <i class="bi {% if lot.bloque %}bi-unlock-fill{% else %}bi-lock-fill{% endif %}"></i>
               </button>
             </form>
@@ -79,7 +167,12 @@
           </td>
         </tr>
         {% empty %}
-        <tr><td colspan="8" class="pg-empty"><i class="bi bi-boxes"></i>Aucun lot ne correspond aux critères.</td></tr>
+        <tr>
+          <td colspan="8" class="pg-empty py-5">
+            <i class="bi bi-boxes fs-1 mb-2"></i>
+            <div>Aucun lot trouvé selon les filtres sélectionnés.</div>
+          </td>
+        </tr>
         {% endfor %}
       </tbody>
     </table>

@@ -1089,6 +1089,12 @@ class StockListView(LoginRequiredMixin, ListView):
         contexte["total_lots"] = LotStock.objects.aggregate(
             total=Coalesce(Sum("quantite"), 0)
         )["total"]
+        aujourd_hui = timezone.localdate()
+        limite = aujourd_hui + timedelta(days=settings.SEUIL_PEREMPTION_JOURS)
+        contexte["count_total_lots"] = LotStock.objects.count()
+        contexte["count_perimes"] = LotStock.objects.filter(date_peremption__lt=aujourd_hui).count()
+        contexte["count_proches"] = LotStock.objects.filter(date_peremption__gte=aujourd_hui, date_peremption__lte=limite).count()
+        contexte["count_valides"] = LotStock.objects.filter(date_peremption__gt=limite, bloque=False).count()
         return contexte
 
 
