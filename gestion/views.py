@@ -1061,6 +1061,7 @@ class StockListView(LoginRequiredMixin, ListView):
         queryset = LotStock.objects.select_related("medicament", "medicament__categorie")
         recherche = self.request.GET.get("q", "").strip()
         etat = self.request.GET.get("etat", "").strip()
+        statut_stock = self.request.GET.get("statut_stock", "").strip()
         if recherche:
             queryset = queryset.filter(
                 Q(medicament__nom_commercial__icontains=recherche)
@@ -1068,24 +1069,35 @@ class StockListView(LoginRequiredMixin, ListView):
                 | Q(numero_lot__icontains=recherche)
             )
         aujourd_hui = timezone.localdate()
+        limite = aujourd_hui + timedelta(days=settings.SEUIL_PEREMPTION_JOURS)
         if etat == "perime":
             queryset = queryset.filter(date_peremption__lt=aujourd_hui)
         elif etat == "proche":
             queryset = queryset.filter(
                 date_peremption__gte=aujourd_hui,
-                date_peremption__lte=aujourd_hui
-                + timedelta(days=settings.SEUIL_PEREMPTION_JOURS),
+                date_peremption__lte=limite,
             )
+        elif etat == "valide":
+            queryset = queryset.filter(date_peremption__gt=limite, bloque=False)
         elif etat == "bloque":
             queryset = queryset.filter(bloque=True)
-        elif etat == "faible":
-            queryset = queryset.filter(quantite__lte=F("medicament__seuil_alerte"))
+
+        if statut_stock == "faible":
+            queryset = queryset.filter(quantite__lte=F("medicament__seuil_alerte"), quantite__gt=0)
+        elif statut_stock == "epuise":
+            queryset = queryset.filter(quantite=0)
+        elif statut_stock == "disponible":
+            queryset = queryset.filter(quantite__gt=0)
+        elif statut_stock == "bloque":
+            queryset = queryset.filter(bloque=True)
+
         return queryset.order_by("medicament__nom_commercial", "date_peremption")
 
     def get_context_data(self, **kwargs):
         contexte = super().get_context_data(**kwargs)
         contexte["q"] = self.request.GET.get("q", "")
         contexte["etat_selectionne"] = self.request.GET.get("etat", "")
+        contexte["statut_stock_selectionne"] = self.request.GET.get("statut_stock", "")
         contexte["total_lots"] = LotStock.objects.aggregate(
             total=Coalesce(Sum("quantite"), 0)
         )["total"]

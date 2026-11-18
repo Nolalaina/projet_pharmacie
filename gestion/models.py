@@ -412,6 +412,12 @@ class LotStock(models.Model):
         return (self.date_peremption - timezone.localdate()).days
 
     @property
+    def jours_retard(self):
+        if self.perime:
+            return abs(self.jours_avant_peremption)
+        return 0
+
+    @property
     def proche_peremption(self):
         return (
             not self.perime

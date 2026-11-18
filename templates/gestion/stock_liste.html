@@ -1,97 +1,110 @@
 {% extends "gestion/base.html" %}
 {% load gestion_extras %}
-{% block titre %}Gestion des lots et stock{% endblock %}
+{% block titre %}Gestion des lots et traçabilité{% endblock %}
 {% block page_title %}Lots & Stock (Batch Management){% endblock %}
-{% block page_subtitle %}Suivi des lots, dates de péremption et traçabilité{% endblock %}
+{% block page_subtitle %}Suivi des lots, traçabilité des dates d'expiration et alertes sanitaires{% endblock %}
 
 {% block contenu %}
-{# ── Header & Action Links (Mockup 4 : ShelfLifePro) ── #}
-<div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+{# ── En-tête et boutons d'action rapide (Mockup 4 : ShelfLifePro) ── #}
+<div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4">
   <div>
-    <h2 class="h4 mb-0 fw-bold">Gestion des Lots & Péremptions</h2>
-    <div class="text-muted small">Traçabilité complète des lots de fabrication et alertes sanitaires</div>
+    <div class="d-flex align-items-center gap-2">
+      <span class="badge bg-dark text-white text-uppercase px-2 py-1" style="font-size:0.7rem; letter-spacing:0.05em">ShelfLifePro</span>
+      <span class="text-muted small">· Traçabilité FEFO & Lots</span>
+    </div>
+    <h2 class="h4 mb-0 fw-bold mt-1">Gestion des Lots & Péremptions</h2>
   </div>
-  <div class="d-flex gap-2">
+  <div class="d-flex flex-wrap gap-2">
     <a class="btn btn-outline-danger btn-sm fw-semibold" href="{% url 'gestion:alertes' %}">
-      <i class="bi bi-clock-history me-1"></i> Voir péremptions imminentes
+      <i class="bi bi-clock-history me-1"></i> Alertes péremptions
     </a>
-    <a class="btn btn-outline-primary btn-sm" href="{% url 'gestion:mouvement_liste' %}">
-      <i class="bi bi-arrow-left-right me-1"></i> Mouvements
+    <a class="btn btn-outline-secondary btn-sm" href="{% url 'gestion:mouvement_liste' %}">
+      <i class="bi bi-arrow-left-right me-1"></i> Historique mouvements
     </a>
     {% if user.est_admin or user.role == 'PHARMACIEN' or user.role == 'GESTIONNAIRE' %}
     <a class="btn btn-primary btn-sm fw-semibold" href="{% url 'gestion:inventaire' %}">
-      <i class="bi bi-clipboard-check me-1"></i> Inventaire
+      <i class="bi bi-clipboard-check me-1"></i> Ajuster inventaire
     </a>
     {% endif %}
   </div>
 </div>
 
-{# ── 4 KPI Stat Cards (Mockup 4 : Total Batches / Expired / Expiring Soon / Valid) ── #}
+{# ── 4 KPI Stat Cards (ShelfLifePro : Total Batches / Expired / Expiring Soon / Valid) ── #}
 <div class="pg-batch-stat-row">
-  <div class="pg-batch-card pg-batch-card-total">
+  <a href="{% url 'gestion:stock_liste' %}" class="pg-batch-card pg-batch-card-total" title="Afficher tous les lots">
     <div class="pg-batch-card-icon"><i class="bi bi-boxes"></i></div>
     <div>
       <div class="pg-batch-card-label">Total des Lots</div>
       <div class="pg-batch-card-num">{{ count_total_lots }}</div>
-      <div class="small text-muted" style="font-size:0.72rem">{{ total_lots }} unités en stock</div>
+      <div class="small text-muted" style="font-size:0.75rem">{{ total_lots }} unités au total</div>
     </div>
-  </div>
+  </a>
 
-  <div class="pg-batch-card pg-batch-card-perime">
+  <a href="{% url 'gestion:stock_liste' %}?etat=perime" class="pg-batch-card pg-batch-card-perime" title="Filtrer les lots périmés">
     <div class="pg-batch-card-icon"><i class="bi bi-exclamation-octagon-fill"></i></div>
     <div>
       <div class="pg-batch-card-label text-danger">Lots Périmés</div>
       <div class="pg-batch-card-num text-danger">{{ count_perimes }}</div>
-      <div class="small text-danger" style="font-size:0.72rem">Sortie de stock requise</div>
+      <div class="small text-danger" style="font-size:0.75rem">Retrait de stock requis</div>
     </div>
-  </div>
+  </a>
 
-  <div class="pg-batch-card pg-batch-card-proche">
+  <a href="{% url 'gestion:stock_liste' %}?etat=proche" class="pg-batch-card pg-batch-card-proche" title="Filtrer les péremptions proches">
     <div class="pg-batch-card-icon"><i class="bi bi-clock-fill"></i></div>
     <div>
       <div class="pg-batch-card-label text-warning-emphasis">Péremption Proche</div>
       <div class="pg-batch-card-num text-warning-emphasis">{{ count_proches }}</div>
-      <div class="small text-muted" style="font-size:0.72rem">Sous 30 jours (FEFO)</div>
+      <div class="small text-muted" style="font-size:0.75rem">Sous 30 jours (FEFO)</div>
     </div>
-  </div>
+  </a>
 
-  <div class="pg-batch-card pg-batch-card-valide">
+  <a href="{% url 'gestion:stock_liste' %}?etat=valide" class="pg-batch-card pg-batch-card-valide" title="Filtrer les lots conformes">
     <div class="pg-batch-card-icon"><i class="bi bi-check-circle-fill"></i></div>
     <div>
       <div class="pg-batch-card-label text-success">Lots Valides</div>
       <div class="pg-batch-card-num text-success">{{ count_valides }}</div>
-      <div class="small text-muted" style="font-size:0.72rem">Conformes & vendables</div>
+      <div class="small text-muted" style="font-size:0.75rem">Conformes & vendables</div>
     </div>
-  </div>
+  </a>
 </div>
 
 {# ── Filter Box (Mockup 4 : Search Product / Expiry Status / Stock Status) ── #}
-<div class="pg-card mb-3">
+<div class="pg-card mb-4">
   <div class="pg-card-body py-3">
-    <form method="get" class="row g-2 align-items-end">
-      <div class="col-md-4">
-        <label class="form-label small fw-semibold mb-1">Recherche Médicament ou N° Lot</label>
+    <form method="get" class="row g-3 align-items-end">
+      <div class="col-lg-4 col-md-6">
+        <label class="form-label small fw-semibold text-uppercase text-muted mb-1" style="font-size:0.72rem">Recherche Médicament ou N° Lot</label>
         <div class="input-group input-group-sm">
-          <span class="input-group-text bg-light"><i class="bi bi-search"></i></span>
-          <input class="form-control" type="search" name="q" value="{{ q }}"
-            placeholder="Nom, code-barres ou N° de lot">
+          <span class="input-group-text bg-light text-muted"><i class="bi bi-search"></i></span>
+          <input class="form-control" type="search" name="q" value="{{ q }}" placeholder="Nom, code-barres ou N° de lot...">
         </div>
       </div>
-      <div class="col-md-3">
-        <label class="form-label small fw-semibold mb-1">Statut du lot</label>
+      <div class="col-lg-3 col-md-3">
+        <label class="form-label small fw-semibold text-uppercase text-muted mb-1" style="font-size:0.72rem">Statut Péremption</label>
         <select class="form-select form-select-sm" name="etat">
           <option value="">- Tous les statuts -</option>
-          <option value="perime" {% if etat_selectionne=='perime' %}selected{% endif %}>Périmé (Expiré)</option>
-          <option value="proche" {% if etat_selectionne=='proche' %}selected{% endif %}>Proche péremption (J-30)
-          </option>
-          <option value="faible" {% if etat_selectionne=='faible' %}selected{% endif %}>Stock faible (≤ Seuil)</option>
-          <option value="bloque" {% if etat_selectionne=='bloque' %}selected{% endif %}>Bloqué (Interdit vente)</option>
+          <option value="perime" {% if etat_selectionne == 'perime' %}selected{% endif %}>Périmé (Expiré)</option>
+          <option value="proche" {% if etat_selectionne == 'proche' %}selected{% endif %}>Péremption proche (≤ 30 jours)</option>
+          <option value="valide" {% if etat_selectionne == 'valide' %}selected{% endif %}>Valide (Conforme)</option>
         </select>
       </div>
-      <div class="col-md-5 d-flex gap-2">
-        <button class="btn btn-primary btn-sm flex-grow-1" type="submit"><i class="bi bi-funnel me-1"></i> Appliquer les
-          filtres</button>
-        <a class="btn btn-outline-secondary btn-sm" href="{% url 'gestion:stock_liste' %}">Effacer filtres</a>
+      <div class="col-lg-3 col-md-3">
+        <label class="form-label small fw-semibold text-uppercase text-muted mb-1" style="font-size:0.72rem">Disponibilité Stock</label>
+        <select class="form-select form-select-sm" name="statut_stock">
+          <option value="">- Tous les états -</option>
+          <option value="disponible" {% if statut_stock_selectionne == 'disponible' %}selected{% endif %}>En stock (> 0)</option>
+          <option value="faible" {% if statut_stock_selectionne == 'faible' %}selected{% endif %}>Stock faible (≤ Seuil)</option>
+          <option value="epuise" {% if statut_stock_selectionne == 'epuise' %}selected{% endif %}>Épuisé (= 0)</option>
+          <option value="bloque" {% if statut_stock_selectionne == 'bloque' %}selected{% endif %}>Bloqué (Interdit vente)</option>
+        </select>
+      </div>
+      <div class="col-lg-2 col-md-12 d-flex gap-2">
+        <button class="btn btn-primary btn-sm flex-grow-1" type="submit">
+          <i class="bi bi-funnel me-1"></i> Filtrer
+        </button>
+        <a class="btn btn-outline-secondary btn-sm" href="{% url 'gestion:stock_liste' %}" title="Réinitialiser les filtres">
+          <i class="bi bi-x-circle"></i>
+        </a>
       </div>
     </form>
   </div>
@@ -105,72 +118,107 @@
         <tr>
           <th>Produit</th>
           <th>N° de Lot</th>
-          <th>Date de Péremption</th>
+          <th>Date Péremption</th>
           <th>Délai Restant</th>
           <th class="text-end">Qté Stock</th>
           <th class="text-end">Valeur</th>
           <th>Statut</th>
-          <th class="text-end" style="width:100px">Action</th>
+          <th class="text-end" style="min-width:110px">Actions</th>
         </tr>
       </thead>
       <tbody>
         {% for lot in lots %}
-        <tr
-          class="{% if lot.perime %}table-danger-subtle{% elif lot.proche_peremption %}table-warning-subtle{% endif %}">
+        <tr class="{% if lot.bloque %}table-secondary-subtle{% elif lot.perime %}table-danger-subtle{% elif lot.proche_peremption %}table-warning-subtle{% endif %}">
           <td>
-            <a class="fw-bold text-reset text-decoration-none"
-              href="{% url 'gestion:medicament_detail' lot.medicament.pk %}">
-              {{ lot.medicament.nom_commercial }}
-            </a>
-            <div class="small text-muted" style="font-size:0.75rem">{{ lot.medicament.dosage }} · {{
-              lot.medicament.forme_pharmaceutique }}</div>
+            <div class="d-flex align-items-center gap-2">
+              {% if lot.medicament.photo %}
+              <img src="{{ lot.medicament.photo.url }}" alt="{{ lot.medicament.nom_commercial }}" class="pg-table-thumb">
+              {% else %}
+              <div class="pg-table-thumb-placeholder"><i class="bi bi-capsule"></i></div>
+              {% endif %}
+              <div>
+                <a class="fw-bold text-reset text-decoration-none" href="{% url 'gestion:medicament_detail' lot.medicament.pk %}">
+                  {{ lot.medicament.nom_commercial }}
+                </a>
+                <div class="small text-muted" style="font-size:0.75rem">
+                  {{ lot.medicament.dosage }} · {{ lot.medicament.forme_pharmaceutique }}
+                  {% if lot.medicament.code_barres %}
+                  <span class="text-secondary ms-1">· <code>{{ lot.medicament.code_barres }}</code></span>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
           </td>
-          <td><code class="fw-bold text-dark fs-6">{{ lot.numero_lot }}</code></td>
-          <td>{{ lot.date_peremption|date:"d M Y" }}</td>
+          <td>
+            <span class="badge bg-light text-dark border font-monospace fw-bold px-2 py-1 fs-6">
+              {{ lot.numero_lot }}
+            </span>
+          </td>
+          <td>
+            <div class="fw-semibold">{{ lot.date_peremption|date:"d M Y" }}</div>
+            <div class="small text-muted" style="font-size:0.72rem">Reçu le {{ lot.date_reception|date:"d/m/Y" }}</div>
+          </td>
           <td>
             {% if lot.perime %}
-            <span class="badge bg-danger text-white fw-bold"><i class="bi bi-exclamation-octagon me-1"></i>Expiré</span>
+            <span class="badge-overdue">
+              <i class="bi bi-exclamation-octagon-fill"></i> Expiré (retard: {{ lot.jours_retard }}j)
+            </span>
             {% elif lot.proche_peremption %}
-            <span class="badge bg-warning text-dark fw-bold"><i class="bi bi-clock me-1"></i>J-{{
-              lot.jours_avant_peremption }}</span>
+            <span class="badge-expiring-soon">
+              <i class="bi bi-clock-fill"></i> J-{{ lot.jours_avant_peremption }} (FEFO)
+            </span>
             {% else %}
-            <span class="text-success small fw-semibold"><i class="bi bi-check-circle me-1"></i>{{
-              lot.jours_avant_peremption }} jours</span>
-            {% endif %}
-          </td>
-          <td class="text-end fw-bold fs-6">{{ lot.quantite }}</td>
-          <td class="text-end small text-muted">{{ lot.valeur_stock|ariary }}</td>
-          <td>
-            {% if lot.bloque %}
-            <span class="badge bg-danger text-white"><i class="bi bi-lock-fill me-1"></i>BLOQUÉ</span>
-            {% elif lot.perime %}
-            <span class="badge bg-danger text-white">PÉRIMÉ</span>
-            {% elif lot.proche_peremption %}
-            <span class="badge bg-warning text-dark">PROCHE</span>
-            {% elif lot.quantite == 0 %}
-            <span class="badge bg-secondary text-white">ÉPUISÉ</span>
-            {% else %}
-            <span class="badge bg-success text-white"><i class="bi bi-check-lg me-1"></i>VALIDE</span>
+            <span class="badge-valid">
+              <i class="bi bi-check-circle-fill"></i> +{{ lot.jours_avant_peremption }} jours
+            </span>
             {% endif %}
           </td>
           <td class="text-end">
-            {% if user.est_admin or user.role == 'PHARMACIEN' or user.role == 'GESTIONNAIRE' %}
-            <form method="post" action="{% url 'gestion:lot_basculer' lot.pk %}" class="d-inline"
-              data-confirm="Confirmer le changement d'état du lot {{ lot.numero_lot }} ?">
-              {% csrf_token %}
-              <button class="btn btn-sm btn-outline-{% if lot.bloque %}success{% else %}danger{% endif %}" type="submit"
-                title="{% if lot.bloque %}Débloquer le lot{% else %}Bloquer le lot{% endif %}">
-                <i class="bi {% if lot.bloque %}bi-unlock-fill{% else %}bi-lock-fill{% endif %}"></i>
-              </button>
-            </form>
-            {% else %}—{% endif %}
+            <div class="fw-bold fs-6">{{ lot.quantite }} <span class="small fw-normal text-muted" style="font-size:0.75rem">unités</span></div>
+            {% if lot.medicament.seuil_alerte and lot.quantite <= lot.medicament.seuil_alerte %}
+            <div class="small text-danger fw-semibold" style="font-size:0.7rem"><i class="bi bi-exclamation-triangle me-1"></i>≤ seuil ({{ lot.medicament.seuil_alerte }})</div>
+            {% endif %}
+          </td>
+          <td class="text-end small text-muted font-monospace">
+            {{ lot.valeur_stock|ariary }}
+          </td>
+          <td>
+            {% if lot.bloque %}
+            <span class="badge bg-danger text-white px-2 py-1"><i class="bi bi-lock-fill me-1"></i>BLOQUÉ</span>
+            {% elif lot.perime %}
+            <span class="badge bg-danger text-white px-2 py-1"><i class="bi bi-x-circle me-1"></i>PÉRIMÉ</span>
+            {% elif lot.proche_peremption %}
+            <span class="badge bg-warning text-dark px-2 py-1"><i class="bi bi-clock-fill me-1"></i>PROCHE</span>
+            {% elif lot.quantite == 0 %}
+            <span class="badge bg-secondary text-white px-2 py-1">ÉPUISÉ</span>
+            {% else %}
+            <span class="badge bg-success text-white px-2 py-1"><i class="bi bi-check-lg me-1"></i>VALIDE</span>
+            {% endif %}
+          </td>
+          <td class="text-end">
+            <div class="d-inline-flex gap-1">
+              <a class="btn btn-sm btn-outline-secondary" href="{% url 'gestion:medicament_detail' lot.medicament.pk %}" title="Voir la fiche médicament">
+                <i class="bi bi-eye"></i>
+              </a>
+              {% if user.est_admin or user.role == 'PHARMACIEN' or user.role == 'GESTIONNAIRE' %}
+              <form method="post" action="{% url 'gestion:lot_basculer' lot.pk %}" class="d-inline"
+                data-confirm="Confirmer le changement d'état de blocage du lot {{ lot.numero_lot }} ?">
+                {% csrf_token %}
+                <button class="btn btn-sm btn-outline-{% if lot.bloque %}success{% else %}danger{% endif %}" type="submit"
+                  title="{% if lot.bloque %}Débloquer le lot (autoriser la vente){% else %}Bloquer le lot (interdire la vente){% endif %}">
+                  <i class="bi {% if lot.bloque %}bi-unlock-fill{% else %}bi-lock-fill{% endif %}"></i>
+                </button>
+              </form>
+              {% endif %}
+            </div>
           </td>
         </tr>
         {% empty %}
         <tr>
           <td colspan="8" class="pg-empty py-5">
-            <i class="bi bi-boxes fs-1 mb-2"></i>
-            <div>Aucun lot trouvé selon les filtres sélectionnés.</div>
+            <i class="bi bi-boxes fs-1 mb-2 text-muted"></i>
+            <div class="fw-semibold">Aucun lot ne correspond aux critères sélectionnés.</div>
+            <div class="small text-muted mt-1">Modifiez vos filtres ou effectuez une nouvelle réception fournisseur.</div>
           </td>
         </tr>
         {% endfor %}
